@@ -200,3 +200,17 @@ test("compact centered menu and clean strip controls without captions or checkma
  await expect(page.locator(".stripe-active-marker")).toHaveCount(0);
  await expect(page.locator(".hero.active .stripe")).toHaveCount(5);
 });
+
+test("centered desktop navigation occupies half width with no label overlaps", async ({page}) => {
+ await page.setViewportSize({width:1728,height:864});
+ await page.goto("http://127.0.0.1:8787/");
+ const metrics=await page.locator("#topnav").evaluate(nav=>{
+  const box=nav.getBoundingClientRect();
+  const buttons=[...nav.querySelectorAll("button")].map(el=>el.getBoundingClientRect());
+  return {width:box.width,center:box.left+box.width/2,viewport:window.innerWidth,
+    overflow:buttons.some((r,i)=>i>0 && r.left<buttons[i-1].right-1)};
+ });
+ expect(metrics.width).toBeLessThanOrEqual(351);
+ expect(Math.abs(metrics.center-metrics.viewport/2)).toBeLessThan(3);
+ expect(metrics.overflow).toBe(false);
+});
