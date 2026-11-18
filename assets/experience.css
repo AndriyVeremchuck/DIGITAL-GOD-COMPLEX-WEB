@@ -101,3 +101,40 @@ section{padding:80px 0}
 @media(max-width:850px){.hero{min-height:100svh;padding:105px 0 155px}.hero h1{font-size:clamp(44px,9vw,67px)}.hero-image-layer img{object-position:60% 42%}.hero::before{background:linear-gradient(90deg,#050a18ea,#060c1aa8),linear-gradient(0deg,#080c17,transparent 30%)}.nav-links a{min-height:44px}.nav-links a::after{bottom:2px}.portal-next{bottom:39px}.phase-detail{grid-template-columns:1fr}.roadmap-track{gap:1px}.phase-circle{width:40px;height:40px;font-size:12px}.roadmap-track::before{top:20px}.phase-name{font-size:8px}.more-info-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.hero{padding:104px 0 142px}.hero h1{font-size:clamp(43px,11vw,60px)}.hero-content{max-width:100%}.hero-note{font-size:10px}.hero-kicker{gap:5px}.hero-kicker span{padding:5px 7px;font-size:9px}.portal-ring{width:49px;height:49px}.portal-next-label{font-size:8px}.portal-next{bottom:30px}.metrics{margin-top:-23px}.metric{padding:15px}.metric b{font-size:25px}.roadmap-panel{padding:18px}.phase-circle{width:34px;height:34px;font-size:10px}.roadmap-track::before{top:17px}.phase-name{font-size:7px}.phase-detail{padding:20px}.more-info-grid{grid-template-columns:1fr}.chapter-index{font-size:8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero-content,.hero-light,.portal-arrow,.portal-ring::before,.portal-ring::after,.hero-dust i{animation:none!important}.reveal{transition:none!important;transform:none!important;opacity:1!important}.gallery-card,.alg-card,.studio-card{transition:none!important}}
+
+
+/* ONE COMPLETE FIRST SCREEN: no preview strip of the next chapter. */
+.hero{height:100svh;height:100dvh;min-height:620px;padding:92px 0 105px;box-sizing:border-box}
+.hero .container{align-self:center}
+.hero-content{max-width:650px}
+.hero h1{font-size:clamp(43px,5.6vw,82px);margin:16px 0 14px}
+.hero-sub{font-size:clamp(14px,1.3vw,17px);line-height:1.55;margin-bottom:17px}
+.hero-kicker{gap:7px}
+.hero-actions{margin:17px 0 10px}
+.hero-note{font-size:10px;line-height:1.45}
+.hero .eyebrow{font-size:10px}
+.portal-next{bottom:12px;min-width:150px;gap:3px;padding:6px}
+.portal-ring{width:42px;height:42px}
+.portal-ring::before{inset:-5px}.portal-ring::after{inset:-9px}
+.portal-arrow{font-size:21px}
+.portal-next-label{font-size:8px;letter-spacing:.1em}
+.portal-next-index{display:none}
+.metrics{margin-top:0!important;padding-top:17px;transform:none}
+#studio{scroll-margin-top:var(--nav-offset,82px)}
+.chapter{scroll-margin-top:var(--nav-offset,82px)}
+@media(max-height:770px) and (min-width:851px){.hero{min-height:540px;padding:78px 0 73px}.hero h1{font-size:clamp(38px,4.6vw,65px)}.hero-sub{font-size:14px}.hero-kicker span{padding:5px 8px}.hero-note{display:none}.portal-next{bottom:9px}.portal-ring{width:38px;height:38px}}
+@media(max-width:850px){.hero{height:100svh;height:100dvh;min-height:570px;padding:77px 0 94px}.hero h1{font-size:clamp(40px,9vw,62px)}.hero-sub{font-size:14px}.portal-next{bottom:10px}.metrics{margin-top:0!important}}
+@media(max-width:520px){.hero{min-height:590px;padding:76px 0 88px}.hero h1{font-size:clamp(38px,10vw,54px)}.hero-note{display:none}.hero-kicker span{padding:5px}.hero-actions .btn{padding:10px 13px}.portal-next{bottom:9px}.portal-next-label{font-size:7px}.portal-ring{width:38px;height:38px}}
+
+/* One traveling golden light reflection on a single card edge at a time. */
+.gallery-card,.alg-card,.studio-card,.metric,.progress-steps article,.more-info-grid article{position:relative;isolation:isolate}
+.edge-glint{position:absolute;inset:0;z-index:8;pointer-events:none;border-radius:inherit;opacity:0;will-change:opacity}
+.edge-glint::before{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid transparent;
+background:conic-gradient(from var(--glint-angle,0deg) at 50% 50%,transparent 0deg,transparent 290deg,rgba(255,237,179,.12) 317deg,#fff9dd 337deg,#f3b95f 350deg,transparent 360deg) border-box;
+-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+-webkit-mask-composite:xor;mask-composite:exclude;filter:drop-shadow(0 0 5px #ffd68b);
+}
+.edge-glint::after{content:"";position:absolute;inset:-2px;border-radius:inherit;background:radial-gradient(circle at var(--glint-x,50%) var(--glint-y,0%),rgba(255,212,128,.26),transparent 30%);filter:blur(8px)}
+.edge-glint.active{animation:gold-glint 2.4s ease-in-out both}
+@keyframes gold-glint{0%,100%{opacity:0}22%{opacity:.85}49%{opacity:1}80%{opacity:.5}}
+@media(prefers-reduced-motion:reduce){.edge-glint,.edge-glint.active{animation:none!important;opacity:0!important}}
