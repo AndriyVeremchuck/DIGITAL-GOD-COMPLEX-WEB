@@ -129,7 +129,8 @@ function buildStripes(root){
   const badge=elem("span","stripe-number","0"+(i+1));
   const marker=elem("span","stripe-active-marker");
   marker.setAttribute("aria-hidden","true");
-  button.append(image,badge,marker);
+  const glint=elem("span","stripe-random-glint");glint.setAttribute("aria-hidden","true");
+  button.append(image,badge,marker,glint);
   labelStripe(button);
   button.setAttribute("aria-pressed",String(i===0));
   button.addEventListener("click",()=>{
@@ -344,4 +345,15 @@ renderSlides();
 const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI()}}
 cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000||homeTransitioning)return;const bs=$(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},6500);
 glowTimer=setInterval(glow,3600);
+// Occasionally sweep a pinpoint golden beam along the ACTIVE control only.
+let lastStripeSpark=0;
+function sparkleActiveStripe(){
+ if(reduce()||document.hidden||slides[current]?.key!=="home")return;
+ const active=$(".hero.active .stripe.chosen .stripe-random-glint");
+ if(!active)return;
+ const now=Date.now();if(now-lastStripeSpark<3200)return;lastStripeSpark=now;
+ active.style.setProperty("--spark-start",Math.floor(Math.random()*320)+"deg");
+ active.classList.remove("sweep");void active.offsetWidth;active.classList.add("sweep");
+}
+setInterval(()=>{if(Math.random()<.70)sparkleActiveStripe()},4300);
 })();
