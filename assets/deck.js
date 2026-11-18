@@ -47,8 +47,8 @@ const phases=[
 {title:["P6 · Genesis Protocol","P6 · Genesis Protocol"],status:["ДОВГОСТРОКОВА МЕТА","LONG-TERM GOAL"],detail:["Інтегрований 30-секундний доказ можливостей, далі — близько 90 секунд кінематографічної сцени.","A 30-second integrated proof, followed by roughly 90 seconds of cinematic content."],tasks:[["Об'єднання модулів","Module integration"],["Кінематографічний демонстраційний проєкт","Cinematic demonstration project"]]}
 ];
 const i18n={
-uk:{nav:["Головна","Студія","Галерея","Технології","AI","План","Проєкт"],back:"← Назад",next:"Далі →",finish:"На початок ↻",position:"СЛАЙД",eyebrow:"ЦИФРОВА СТУДІЯ МАЙБУТНЬОГО",heroTitle:"Створюй світи <em>без меж.</em>",heroDesc:"Єдина цифрова студія для 3D, CGI, анімації, відео, VFX та штучного інтелекту.",heroExtra:"Від ескізу до кінематографічного світу: творчість, фізика світла й керовані AI-інструменти в одному середовищі. Наразі — концепція PHASE 0.",heroCTA:"Відкрити презентацію ↗",heroNote:"Концепція DIGITAL GOD COMPLEX. CGI-зображення — художні приклади, не кадри з готового застосунку.",stripeHint:"Натисни на косу смугу — зміни світ",overviewTitle:"Одна студія. <em>Тисячі можливостей.</em>",overviewDesc:"Не десяток розрізнених програм, а спільна творча система. Це запланована архітектура майбутнього продукту.",features:[["3D / ПРОЦЕДУРИ","Моделі, сцени, матеріали, геометричні вузли, фрактали, скульптинг."],["2D / VFX","Малювання, шари, маски, композитинг та ефекти."],["ВІДЕО / ЗВУК","Таймлайн, анімація, монтаж, кольорокорекція, експорт."],["ШТУЧНИЙ ІНТЕЛЕКТ","Керовані команди редактора, автоматизація й допомога художнику."],["ОБЧИСЛЕННЯ","Трасування променів, об'ємне світло, фізика й процедурні об'єкти."],["ІНЖЕНЕРІЯ","Перевірені контракти, безпека, відтворюваність і тестування."]],studioTitle:"Майбутні <em>інструменти студії.</em>",studioDesc:"Чотири концепти інтерфейсу, спроєктовані як частини єдиного робочого середовища.",galleryTitle:"Галерея <em>створених світів.</em>",galleryDesc:"14 кінематографічних ідей. Натисни на картку для перегляду на весь екран.",algTitle:"Від мистецтва <em>до математики.</em>",algDesc:"10 технологій комп'ютерної графіки. У кожній картці — наочні етапи та візуальна ідея.",aiTitle:"Майбутній ШІ — <em>партнер художника.</em>",aiDesc:"Агент пропонуватиме дії, пояснюватиме інструменти та допомагатиме будувати складні творчі процеси.",aiFeatures:["Команди лише з дозволами й перевіркою","Контрольована історія змін і можливість скасування","Локальні моделі та необов'язкові хмарні інтеграції","Людина відповідає за остаточні рішення"],roadTitle:"План розвитку <em>P0–P6.</em>",roadDesc:"Обирай етап на часовій шкалі. Відсотків немає — тільки документовані залежності й реальні статуси.",statusTitle:"Велика ідея. <em>Точна інженерія.</em>",statusDesc:"DIGITAL GOD COMPLEX перебуває на PHASE 0. Це архітектура, дослідження й контрольовані прототипи, а не випущена творча система.",statusNote:"Увага: усі CGI-сцени та UI-макети — AI-концепти. Не є скриншотами працюючого рушія або підтвердженням завершеної реалізації.",statusFacts:["C++23 / Qt 6 / Vulkan — цільові технології","Linux-first перевірка","Безпека та якість із першої фази","Двомовна документація: УКР / EN"],openOriginal:"Натисни знову або Esc, щоб закрити"},
-en:{nav:["Home","Studio","Gallery","Technology","AI","Roadmap","Project"],back:"← Previous",next:"Next →",finish:"Restart ↻",position:"SLIDE",eyebrow:"A CREATIVE STUDIO OF TOMORROW",heroTitle:"Create worlds <em>without limits.</em>",heroDesc:"One creative studio for 3D, CGI, animation, video, VFX and artificial intelligence.",heroExtra:"From sketches to cinematic worlds: artistry, light physics and human-governed AI in one workspace. Currently a PHASE 0 concept.",heroCTA:"Explore the presentation ↗",heroNote:"DIGITAL GOD COMPLEX is a concept. CGI imagery is artwork, not renders from a working application.",stripeHint:"Click a diagonal panel to change its world",overviewTitle:"One studio. <em>Thousands of possibilities.</em>",overviewDesc:"Not a dozen disconnected apps, but one creative system. This is the intended architecture of a future product.",features:[["3D / PROCEDURAL","Models, scenes, materials, nodes, fractals and sculpting."],["2D / VFX","Painting, layers, masks, compositing and visual effects."],["VIDEO / AUDIO","Timeline, animation, editing, grading and export."],["ARTIFICIAL INTELLIGENCE","Authorized editor commands, automation and artistic assistance."],["VISUAL COMPUTING","Ray tracing, volumetrics, physics and procedural objects."],["ENGINEERING","Validated contracts, security, reproducibility and tests."]],studioTitle:"The future <em>creative workspace.</em>",studioDesc:"Four interface concepts designed as one integrated environment.",galleryTitle:"Gallery of <em>imagined worlds.</em>",galleryDesc:"14 cinematic ideas. Click any image to view it full-screen.",algTitle:"From art <em>to mathematics.</em>",algDesc:"Ten computer-graphics technologies, each illustrated with visual stages and concepts.",aiTitle:"Future AI — <em>the artist's partner.</em>",aiDesc:"An agent could explain tools, propose actions and automate complex creative workflows.",aiFeatures:["Commands governed by permissions and validation","Auditable changes and undo support","Local models and optional cloud integrations","The human stays in control"],roadTitle:"Roadmap <em>P0–P6.</em>",roadDesc:"Select a stage on the timeline. No invented percentages — only documented dependencies and qualitative status.",statusTitle:"Ambitious vision. <em>Disciplined engineering.</em>",statusDesc:"DIGITAL GOD COMPLEX is at PHASE 0: architecture, research and controlled prototypes — not a shipped creative suite.",statusNote:"All CGI art and interface images are AI-generated concepts, not evidence of a working DGC renderer or completed product.",statusFacts:["C++23 / Qt 6 / Vulkan — targeted technologies","Linux-first validation","Security and quality from phase one","Bilingual documentation: UKR / EN"],openOriginal:"Click again or press Esc to close"}
+uk:{nav:["Головна","Студія","Галерея","Технології","AI","План","Проєкт"],back:"← Назад",next:"Далі →",finish:"На початок ↻",position:"СЛАЙД",eyebrow:"ЦИФРОВА СТУДІЯ МАЙБУТНЬОГО",heroTitle:'<span class="hero-title-main">Створюй світи</span><em>без меж.</em>',heroDesc:"Єдина цифрова студія для 3D, CGI, анімації, відео, VFX та штучного інтелекту.",heroExtra:"Від ескізу до кінематографічного світу: творчість, фізика світла й керовані AI-інструменти в одному середовищі. Наразі — концепція PHASE 0.",heroCTA:"Відкрити презентацію ↗",heroNote:"Концепція DIGITAL GOD COMPLEX. CGI-зображення — художні приклади, не кадри з готового застосунку.",stripeHint:"Натисни на косу смугу — зміни світ",overviewTitle:"Одна студія. <em>Тисячі можливостей.</em>",overviewDesc:"Не десяток розрізнених програм, а спільна творча система. Це запланована архітектура майбутнього продукту.",features:[["3D / ПРОЦЕДУРИ","Моделі, сцени, матеріали, геометричні вузли, фрактали, скульптинг."],["2D / VFX","Малювання, шари, маски, композитинг та ефекти."],["ВІДЕО / ЗВУК","Таймлайн, анімація, монтаж, кольорокорекція, експорт."],["ШТУЧНИЙ ІНТЕЛЕКТ","Керовані команди редактора, автоматизація й допомога художнику."],["ОБЧИСЛЕННЯ","Трасування променів, об'ємне світло, фізика й процедурні об'єкти."],["ІНЖЕНЕРІЯ","Перевірені контракти, безпека, відтворюваність і тестування."]],studioTitle:"Майбутні <em>інструменти студії.</em>",studioDesc:"Чотири концепти інтерфейсу, спроєктовані як частини єдиного робочого середовища.",galleryTitle:"Галерея <em>створених світів.</em>",galleryDesc:"14 кінематографічних ідей. Натисни на картку для перегляду на весь екран.",algTitle:"Від мистецтва <em>до математики.</em>",algDesc:"10 технологій комп'ютерної графіки. У кожній картці — наочні етапи та візуальна ідея.",aiTitle:"Майбутній ШІ — <em>партнер художника.</em>",aiDesc:"Агент пропонуватиме дії, пояснюватиме інструменти та допомагатиме будувати складні творчі процеси.",aiFeatures:["Команди лише з дозволами й перевіркою","Контрольована історія змін і можливість скасування","Локальні моделі та необов'язкові хмарні інтеграції","Людина відповідає за остаточні рішення"],roadTitle:"План розвитку <em>P0–P6.</em>",roadDesc:"Обирай етап на часовій шкалі. Відсотків немає — тільки документовані залежності й реальні статуси.",statusTitle:"Велика ідея. <em>Точна інженерія.</em>",statusDesc:"DIGITAL GOD COMPLEX перебуває на PHASE 0. Це архітектура, дослідження й контрольовані прототипи, а не випущена творча система.",statusNote:"Увага: усі CGI-сцени та UI-макети — AI-концепти. Не є скриншотами працюючого рушія або підтвердженням завершеної реалізації.",statusFacts:["C++23 / Qt 6 / Vulkan — цільові технології","Linux-first перевірка","Безпека та якість із першої фази","Двомовна документація: УКР / EN"],openOriginal:"Натисни знову або Esc, щоб закрити"},
+en:{nav:["Home","Studio","Gallery","Technology","AI","Roadmap","Project"],back:"← Previous",next:"Next →",finish:"Restart ↻",position:"SLIDE",eyebrow:"A CREATIVE STUDIO OF TOMORROW",heroTitle:'<span class="hero-title-main">Create worlds</span><em>without limits.</em>',heroDesc:"One creative studio for 3D, CGI, animation, video, VFX and artificial intelligence.",heroExtra:"From sketches to cinematic worlds: artistry, light physics and human-governed AI in one workspace. Currently a PHASE 0 concept.",heroCTA:"Explore the presentation ↗",heroNote:"DIGITAL GOD COMPLEX is a concept. CGI imagery is artwork, not renders from a working application.",stripeHint:"Click a diagonal panel to change its world",overviewTitle:"One studio. <em>Thousands of possibilities.</em>",overviewDesc:"Not a dozen disconnected apps, but one creative system. This is the intended architecture of a future product.",features:[["3D / PROCEDURAL","Models, scenes, materials, nodes, fractals and sculpting."],["2D / VFX","Painting, layers, masks, compositing and visual effects."],["VIDEO / AUDIO","Timeline, animation, editing, grading and export."],["ARTIFICIAL INTELLIGENCE","Authorized editor commands, automation and artistic assistance."],["VISUAL COMPUTING","Ray tracing, volumetrics, physics and procedural objects."],["ENGINEERING","Validated contracts, security, reproducibility and tests."]],studioTitle:"The future <em>creative workspace.</em>",studioDesc:"Four interface concepts designed as one integrated environment.",galleryTitle:"Gallery of <em>imagined worlds.</em>",galleryDesc:"14 cinematic ideas. Click any image to view it full-screen.",algTitle:"From art <em>to mathematics.</em>",algDesc:"Ten computer-graphics technologies, each illustrated with visual stages and concepts.",aiTitle:"Future AI — <em>the artist's partner.</em>",aiDesc:"An agent could explain tools, propose actions and automate complex creative workflows.",aiFeatures:["Commands governed by permissions and validation","Auditable changes and undo support","Local models and optional cloud integrations","The human stays in control"],roadTitle:"Roadmap <em>P0–P6.</em>",roadDesc:"Select a stage on the timeline. No invented percentages — only documented dependencies and qualitative status.",statusTitle:"Ambitious vision. <em>Disciplined engineering.</em>",statusDesc:"DIGITAL GOD COMPLEX is at PHASE 0: architecture, research and controlled prototypes — not a shipped creative suite.",statusNote:"All CGI art and interface images are AI-generated concepts, not evidence of a working DGC renderer or completed product.",statusFacts:["C++23 / Qt 6 / Vulkan — targeted technologies","Linux-first validation","Security and quality from phase one","Bilingual documentation: UKR / EN"],openOriginal:"Click again or press Esc to close"}
 };
 let lang="uk",slides=[],current=0,animating=false,chosenPhase=0,groupSize=2,autocycle=0,cycleTimer=null,lastGlow=null,glowTimer=null;
 const deck=byId("slides"),topnav=byId("topnav"),counter=byId("counter"),prev=byId("prev"),next=byId("next");
@@ -144,33 +144,61 @@ function syncStripes(chosenSlot,imageIndex){
  });
 }
 function selectBackdrop(index,selectedSlot=index%5){
- const hero=$(".hero",deck);if(!hero||!stripeSrc[index])return;
+ const hero=$(".hero",deck);
+ if(!hero || !stripeSrc[index])return;
  if(homeTransitioning){homeQueuedIndex={index,selectedSlot};return}
  if(index===homeBackdropIndex){syncStripes(selectedSlot,index);return}
- const current=$(".hero-backdrop .is-current",hero),incoming=$(".hero-backdrop .is-next",hero);
+ const current=$(".hero-backdrop .is-current",hero);
+ const incoming=$(".hero-backdrop .is-next",hero);
  if(!current||!incoming)return;
  homeTransitioning=true;
- const asset="assets/"+stripeSrc[index],preload=new Image();
- preload.onload=()=>{
-  incoming.src=asset;incoming.alt="";
-  incoming.style.transition=reduce()?"none":"opacity 1050ms cubic-bezier(.22,1,.36,1)";
-  // Force the browser to recognize the initial opacity before beginning the fade.
-  incoming.style.opacity="0";
-  incoming.getBoundingClientRect();
-  requestAnimationFrame(()=>{incoming.style.opacity="1"});
+ const asset="assets/"+stripeSrc[index];
+ const loader=new Image();
+ let finished=false;
+ const complete=()=>{
+  if(finished)return;
+  finished=true;
+  if(current.isConnected && incoming.isConnected){
+   // The images meet exactly at the viewport edge. Replace the current bitmap
+   // before removing the temporary animation layer to avoid a flash.
+   current.src=asset;
+   current.style.opacity="1";
+   incoming.style.opacity="0";
+   incoming.removeAttribute("src");
+  }
+  homeBackdropIndex=index;
+  homeTransitioning=false;
   syncStripes(selectedSlot,index);
-  const finish=()=>{
-   if(!current.isConnected){homeTransitioning=false;return}
-   current.src=asset;current.style.opacity="1";
-   incoming.style.transition="none";incoming.style.opacity="0";incoming.removeAttribute("src");
-   homeBackdropIndex=index;homeTransitioning=false;
-   const pending=homeQueuedIndex;homeQueuedIndex=null;
-   if(pending&&pending.index!==homeBackdropIndex)selectBackdrop(pending.index,pending.selectedSlot);
-  };
-  if(reduce())finish();else setTimeout(finish,1120);
+  const pending=homeQueuedIndex;homeQueuedIndex=null;
+  if(pending&&pending.index!==homeBackdropIndex)selectBackdrop(pending.index,pending.selectedSlot);
  };
- preload.onerror=()=>{homeTransitioning=false;homeQueuedIndex=null};
- preload.src=asset;
+ loader.onload=()=>{
+  if(!hero.isConnected){homeTransitioning=false;return}
+  incoming.src=asset;
+  incoming.style.opacity="1";
+  incoming.style.zIndex="3";
+  current.style.zIndex="2";
+  if(reduce() || typeof incoming.animate!=="function" || typeof current.animate!=="function"){
+   complete();return;
+  }
+  const options={duration:1100,easing:"cubic-bezier(.42,0,.18,1)",fill:"both"};
+  // Both images travel RIGHT. Previous image exits right, next enters from left.
+  const leaving=current.animate([
+   {transform:"translate3d(0,0,0) scale(1.01)"},
+   {transform:"translate3d(100%,0,0) scale(1.01)"}
+  ],options);
+  const arriving=incoming.animate([
+   {transform:"translate3d(-100%,0,0) scale(1.01)"},
+   {transform:"translate3d(0,0,0) scale(1.01)"}
+  ],options);
+  Promise.allSettled([leaving.finished,arriving.finished]).then(()=>{
+   complete();
+   leaving.cancel();arriving.cancel();
+   current.style.zIndex="";incoming.style.zIndex="";
+  });
+ };
+ loader.onerror=()=>{homeTransitioning=false;homeQueuedIndex=null;};
+ loader.src=asset;
 }
 function rotateStripe(button){
  if(!button)return;
