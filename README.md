@@ -1,15 +1,34 @@
-# DIGITAL GOD COMPLEX — WEB
+# DIGITAL GOD COMPLEX — вебпрезентація
 
-**Українська — основна мова. English is also available.**
+**Українська — основна мова · English is available.**
 
-Цей публічний репозиторій містить лише статичний презентаційний лендінг DIGITAL GOD COMPLEX та концептуальні зображення. **Вихідного коду приватного застосунку тут немає.**
+[**Відкрити лендінг DIGITAL GOD COMPLEX**](https://andriyveremchuck.github.io/DIGITAL-GOD-COMPLEX-WEB/)
 
-**Вебсайт:** https://andriyveremchuck.github.io/DIGITAL-GOD-COMPLEX-WEB/
+Цей **публічний** репозиторій містить лише статичну презентацію проєкту та концептуальні CGI-зображення. Вихідного коду приватного застосунку тут немає.
 
-> Важливо: зображення CGI, макети редакторів і покрокові ілюстрації є AI-концептами. Це не скриншоти готового редактора й не рендери його рушія. Проєкт перебуває на архітектурному етапі PHASE 0.
+## Можливості сайту
 
----
+- **Кінематографічна заставка:** п'ять косих інтерактивних смуг, за кожною — окрема CGI-сцена. Кадри циклічно змінюються; наведення виділяє смугу, натискання мишею або клавішею Enter/Space перемикає її картинку.
+- **Навігація:** компактна кнопка наступного розділу; підсвічування активного пункту меню; індикатор прокручування сторінки.
+- **Галерея:** 14 фантастичних CGI-сцен із фільтрами й плавним повноекранним переглядом зі збереженням пропорцій.
+- **Графічні технології:** 10 покрокових ілюстрацій алгоритмів та методів цифрового мистецтва.
+- **Концепти майбутньої студії:** 3D, 2D, відеомонтаж, AI.
+- **Інтерактивна дорожня карта P0–P6:** етапи, залежності, вимоги й пояснення. Відсотки готовності не вигадуються.
+- **Анімації:** плавна поява секцій, атмосферне світло, м'який паралакс, випадкові золоті відблиски на рамці однієї видимої картки за раз.
+- **Мови:** українська за замовчуванням, англійська доступна через перемикач.
+- **Адаптивність:** мобільний і десктопний дизайн, врахування налаштування `prefers-reduced-motion`.
 
-## English
+## Структура
 
-This public repository contains only the static DIGITAL GOD COMPLEX showcase and concept artwork, **not the private application's source code**. The site is a vision of future capabilities, not proof of implemented software.
+- `index.html` — основна сторінка та двомовний контент.
+- `assets/experience.css` / `assets/experience.js` — стиль, навігація, інтерактивна карта й загальні ефекти.
+- `assets/stripes.css` / `assets/stripes.js` — п'ять косих фонів та їхня анімація.
+- `assets/*.jpg` — ілюстрації.
+
+## Правдивий стан
+
+DIGITAL GOD COMPLEX — **PHASE 0: дослідження та архітектура**. Зображення тут AI-синтезовані, **не є скриншотами готової програми або рендерами її власного рушія**. Технології описують напрям майбутньої розробки.
+
+### English
+
+This repository contains the **public concept landing page**, not the private DGC application code. The website includes five interactive diagonal CGI background panels, a cinematic gallery, ten visual algorithm studies, a P0–P6 roadmap, animated navigation and Ukrainian/English localization. **All imagery is conceptual; the product is not finished.**
