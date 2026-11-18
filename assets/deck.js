@@ -215,6 +215,7 @@ function renderSlides(preserve){
  renderPhase();
  updateUI();
  mountHeroShader();
+ if(slides[current]?.key!=="home")videoCarousel?.pause();
 }
 function go(i){
  if(i<0||i>=slides.length||i===current||byId("viewer").classList.contains("open"))return;
@@ -232,6 +233,7 @@ function go(i){
  to.node.setAttribute("aria-hidden","false");
  to.inner.scrollTop=0;
  current=i;updateUI();
+ if(to.key==="home")videoCarousel?.resume();else videoCarousel?.pause();
  history.replaceState(null,"","#"+to.key+(to.page?"-"+(to.page+1):""));
  transitionTimer=setTimeout(()=>{
   from.node.classList.remove("exit-up");
@@ -293,7 +295,7 @@ window.addEventListener("resize",()=>{clearTimeout(resizeTimeout);resizeTimeout=
 try{if(localStorage.getItem("dgc.lang")==="en")lang="en"}catch(e){}
 document.documentElement.lang=lang;
 renderSlides();
-const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI()}}
+const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI();if(slides[current]?.key!=="home")videoCarousel?.pause()}}
 cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000)return;const bs=document.querySelectorAll(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},7500);
 glowTimer=setInterval(glow,3600);
 // Occasionally sweep a pinpoint golden beam along the ACTIVE control only.
