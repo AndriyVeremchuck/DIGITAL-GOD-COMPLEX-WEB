@@ -46,3 +46,27 @@ test("five slots are preserved in manifest for later reactivation",async({page})
  expect(Object.values(manifest)).toEqual(Array(5).fill("cosmic-nebula.mp4"));
  await expect(page.locator(".hero.active #stripes .stripe")).toHaveCount(5);
 });
+
+
+test("video resumes after returning via top menu, repeatedly",async({page})=>{
+ await page.goto(base);
+ const video=page.locator(".hero .cinema-layer.is-active video");
+ await expect.poll(()=>video.evaluate(v=>!v.paused&&v.readyState>=2),{timeout:9000}).toBe(true);
+ const nav=page.locator("#topnav button");
+ for(const idx of [2,3,1,6]){
+  await nav.nth(idx).click();
+  await expect(page.locator(".slide.active")).not.toHaveAttribute("data-chapter","home");
+  await expect.poll(()=>video.evaluate(v=>v.paused),{timeout:3000}).toBe(true);
+  await nav.nth(0).click();
+  await expect(page.locator(".slide.active")).toHaveAttribute("data-chapter","home");
+  await expect.poll(()=>video.evaluate(v=>!v.paused&&v.readyState>=2),{timeout:9000}).toBe(true);
+ }
+});
+test("video returns after navigating away during initial media load",async({page})=>{
+ await page.goto(base);
+ const nav=page.locator("#topnav button");
+ const video=page.locator(".hero .cinema-layer.is-active video");
+ await nav.nth(2).click();
+ await nav.nth(0).click();
+ await expect.poll(()=>video.evaluate(v=>!v.paused&&v.readyState>=2),{timeout:9000}).toBe(true);
+});
