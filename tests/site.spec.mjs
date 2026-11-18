@@ -61,3 +61,22 @@ test("click produces actual horizontal drum motion before image replacement",asy
  expect(shifts.every(x=>x.animations.some(a=>a.state==="running"&&a.duration>=1000))).toBeTruthy();
  await expect(page.locator(".hero.active .backdrop-image.is-current")).toHaveAttribute("src",/orbital-fractal/,{timeout:5000});
 });
+
+
+test("each stripe retains its own preview and selected border state",async({page})=>{
+ await page.goto("http://127.0.0.1:8787/");
+ const buttons=page.locator(".hero.active .stripe"),bg=page.locator(".hero.active .is-current");
+ await expect(buttons).toHaveCount(5);
+ await buttons.nth(2).click();
+ await expect(bg).toHaveAttribute("src",/celestial-guardian/,{timeout:6500});
+ await expect(buttons.nth(2)).toHaveAttribute("aria-pressed","true");
+ await expect(buttons.nth(0)).toHaveAttribute("aria-pressed","false");
+ await expect(buttons.nth(2).locator("img")).toHaveAttribute("src",/celestial-guardian/);
+ await buttons.nth(0).click();
+ await expect(bg).toHaveAttribute("src",/portal-metropolis/,{timeout:6500});
+ await expect(buttons.nth(0)).toHaveAttribute("aria-pressed","true");
+ await buttons.nth(0).click();
+ await expect(bg).not.toHaveAttribute("src",/portal-metropolis/,{timeout:6500});
+ await expect(buttons.nth(0).locator("img")).not.toHaveAttribute("src",/portal-metropolis/,{timeout:6500});
+ await expect(buttons.nth(2).locator("img")).toHaveAttribute("src",/celestial-guardian/);
+});
