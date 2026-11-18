@@ -153,8 +153,14 @@ function syncStripes(chosenSlot,imageIndex){
 function selectBackdrop(index,selectedSlot=index%5){
  const hero=$(".hero",deck);
  if(!hero || !stripeSrc[index])return;
- if(homeTransitioning){homeQueuedIndex={index,selectedSlot};return}
+ if(homeTransitioning){
+  homeQueuedIndex={index,selectedSlot};
+  syncStripes(selectedSlot,index);
+  return;
+ }
  if(index===homeBackdropIndex){syncStripes(selectedSlot,index);return}
+ // Start both width transitions NOW, while the two background images move.
+ syncStripes(selectedSlot,index);
  const current=$(".hero-backdrop .is-current",hero);
  const incoming=$(".hero-backdrop .is-next",hero);
  if(!current||!incoming)return;
@@ -171,10 +177,11 @@ function selectBackdrop(index,selectedSlot=index%5){
    current.style.zIndex="";incoming.style.zIndex="";
   }
   homeBackdropIndex=index;homeTransitioning=false;
-  syncStripes(selectedSlot,index);
   const pending=homeQueuedIndex;homeQueuedIndex=null;
-  if(pending&&(pending.index!==homeBackdropIndex||pending.selectedSlot!==activeStripeSlot)){
+  if(pending && pending.index!==homeBackdropIndex){
    selectBackdrop(pending.index,pending.selectedSlot);
+  }else{
+   syncStripes(pending?pending.selectedSlot:selectedSlot,pending?pending.index:index);
   }
  };
  loader.onload=()=>{
