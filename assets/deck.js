@@ -92,7 +92,7 @@ function intro(){
   parent.append(card);
   buildStripes(stripes);
   homeBackdropIndex=0;homeTransitioning=false;homeQueuedIndex=null;
- });
+ },true);
 }
 const stripeSrc=["05-portal-metropolis.jpg","08-orbital-fractal.jpg","07-celestial-guardian.jpg","12-elemental-simulation.jpg","01-celestial-city.jpg","14-sunken-civilization.jpg","10-menger-architecture.jpg","11-chronocrystal-garden.jpg","03-angelic-android.jpg","06-bioluminescent-cavern.jpg","13-digital-characters.jpg","04-fractal-cosmos.jpg"];
 let homeBackdropIndex=0,homeTransitioning=false,homeQueuedIndex=null;
