@@ -97,72 +97,87 @@ function intro(){
 const stripeSrc=["05-portal-metropolis.jpg","08-orbital-fractal.jpg","07-celestial-guardian.jpg","12-elemental-simulation.jpg","01-celestial-city.jpg","14-sunken-civilization.jpg","10-menger-architecture.jpg","11-chronocrystal-garden.jpg","03-angelic-android.jpg","06-bioluminescent-cavern.jpg","13-digital-characters.jpg","04-fractal-cosmos.jpg"];
 let homeBackdropIndex=0,homeTransitioning=false,homeQueuedIndex=null;
 const stripeLabels=[
-["Архітектура порталів","Portal Metropolis"],["Орбітальна сингулярність","Orbital Singularity"],["Охоронець храму","Temple Guardian"],["Буря стихій","Elemental Storm"],["Небесна столиця","Celestial City"]
+["Архітектура порталів","Portal Metropolis"],
+["Орбітальна сингулярність","Orbital Singularity"],
+["Охоронець храму","Temple Guardian"],
+["Буря стихій","Elemental Storm"],
+["Небесна столиця","Celestial City"],
+["Затонула цивілізація","Sunken Civilization"],
+["Математична архітектура","Mathematical Architecture"],
+["Хронокристалічний сад","Chronocrystal Garden"],
+["Механічний янгол","Mechanical Angel"],
+["Біолюмінесцентний світ","Bioluminescent World"],
+["Цифрові персонажі","Digital Characters"],
+["Фрактальний космос","Fractal Cosmos"]
 ];
 function buildStripes(root){
- stripeLabels.forEach((label,i)=>{
+ for(let i=0;i<5;i++){
   const button=elem("button","stripe"+(i===0?" chosen":""));button.type="button";
-  button.dataset.slot=String(i);
+  button.dataset.slot=String(i);button.dataset.imageIndex=String(i);
   const img=elem("img","stripe-image");img.src="assets/"+stripeSrc[i];img.alt="";img.decoding="async";
-  const id=elem("span","stripe-number","0"+(i+1));
-  button.append(img,id);
-  button.setAttribute("aria-label",label[ix()]+". "+t().stripeHint);
+  const number=elem("span","stripe-number","0"+(i+1));
+  button.append(img,number);
+  button.setAttribute("aria-label",stripeLabels[i][ix()]+". "+t().stripeHint);
   button.setAttribute("aria-pressed",String(i===0));
   button.addEventListener("click",()=>{
-   const current=Number(button.dataset.slot);
-   const nextIndex=homeBackdropIndex===current?(current+5)%stripeSrc.length:current;
-   selectBackdrop(nextIndex,current);
+   const imageIdx=Number(button.dataset.imageIndex),slot=Number(button.dataset.slot);
+   // Re-clicking an active panel selects a genuinely different background.
+   const destination=imageIdx===homeBackdropIndex?(imageIdx+5)%stripeSrc.length:imageIdx;
+   selectBackdrop(destination,slot);
   });
   root.append(button);
- });
+ }
 }
-function syncStripes(chosenIndex){
+function syncStripes(chosenSlot,imageIndex){
  const root=byId("stripes");if(!root)return;
  $$(".stripe",root).forEach(b=>{
-  const slot=Number(b.dataset.slot);
-  const active=slot===chosenIndex;
+  const slot=Number(b.dataset.slot),active=slot===chosenSlot;
   b.classList.toggle("chosen",active);
   b.setAttribute("aria-pressed",String(active));
-  const label=stripeLabels[slot];
+  if(active){
+   b.dataset.imageIndex=String(imageIndex);
+   const preview=$(".stripe-image",b);
+   if(preview && preview.getAttribute("src")!=="assets/"+stripeSrc[imageIndex])preview.src="assets/"+stripeSrc[imageIndex];
+  }
+  const label=stripeLabels[Number(b.dataset.imageIndex)];
   if(label)b.setAttribute("aria-label",label[ix()]+". "+t().stripeHint);
  });
 }
 function selectBackdrop(index,selectedSlot=index%5){
  const hero=$(".hero",deck);if(!hero||!stripeSrc[index])return;
  if(homeTransitioning){homeQueuedIndex={index,selectedSlot};return}
- if(index===homeBackdropIndex)return;
- const current=$(".hero-backdrop .is-current",hero);
- const incoming=$(".hero-backdrop .is-next",hero);
+ if(index===homeBackdropIndex){syncStripes(selectedSlot,index);return}
+ const current=$(".hero-backdrop .is-current",hero),incoming=$(".hero-backdrop .is-next",hero);
  if(!current||!incoming)return;
  homeTransitioning=true;
- // Preload before touching the visible image. The full viewport crossfades, not just a strip.
- const asset="assets/"+stripeSrc[index];
- const preload=new Image();preload.onload=()=>{
-  incoming.src=asset;
-  incoming.alt="";
-  incoming.style.transition=reduce()?"none":"opacity 1000ms cubic-bezier(.22,1,.36,1)";
-  incoming.style.opacity="1";
-  syncStripes(selectedSlot);
+ const asset="assets/"+stripeSrc[index],preload=new Image();
+ preload.onload=()=>{
+  incoming.src=asset;incoming.alt="";
+  incoming.style.transition=reduce()?"none":"opacity 1050ms cubic-bezier(.22,1,.36,1)";
+  // Force the browser to recognize the initial opacity before beginning the fade.
+  incoming.style.opacity="0";
+  incoming.getBoundingClientRect();
+  requestAnimationFrame(()=>{incoming.style.opacity="1"});
+  syncStripes(selectedSlot,index);
   const finish=()=>{
-   current.src=asset;
-   current.style.opacity="1";
-   incoming.style.transition="none";
-   incoming.style.opacity="0";
-   incoming.removeAttribute("src");
-   homeBackdropIndex=index;
-   homeTransitioning=false;
+   if(!current.isConnected){homeTransitioning=false;return}
+   current.src=asset;current.style.opacity="1";
+   incoming.style.transition="none";incoming.style.opacity="0";incoming.removeAttribute("src");
+   homeBackdropIndex=index;homeTransitioning=false;
    const pending=homeQueuedIndex;homeQueuedIndex=null;
    if(pending&&pending.index!==homeBackdropIndex)selectBackdrop(pending.index,pending.selectedSlot);
   };
-  if(reduce())finish();else setTimeout(finish,1050);
+  if(reduce())finish();else setTimeout(finish,1120);
  };
  preload.onerror=()=>{homeTransitioning=false;homeQueuedIndex=null};
  preload.src=asset;
 }
 function rotateStripe(button){
  if(!button)return;
- const n=Number(button.dataset.slot);
- selectBackdrop((homeBackdropIndex+1)%stripeSrc.length,n);
+ const slot=Number(button.dataset.slot);
+ const currentImage=Number(button.dataset.imageIndex);
+ const nextIdx=(currentImage+5)%stripeSrc.length;
+ selectBackdrop(nextIdx,slot);
 }
 function overview(){
  makeSlide("overview",0,parent=>{
@@ -279,6 +294,6 @@ try{if(localStorage.getItem("dgc.lang")==="en")lang="en"}catch(e){}
 document.documentElement.lang=lang;
 renderSlides();
 const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI()}}
-cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce())return;autocycle++;selectBackdrop((homeBackdropIndex+1)%stripeSrc.length,autocycle%5)},6500);
+cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce())return;const bs=$(".hero.active .stripe");if(bs.length){rotateStripe(bs[autocycle%bs.length]);autocycle++}},6500);
 glowTimer=setInterval(glow,3600);
 })();
