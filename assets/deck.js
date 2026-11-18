@@ -89,8 +89,8 @@ function intro(){
    const layer=elem("div","cinema-layer"+(i===0?" is-active":""));
    const poster=elem("img","cinema-image");poster.alt="";poster.decoding="async";
    const video=elem("video","cinema-video");
-   video.muted=true;video.loop=true;video.playsInline=true;video.autoplay=false;
-   video.preload="metadata";video.setAttribute("muted","");video.setAttribute("playsinline","");
+   video.muted=true;video.loop=true;video.playsInline=true;video.autoplay=true;
+   video.preload="auto";video.setAttribute("muted","");video.setAttribute("playsinline","");video.setAttribute("autoplay","");
    layer.append(poster,video);
    backdrop.append(layer);
   }
@@ -99,6 +99,7 @@ function intro(){
   stripes.setAttribute("role","group");
   stripes.setAttribute("aria-label",ix()===0?"Виберіть відеосцену":"Choose a video scene");
   outer.insertBefore(stripes,backdrop.nextSibling);
+  stripes.hidden=true; // Temporarily hide the five controls while previewing the single video.
   const card=elem("div","hero-story panel");
   card.append(elem("div","slide-identity",t().eyebrow));
   const h=elem("h1");h.innerHTML=t().heroTitle;card.append(h);
@@ -296,7 +297,7 @@ try{if(localStorage.getItem("dgc.lang")==="en")lang="en"}catch(e){}
 document.documentElement.lang=lang;
 renderSlides();
 const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI();if(slides[current]?.key!=="home")videoCarousel?.pause()}}
-cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000)return;const bs=document.querySelectorAll(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},7500);
+cycleTimer=setInterval(()=>{if(byId("stripes")?.hidden||slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000)return;const bs=document.querySelectorAll(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},7500);
 glowTimer=setInterval(glow,3600);
 // Occasionally sweep a pinpoint golden beam along the ACTIVE control only.
 let lastStripeSpark=0;
