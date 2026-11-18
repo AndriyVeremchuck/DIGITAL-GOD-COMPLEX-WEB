@@ -31,3 +31,33 @@ test("language switch works",async({page})=>{
   await page.locator('[data-lang="uk"]').click();
   await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Створюй світи");
 });
+
+test("hero fills the entire slide without a blank lower half",async({page})=>{
+ await page.setViewportSize({width:1728,height:864});
+ await page.goto("http://127.0.0.1:8787/");
+ const metrics=await page.locator(".hero.active").evaluate(hero=>{
+  const slide=hero.getBoundingClientRect();
+  const bg=hero.querySelector(".hero-backdrop").getBoundingClientRect();
+  const navigation=document.querySelector(".topbar").getBoundingClientRect();
+  const footer=document.querySelector(".controlbar").getBoundingClientRect();
+  return {slideTop:slide.top,slideBottom:slide.bottom,bgTop:bg.top,bgBottom:bg.bottom,headerBottom:navigation.bottom,footerTop:footer.top};
+ });
+ expect(Math.abs(metrics.slideTop-metrics.headerBottom)).toBeLessThanOrEqual(2);
+ expect(Math.abs(metrics.slideBottom-metrics.footerTop)).toBeLessThanOrEqual(2);
+ expect(Math.abs(metrics.bgTop-metrics.slideTop)).toBeLessThanOrEqual(2);
+ expect(Math.abs(metrics.bgBottom-metrics.slideBottom)).toBeLessThanOrEqual(2);
+});
+test("click produces actual horizontal drum motion before image replacement",async({page})=>{
+ await page.emulateMedia({reducedMotion:"no-preference"});
+ await page.setViewportSize({width:1728,height:864});
+ await page.goto("http://127.0.0.1:8787/");
+ const stripe=page.locator(".hero.active .stripe").nth(1);
+ await stripe.click();
+ await expect.poll(()=>page.locator(".hero.active .backdrop-image.is-current").evaluate(el=>el.getAnimations().length),{timeout:3500}).toBeGreaterThan(0);
+ const shifts=await page.locator(".hero.active").evaluate(hero=>{
+  const frames=[...hero.querySelectorAll(".backdrop-image")];
+  return frames.map(img=>({src:img.getAttribute("src"),animations:img.getAnimations().map(a=>({state:a.playState,currentTime:a.currentTime,duration:a.effect?.getTiming().duration}))}));
+ });
+ expect(shifts.every(x=>x.animations.some(a=>a.state==="running"&&a.duration>=1000))).toBeTruthy();
+ await expect(page.locator(".hero.active .backdrop-image.is-current")).toHaveAttribute("src",/orbital-fractal/,{timeout:5000});
+});
