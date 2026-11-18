@@ -18,7 +18,7 @@ test("desktop first slide is one viewport, navigation works",async({page})=>{
   await page.setViewportSize({width:1728,height:864});
   await page.goto("http://127.0.0.1:8787/");
   await expect(page.locator(".hero.active .hero-title-main")).toBeVisible();
-  await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Створюй світи");
+  await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Create worlds");
   await page.locator("#next").click();
   await expect(page.locator(".slide.active")).toHaveAttribute("data-chapter","overview");
   await page.locator("#prev").click();
@@ -29,7 +29,7 @@ test("language switch works",async({page})=>{
   await page.locator('[data-lang="en"]').click();
   await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Create worlds");
   await page.locator('[data-lang="uk"]').click();
-  await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Створюй світи");
+  await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Create worlds");
 });
 
 test("hero fills the entire slide without a blank lower half",async({page})=>{
@@ -103,4 +103,27 @@ test("selected stripe is twice as wide and its art slowly zooms in",async({page}
   return active.width/other.width;
  },{timeout:3000}).toBeGreaterThan(1.75);
  expect(await stripes.nth(2).locator(".stripe-random-glint").count()).toBe(1);
+});
+
+test("hovering a new CGI strip selects it and moves the full background",async({page})=>{
+ await page.emulateMedia({reducedMotion:"no-preference"});
+ await page.goto("http://127.0.0.1:8787/");
+ const stripes=page.locator(".hero.active .stripe");
+ const bg=page.locator(".hero.active .backdrop-image.is-current");
+ await stripes.nth(3).hover({force:true});
+ await expect(bg).toHaveAttribute("src",/elemental-simulation/,{timeout:6000});
+ await expect(stripes.nth(3)).toHaveAttribute("aria-pressed","true");
+ await expect(stripes.nth(3).locator("img")).toHaveAttribute("src",/elemental-simulation/);
+ await stripes.nth(1).hover({force:true});
+ await expect(bg).toHaveAttribute("src",/orbital-fractal/,{timeout:6000});
+ await expect(stripes.nth(1)).toHaveAttribute("aria-pressed","true");
+});
+test("hero has no opaque frame covering the CGI image",async({page})=>{
+ await page.goto("http://127.0.0.1:8787/");
+ const card=page.locator(".hero.active .hero-story");
+ await expect(card).toHaveCSS("border-top-style","none");
+ await expect(card).toHaveCSS("backdrop-filter","none");
+ await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Create worlds");
+ await expect(page.locator(".hero.active .hero-intro")).toContainText("unified digital studio");
+ await expect(page.locator(".hero.active .hero-extra")).toHaveCount(0);
 });
