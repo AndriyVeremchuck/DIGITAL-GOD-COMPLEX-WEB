@@ -80,7 +80,6 @@ function intro(){
   second.alt="";second.decoding="async";backdrop.append(first,second);outer.insertBefore(backdrop,outer.firstChild);
   const stripes=elem("div","hero-stripes");stripes.id="stripes";stripes.setAttribute("role","group");
   stripes.setAttribute("aria-label",t().stripeHint);outer.insertBefore(stripes,outer.firstChild.nextSibling);
-  const hint=elem("div","stripe-tip",t().stripeHint);outer.append(hint);
   const card=elem("div","hero-story panel");
   card.append(elem("div","slide-identity",t().eyebrow));
   const h=elem("h1");h.innerHTML=t().heroTitle;card.append(h);
@@ -126,10 +125,8 @@ function buildStripes(root){
   image.src="assets/"+stripeSrc[i];
   image.alt="";image.decoding="async";
   const badge=elem("span","stripe-number","0"+(i+1));
-  const marker=elem("span","stripe-active-marker");
-  marker.setAttribute("aria-hidden","true");
   const glint=elem("span","stripe-random-glint");glint.setAttribute("aria-hidden","true");
-  button.append(image,badge,marker,glint);
+  button.append(image,badge,glint);
   labelStripe(button);
   button.setAttribute("aria-pressed",String(i===0));
   const choose=()=>{lastManualStripeAt=Date.now();selectBackdrop(i,i)};
