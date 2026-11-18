@@ -186,3 +186,17 @@ test("five-strip rack is 20 percent narrower and smoothly transfers width",async
   return b.width/a.width;
  },{timeout:5000}).toBeGreaterThan(1.75);
 });
+
+
+test("compact centered menu and clean strip controls without captions or checkmarks",async({page})=>{
+ await page.setViewportSize({width:1728,height:864});
+ await page.goto("http://127.0.0.1:8787/");
+ const nav=page.locator("#topnav");
+ const metrics=await nav.evaluate(el=>({center:el.getBoundingClientRect().left+el.getBoundingClientRect().width/2,width:el.getBoundingClientRect().width,viewport:innerWidth,font:getComputedStyle(el.querySelector("button")).fontFamily}));
+ expect(Math.abs(metrics.center-metrics.viewport/2)).toBeLessThan(3);
+ expect(metrics.width).toBeLessThanOrEqual(705);
+ expect(metrics.font).toContain("Oxanium");
+ await expect(page.locator(".stripe-tip")).toHaveCount(0);
+ await expect(page.locator(".stripe-active-marker")).toHaveCount(0);
+ await expect(page.locator(".hero.active .stripe")).toHaveCount(5);
+});
