@@ -72,25 +72,32 @@ function drawCards(kind,items,page,total){
   const grid=elem("div","visual-grid two"+(isAlgorithms?" tech-grid":""));items.forEach(s=>grid.append(makeCard(s,s.no)));parent.append(grid);
  });
 }
-/* The front page is a procedural shader showreel, not a static image gallery. */
-let effectRenderer=null;
-let activeStripeSlot=0,lastManualStripeAt=0;
-const effectLabels=[
- ["Енергетичний портал","Energy Portal"],
- ["Космічна туманність","Cosmic Nebula"],
- ["Рідкі кристали","Liquid Crystal"],
- ["Золота геометрія","Golden Geometry"],
- ["Об'ємний храм","Volumetric Temple"]
+/* Five-mode cinematic video carousel, ready for one shared test MP4. */
+let videoCarousel=null,activeStripeSlot=0,lastManualStripeAt=0;
+const videoScenes=[
+ {key:"portal",image:"05-portal-metropolis.jpg",uk:"Енергетичний портал",en:"Energy Portal"},
+ {key:"nebula",image:"08-orbital-fractal.jpg",uk:"Космічна туманність",en:"Cosmic Nebula"},
+ {key:"crystal",image:"12-elemental-simulation.jpg",uk:"Рідкі кристали",en:"Liquid Crystal"},
+ {key:"geometry",image:"10-menger-architecture.jpg",uk:"Золота геометрія",en:"Golden Geometry"},
+ {key:"temple",image:"01-celestial-city.jpg",uk:"Об'ємний храм",en:"Volumetric Temple"}
 ];
 function intro(){
  makeSlide("home",0,(parent,outer)=>{
-  const backdrop=elem("div","hero-backdrop");backdrop.setAttribute("aria-hidden","true");
-  const fallback=elem("img","shader-fallback");fallback.src="assets/05-portal-metropolis.jpg";fallback.alt="";fallback.fetchPriority="high";
-  const canvas=elem("canvas","hero-shader");canvas.setAttribute("aria-hidden","true");
-  backdrop.append(fallback,canvas);outer.insertBefore(backdrop,outer.firstChild);
+  const backdrop=elem("div","hero-backdrop cinematic-carousel");
+  backdrop.setAttribute("aria-hidden","true");
+  for(let i=0;i<2;i++){
+   const layer=elem("div","cinema-layer"+(i===0?" is-active":""));
+   const poster=elem("img","cinema-image");poster.alt="";poster.decoding="async";
+   const video=elem("video","cinema-video");
+   video.muted=true;video.loop=true;video.playsInline=true;video.autoplay=false;
+   video.preload="metadata";video.setAttribute("muted","");video.setAttribute("playsinline","");
+   layer.append(poster,video);
+   backdrop.append(layer);
+  }
+  outer.insertBefore(backdrop,outer.firstChild);
   const stripes=elem("div","hero-stripes shader-selectors");stripes.id="stripes";
   stripes.setAttribute("role","group");
-  stripes.setAttribute("aria-label",ix()===0?"Виберіть CGI-ефект":"Choose a CGI effect");
+  stripes.setAttribute("aria-label",ix()===0?"Виберіть відеосцену":"Choose a video scene");
   outer.insertBefore(stripes,backdrop.nextSibling);
   const card=elem("div","hero-story panel");
   card.append(elem("div","slide-identity",t().eyebrow));
@@ -104,50 +111,49 @@ function intro(){
  },true);
 }
 function buildStripes(root){
- for(let i=0;i<5;i++){
-  const button=elem("button","stripe"+(i===0?" chosen":""));
-  button.type="button";button.dataset.slot=String(i);
+ for(let i=0;i<videoScenes.length;i++){
+  const button=elem("button","stripe"+(i===0?" chosen":""));button.type="button";
+  button.dataset.slot=String(i);
   button.setAttribute("aria-pressed",String(i===0));
-  button.setAttribute("aria-label",effectLabels[i][ix()]);
-  button.title=effectLabels[i][ix()];
-  const symbol=elem("span","shader-symbol",["◎","✦","≋","◇","⌘"][i]);
+  button.setAttribute("aria-label",videoScenes[i][ix()===0?"uk":"en"]);
+  button.title=videoScenes[i][ix()===0?"uk":"en"];
+  const poster=elem("img","cinema-strip-image");
+  poster.src="assets/"+videoScenes[i].image;poster.alt="";poster.decoding="async";
   const number=elem("span","stripe-number","0"+(i+1));
   const glint=elem("span","stripe-random-glint");glint.setAttribute("aria-hidden","true");
-  button.append(symbol,number,glint);
-  // Intentionally NO pointerenter/focus selection: ONLY click changes a scene.
+  button.append(poster,number,glint);
+  // Hover is purely decorative. Only a mouse click or keyboard activation selects.
   button.addEventListener("click",()=>{
-   lastManualStripeAt=Date.now();
-   selectBackdrop(i,i);
+   lastManualStripeAt=Date.now();selectBackdrop(i);
   });
   root.append(button);
  }
 }
-function syncStripes(chosenSlot){
+function syncStripes(index){
  const root=byId("stripes");if(!root)return;
- activeStripeSlot=chosenSlot;
+ activeStripeSlot=index;
  $$(".stripe",root).forEach(button=>{
-  const i=Number(button.dataset.slot),selected=i===chosenSlot;
+  const selected=Number(button.dataset.slot)===index;
   button.classList.toggle("chosen",selected);
   button.setAttribute("aria-pressed",String(selected));
  });
 }
 function mountHeroShader(){
- if(effectRenderer){effectRenderer.destroy();effectRenderer=null;}
- const canvas=$(".hero .hero-shader",deck);
- if(canvas && window.DGCEffects){
-  effectRenderer=window.DGCEffects.mount(canvas);
-  if(effectRenderer)effectRenderer.setEffect(activeStripeSlot);
+ if(videoCarousel){videoCarousel.destroy();videoCarousel=null;}
+ const root=$(".hero .cinematic-carousel",deck);
+ if(root&&window.DGCVideoCarousel){
+  videoCarousel=window.DGCVideoCarousel.mount(root,videoScenes);
+  if(activeStripeSlot)videoCarousel.select(activeStripeSlot);
  }
 }
-function selectBackdrop(index,selectedSlot=index){
- if(index<0||index>4)return;
- syncStripes(selectedSlot);
- effectRenderer?.setEffect(index);
+function selectBackdrop(index){
+ if(index<0||index>=videoScenes.length)return;
+ syncStripes(index);
+ videoCarousel?.select(index);
 }
 function rotateStripe(button){
  if(!button)return;
- const slot=Number(button.dataset.slot);
- selectBackdrop(slot,slot);
+ selectBackdrop(Number(button.dataset.slot));
 }
 function overview(){
  makeSlide("overview",0,parent=>{
@@ -194,7 +200,7 @@ function decorateGoldCards(){
  });
 }
 function renderSlides(preserve){
- if(effectRenderer){effectRenderer.destroy();effectRenderer=null;}
+ if(videoCarousel){videoCarousel.destroy();videoCarousel=null;}
  const old=slides[current]||null;const key=preserve?.key||old?.key||"home",page=preserve?.page??old?.page??0;
  groupSize=preferredGroup();deck.replaceChildren();slides=[];
  intro();overview();chunks(studios,groupSize).forEach((s,i,a)=>drawCards("studio",s,i,a.length));
