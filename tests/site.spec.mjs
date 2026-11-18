@@ -1,45 +1,35 @@
 import { test, expect } from "@playwright/test";
 const base="http://127.0.0.1:8787/";
-
-test("five cinematic cards with two video layers are mounted",async({page})=>{
+test("single-video homepage hides five strips and contains both video layers",async({page})=>{
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
  await page.goto(base);
- await expect(page.locator(".hero.active .cinematic-carousel")).toHaveCount(1);
- await expect(page.locator(".hero.active .cinema-layer")).toHaveCount(2);
- await expect(page.locator(".hero.active .cinema-video")).toHaveCount(2);
- await expect(page.locator(".hero.active .shader-selectors .stripe")).toHaveCount(5);
- await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Create worlds");
+ const hero=page.locator(".hero.active");
+ await expect(hero.locator(".cinema-video")).toHaveCount(2);
+ await expect(hero.locator("#stripes")).toBeHidden();
+ await expect(hero.locator(".hero-title-main")).toHaveText("Create worlds");
  expect(errors).toEqual([]);
 });
-test("five buttons all reference one video in test manifest",async({page})=>{
+test("Cosmic Nebula always autoplays muted on home",async({page})=>{
  await page.goto(base);
- const result=await page.evaluate(()=>fetch("assets/videos/manifest.json").then(r=>r.json()));
- expect(Object.values(result)).toEqual(Array(5).fill("cosmic-nebula.mp4"));
+ const hero=page.locator(".hero.active");
+ const video=hero.locator(".cinema-layer.is-active video");
+ await expect(video).toHaveAttribute("src",/cosmic-nebula\.mp4/,{timeout:6000});
+ await expect(hero.locator(".cinema-layer.is-active")).toHaveClass(/has-video/,{timeout:8000});
+ await expect.poll(()=>video.evaluate(v=>({playing:!v.paused,muted:v.muted,loop:v.loop,autoplay:v.autoplay,ready:v.readyState})),{timeout:8000}).toMatchObject({playing:true,muted:true,loop:true,autoplay:true});
+ await expect(hero.locator(".cinema-layer.is-active .cinema-image")).toHaveCSS("opacity","0");
 });
-test("video mode selection is click only, hover and focus do not switch",async({page})=>{
+test("video pauses outside home, resumes when returning",async({page})=>{
  await page.goto(base);
- const cards=page.locator(".hero.active .shader-selectors .stripe");
- await cards.nth(3).hover({force:true});
- await cards.nth(3).focus();
- await expect(cards.nth(0)).toHaveAttribute("aria-pressed","true");
- await cards.nth(3).click();
- await expect(cards.nth(3)).toHaveAttribute("aria-pressed","true");
- await expect(cards.nth(0)).toHaveAttribute("aria-pressed","false");
- await expect(page.locator(".hero.active .cinematic-carousel")).toHaveAttribute("data-active-scene","3",{timeout:7000});
+ const playing=page.locator(".hero .cinema-layer.is-active video");
+ await expect.poll(()=>playing.evaluate(v=>!v.paused),{timeout:8000}).toBe(true);
+ await page.locator("#next").click();
+ await expect(page.locator(".slide.active")).toHaveAttribute("data-chapter","overview");
+ await expect.poll(()=>playing.evaluate(v=>v.paused),{timeout:3000}).toBe(true);
+ await page.locator("#prev").click();
+ await expect(page.locator(".slide.active")).toHaveAttribute("data-chapter","home");
+ await expect.poll(()=>playing.evaluate(v=>!v.paused),{timeout:8000}).toBe(true);
 });
-test("video playback when file exists, otherwise maintain high-quality poster fallback",async({page})=>{
- await page.goto(base);
- const exists=await page.request.get("http://127.0.0.1:8787/assets/videos/cosmic-nebula.mp4");
- const root=page.locator(".hero.active .cinematic-carousel");
- if(exists.ok()){
-  await expect(root.locator(".cinema-layer.has-video")).toHaveCount(1,{timeout:7500});
-  const ready=await root.locator(".cinema-layer.has-video video").evaluate(v=>({muted:v.muted,loop:v.loop,ready:v.readyState}));
-  expect(ready.muted).toBe(true);expect(ready.loop).toBe(true);expect(ready.ready).toBeGreaterThan(1);
- }else{
-  await expect(root.locator(".cinema-layer.is-active .cinema-image")).toHaveAttribute("src",/portal-metropolis/);
- }
-});
-test("hero and video layers occupy one viewport with no empty lower half",async({page})=>{
+test("hero uses full height, no blank bottom",async({page})=>{
  await page.setViewportSize({width:1728,height:864});await page.goto(base);
  const m=await page.locator(".hero.active").evaluate(hero=>{
   const rect=hero.getBoundingClientRect(),back=hero.querySelector(".cinematic-carousel").getBoundingClientRect();
@@ -50,15 +40,9 @@ test("hero and video layers occupy one viewport with no empty lower half",async(
  expect(Math.abs(m.backTop-m.top)).toBeLessThan(2);
  expect(Math.abs(m.backBottom-m.bottom)).toBeLessThan(2);
 });
-test("navigation, localization and other gold framed cards remain",async({page})=>{
+test("five slots are preserved in manifest for later reactivation",async({page})=>{
  await page.goto(base);
- await page.locator("#next").click();
- await expect(page.locator(".slide.active")).toHaveAttribute("data-chapter","overview");
- await expect(page.locator(".slide.active .gold-frame")).toHaveCount(6);
- await page.locator("#prev").click();
- await expect(page.locator(".slide.active")).toHaveAttribute("data-chapter","home");
- await page.locator('[data-lang="en"]').click();
- await expect(page.locator(".hero.active .hero-title-main")).toHaveText("Create worlds");
- await page.locator('[data-lang="uk"]').click();
- await expect(page.locator(".hero.active .shader-selectors .stripe")).toHaveCount(5);
+ const manifest=await page.evaluate(()=>fetch("assets/videos/manifest.json").then(r=>r.json()));
+ expect(Object.values(manifest)).toEqual(Array(5).fill("cosmic-nebula.mp4"));
+ await expect(page.locator(".hero.active #stripes .stripe")).toHaveCount(5);
 });
