@@ -91,7 +91,7 @@ function intro(){
   card.append(elem("p","hero-warning",t().heroNote));
   parent.append(card);
   buildStripes(stripes);
-  homeBackdropIndex=0;homeTransitioning=false;homeQueuedIndex=null;activeStripeSlot=0;lastManualStripeAt=0;
+  homeBackdropIndex=0;homeTransitioning=false;homeQueuedIndex=null;activeStripeSlot=0;lastManualStripeAt=Date.now();
  },true);
 }
 const stripeSrc=["05-portal-metropolis.jpg","08-orbital-fractal.jpg","07-celestial-guardian.jpg","12-elemental-simulation.jpg","01-celestial-city.jpg","14-sunken-civilization.jpg","10-menger-architecture.jpg","11-chronocrystal-garden.jpg","03-angelic-android.jpg","06-bioluminescent-cavern.jpg","13-digital-characters.jpg","04-fractal-cosmos.jpg"];
@@ -120,50 +120,25 @@ function labelStripe(button){
 function buildStripes(root){
  for(let i=0;i<5;i++){
   const button=elem("button","stripe"+(i===0?" chosen":""));
-  button.type="button";button.dataset.slot=String(i);button.dataset.imageIndex=String(i);
-  const img=elem("img","stripe-image");
-  img.src="assets/"+stripeSrc[i];img.alt="";img.decoding="async";
+  button.type="button";
+  button.dataset.slot=String(i);
+  button.dataset.imageIndex=String(i);
+  const image=elem("img","stripe-image");
+  image.src="assets/"+stripeSrc[i];
+  image.alt="";image.decoding="async";
   const badge=elem("span","stripe-number","0"+(i+1));
-  const indicator=elem("span","stripe-active-marker");
-  indicator.setAttribute("aria-hidden","true");
-  button.append(img,badge,indicator);
+  const marker=elem("span","stripe-active-marker");
+  marker.setAttribute("aria-hidden","true");
+  button.append(image,badge,marker);
   labelStripe(button);
   button.setAttribute("aria-pressed",String(i===0));
   button.addEventListener("click",()=>{
    lastManualStripeAt=Date.now();
-   const slot=Number(button.dataset.slot);
-   const index=Number(button.dataset.imageIndex);
-   if(slot===activeStripeSlot && index===homeBackdropIndex){
-    // Repeating the selected control changes ITS thumbnail and its linked scene.
-    const used=new Set($$(".stripe",root).filter(b=>b!==button).map(b=>Number(b.dataset.imageIndex)));
-    let next=(index+1)%stripeSrc.length;
-    while(used.has(next))next=(next+1)%stripeSrc.length;
-    setStripePreview(button,next);
-    selectBackdrop(next,slot);
-   }else{
-    // Other controls always show their own thumbnail's scene.
-    selectBackdrop(index,slot);
-   }
+   // The five thumbnail assets NEVER change. Each control selects its fixed scene.
+   selectBackdrop(i,i);
   });
   root.append(button);
  }
-}
-function setStripePreview(button,index){
- if(!button || !stripeSrc[index])return;
- button.dataset.imageIndex=String(index);
- const preview=$(".stripe-image",button);
- if(preview){
-  const preload=new Image();
-  preload.onload=()=>{
-   if(!button.isConnected || Number(button.dataset.imageIndex)!==index)return;
-   preview.src=preload.src;
-   button.classList.remove("preview-changing");
-   void button.offsetWidth;
-   button.classList.add("preview-changing");
-  };
-  preload.src="assets/"+stripeSrc[index];
- }
- labelStripe(button);
 }
 function syncStripes(chosenSlot,imageIndex){
  const root=byId("stripes");if(!root)return;
@@ -172,9 +147,7 @@ function syncStripes(chosenSlot,imageIndex){
   const selected=Number(button.dataset.slot)===chosenSlot;
   button.classList.toggle("chosen",selected);
   button.setAttribute("aria-pressed",String(selected));
-  if(selected && Number(button.dataset.imageIndex)!==imageIndex){
-   setStripePreview(button,imageIndex);
-  }
+  // Do not mutate button.dataset.imageIndex or its image src.
   labelStripe(button);
  });
 }
@@ -229,8 +202,8 @@ function selectBackdrop(index,selectedSlot=index%5){
 }
 function rotateStripe(button){
  if(!button)return;
- // Auto-tour cycles through the five visible controls. They retain their previews.
- selectBackdrop(Number(button.dataset.imageIndex),Number(button.dataset.slot));
+ const slot=Number(button.dataset.slot);
+ selectBackdrop(slot,slot);
 }
 function overview(){
  makeSlide("overview",0,parent=>{
@@ -269,6 +242,13 @@ function status(){
  });
 }
 function preferredGroup(){const vh=window.innerHeight;return window.innerWidth<800||vh<640?1:2}
+function decorateGoldCards(){
+ const cards=$$(".slide .visual-card,.slide .feature,.slide .ai-art,.slide .ai-copy,.slide .phase-details,.slide .notice,.slide .stat");
+ cards.forEach((card,index)=>{
+  card.classList.add("gold-frame");
+  card.style.setProperty("--gold-delay",(-index*0.63)+"s");
+ });
+}
 function renderSlides(preserve){
  const old=slides[current]||null;const key=preserve?.key||old?.key||"home",page=preserve?.page??old?.page??0;
  groupSize=preferredGroup();deck.replaceChildren();slides=[];
@@ -280,6 +260,7 @@ function renderSlides(preserve){
  if(newIdx<0)newIdx=slides.findIndex(x=>x.key===key);
  current=Math.max(0,newIdx);
  slides[current].node.classList.add("active");slides.forEach((s,i)=>s.node.setAttribute("aria-hidden",String(i!==current)));
+ decorateGoldCards();
  renderPhase();
  updateUI();
 }
@@ -361,6 +342,6 @@ try{if(localStorage.getItem("dgc.lang")==="en")lang="en"}catch(e){}
 document.documentElement.lang=lang;
 renderSlides();
 const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI()}}
-cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<18000)return;const bs=$(".hero.active .stripe");if(bs.length){rotateStripe(bs[autocycle%bs.length]);autocycle++}},6500);
+cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000||homeTransitioning)return;const bs=$(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},6500);
 glowTimer=setInterval(glow,3600);
 })();
