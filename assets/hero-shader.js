@@ -110,7 +110,7 @@ function mount(canvas){
   if(dead)return;
   raf=requestAnimationFrame(frame);
   if(document.hidden||paused||!visible)return;
-  const scale=Math.min(devicePixelRatio||1,1.5);
+  const scale=Math.min(devicePixelRatio||1,1.25,1600/Math.max(1,canvas.clientWidth));
   const w=Math.max(1,Math.round(canvas.clientWidth*scale)),h=Math.max(1,Math.round(canvas.clientHeight*scale));
   if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
   gl.viewport(0,0,w,h);gl.useProgram(program);gl.bindVertexArray(vao);
