@@ -711,3 +711,84 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
 @media(max-width:760px){
  .topnav button{font-size:11px!important;padding-inline:10px!important}
 }
+
+
+/* REAL-TIME CGI — WebGL2 fullscreen canvas replaces the photo slideshow.
+   Fixed fallback image remains only for unsupported browsers/context loss. */
+.slide.hero .hero-backdrop{position:absolute!important;inset:0!important;overflow:hidden;pointer-events:none;}
+.slide.hero .hero-backdrop .shader-fallback,
+.slide.hero .hero-backdrop .hero-shader{
+ position:absolute!important;inset:0!important;display:block;
+ width:100%!important;height:100%!important;
+}
+.slide.hero .hero-backdrop .shader-fallback{
+ object-fit:cover;opacity:1;
+ filter:saturate(.9) brightness(.65) blur(3px);
+ transition:opacity .65s ease;
+}
+.slide.hero .hero-backdrop .hero-shader{z-index:1;opacity:0;transition:opacity .65s ease;transform:none!important}
+.slide.hero .hero-backdrop .hero-shader.shader-ready{opacity:1}
+.slide.hero .hero-backdrop:has(.hero-shader.shader-ready) .shader-fallback{opacity:0}
+.slide.hero .hero-stripes.shader-selectors{
+ z-index:6!important;
+ width:clamp(152px,18.4vw,272px)!important;
+}
+.slide.hero .shader-selectors .stripe{
+ flex:1 1 0%!important;min-width:0!important;
+ cursor:pointer;touch-action:manipulation;
+ background:linear-gradient(135deg,#101b38 0%,#233558 49%,#0a1228 100%)!important;
+ border:1px solid rgba(232,197,136,.7)!important;
+ opacity:.62;
+ filter:brightness(.8) saturate(.88)!important;
+ transition:flex-grow 1.65s cubic-bezier(.2,.82,.18,1),opacity .65s ease,filter .65s ease,box-shadow .65s ease!important;
+}
+.slide.hero .shader-selectors .stripe::before{
+ content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+ background:linear-gradient(145deg,rgba(132,202,255,.12),transparent 55%,rgba(247,195,115,.13))!important;
+}
+.slide.hero .shader-selectors .stripe:nth-child(1){background:linear-gradient(155deg,#143e79,#3a174e,#9d5b36)!important}
+.slide.hero .shader-selectors .stripe:nth-child(2){background:linear-gradient(155deg,#192d76,#722b86,#09284e)!important}
+.slide.hero .shader-selectors .stripe:nth-child(3){background:linear-gradient(155deg,#075775,#187f93,#163455)!important}
+.slide.hero .shader-selectors .stripe:nth-child(4){background:linear-gradient(155deg,#3a2d72,#b07537,#142c50)!important}
+.slide.hero .shader-selectors .stripe:nth-child(5){background:linear-gradient(155deg,#354b6c,#926435,#12203f)!important}
+.slide.hero .shader-selectors .stripe.chosen{
+ flex-grow:2!important;
+ opacity:1!important;
+ filter:brightness(1.2) saturate(1.12)!important;
+ box-shadow:inset 0 0 18px rgba(255,210,131,.23),0 0 22px rgba(244,184,94,.4)!important;
+}
+.slide.hero .shader-selectors .stripe:not(.chosen){flex-grow:1!important}
+.slide.hero .shader-selectors .stripe:hover:not(.chosen){
+ flex-grow:1!important;opacity:.82!important;
+ filter:brightness(1.12)!important;
+}
+.slide.hero .shader-selectors .stripe .shader-symbol{
+ position:absolute;inset:0;z-index:4;
+ display:flex;align-items:center;justify-content:center;
+ transform:skewX(12deg);
+ color:#c4daf6;font:700 clamp(16px,2vw,28px) Oxanium,Manrope,sans-serif;
+ opacity:.64;text-shadow:0 0 13px rgba(118,207,255,.8);
+ transition:opacity .45s,color .45s,filter .45s,scale 1.65s ease;
+ pointer-events:none;
+}
+.slide.hero .shader-selectors .stripe.chosen .shader-symbol{
+ color:#ffe2a6;opacity:1;scale:1.25;
+ text-shadow:0 0 18px #f9c575,0 0 31px #b9bbf7;
+}
+.slide.hero .shader-selectors .stripe:focus-visible{outline:2px solid #fbe3a9;outline-offset:3px}
+.slide.hero .shader-selectors .stripe .stripe-number{font-size:11px;opacity:.86}
+@media(max-width:1100px){
+ .slide.hero .hero-stripes.shader-selectors{width:clamp(120px,16.8vw,208px)!important}
+}
+@media(max-width:760px){
+ .slide.hero .hero-stripes.shader-selectors{width:100px!important}
+ .slide.hero .shader-selectors .stripe .shader-symbol{font-size:17px}
+}
+@media(max-width:520px){
+ .slide.hero .hero-stripes.shader-selectors{width:84px!important;right:18px!important}
+ .slide.hero .shader-selectors .stripe .shader-symbol{font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+ .slide.hero .shader-selectors .stripe,.slide.hero .shader-selectors .stripe .shader-symbol{transition:none!important}
+ .slide.hero .hero-shader{transition:none!important}
+}
