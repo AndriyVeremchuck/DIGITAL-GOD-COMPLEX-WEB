@@ -15,7 +15,7 @@ function mount(root,scenes){
  const layers=[...root.querySelectorAll(".cinema-layer")];
  if(layers.length!==2)throw Error("Expected exactly two CGI carousel layers");
  let index=0,front=0,pending=null,busy=false,disposed=false,job=0;
- let manifest={},timer=null;
+ let manifest={portal:"cosmic-nebula.mp4",nebula:"cosmic-nebula.mp4",crystal:"cosmic-nebula.mp4",geometry:"cosmic-nebula.mp4",temple:"cosmic-nebula.mp4"},timer=null;
  const fallbackSrc=n=>"assets/"+scenes[n].image;
  const videoSrc=n=>{
   const file=manifest[scenes[n].key];
@@ -33,16 +33,16 @@ function mount(root,scenes){
   v.poster=fallbackSrc(n);
   const source=videoSrc(n);
   layer.dataset.scene=String(n);
-  layer.classList.remove("has-video");
+  layer.classList.remove("has-video","video-fallback");
   stopVideo(layer);
-  if(!source)return Promise.resolve(false);
+  if(!source){layer.classList.add("video-fallback");return Promise.resolve(false);}
   return new Promise(resolve=>{
    let settled=false;
    const done=ok=>{
     if(settled)return;settled=true;
     v.removeEventListener("canplay",onReady);v.removeEventListener("error",onError);
     clearTimeout(timeout);
-    if(ok){layer.classList.add("has-video");v.play().catch(()=>{layer.classList.remove("has-video")});}
+    if(ok){layer.classList.add("has-video");v.play().catch(()=>{layer.classList.remove("has-video");layer.classList.add("video-fallback")});}else{layer.classList.add("video-fallback");}
     resolve(ok);
    };
    const onReady=()=>done(true),onError=()=>done(false);
@@ -113,10 +113,11 @@ function mount(root,scenes){
  current.classList.add("is-active");
  current.style.opacity="1";current.style.zIndex="2";
  root.dataset.activeScene="0";
- loadManifest().then(async values=>{
+ // Start the known public MP4 immediately. No poster is displayed during startup.
+ configure(layers[front],0);
+ loadManifest().then(values=>{
   if(disposed)return;
-  manifest=values;
-  if(videoSrc(index))await configure(layers[front],index);
+  if(values&&Object.keys(values).length)manifest={...manifest,...values};
  });
  const api={
   select,
