@@ -551,3 +551,75 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
 @media(prefers-reduced-motion:reduce){
  .hero-stripes .stripe,.hero-stripes .stripe .stripe-image{transition:none!important}
 }
+
+
+/* CYBERPUNK HEADLINE + NARROWER STRIP NAVIGATION (2026-11-18)
+   A single clean Oxanium face, no glyph extrusion or black stripes. */
+.hero-story h1 .hero-title-main,
+.hero-story h1 em{
+ font-family:'Oxanium',Manrope,Arial,sans-serif!important;
+ -webkit-text-stroke:0!important;
+ -webkit-text-fill-color:currentColor!important;
+ text-shadow:0 4px 21px rgba(2,9,25,.7)!important;
+ font-style:normal!important;
+ line-height:1.13!important;
+}
+.hero-story h1 .hero-title-main{
+ font-weight:800!important;
+ font-size:clamp(35px,3.5vw,63px)!important;
+ letter-spacing:-.045em!important;
+ color:#e7f4ff!important;
+}
+.hero-story h1 em{
+ font-weight:700!important;
+ font-size:clamp(38px,4.15vw,73px)!important;
+ letter-spacing:-.05em!important;
+ color:#f1ca8e!important;
+}
+.hero-story .slide-identity{
+ font-family:'Oxanium',Manrope,Arial,sans-serif!important;
+ font-weight:700!important;
+ letter-spacing:.17em!important;
+}
+/* The entire five-panel rack is 20% narrower than the previous 23vw / 340px version. */
+.hero-stripes{
+ width:clamp(152px,18.4vw,272px)!important;
+ max-width:calc(100vw - 36px)!important;
+}
+.hero-stripes .stripe{
+ flex-basis:0%!important;
+ flex-grow:1!important;
+ min-width:0!important;
+ transition:flex-grow 2.15s cubic-bezier(.22,.73,.16,1),opacity .72s ease,filter .72s ease,box-shadow .72s ease!important;
+}
+.hero-stripes .stripe.chosen{flex-grow:2!important}
+.hero-stripes .stripe:not(.chosen){flex-grow:1!important}
+.hero-stripes .stripe:hover:not(.chosen){flex-grow:1!important}
+.hero-stripes .stripe .stripe-image{
+ animation:none!important;
+ scale:1.02;
+ transition:scale 2.15s cubic-bezier(.22,.73,.16,1),filter .72s ease!important;
+}
+.hero-stripes .stripe.chosen .stripe-image{
+ animation:none!important;
+ scale:1.25;
+ transition:scale 9s cubic-bezier(.18,.4,.35,1),filter .72s ease!important;
+}
+@media(max-width:1100px){
+ .hero-stripes{width:clamp(120px,16.8vw,208px)!important}
+ .hero-story h1 .hero-title-main{font-size:clamp(30px,3.65vw,50px)!important}
+ .hero-story h1 em{font-size:clamp(33px,4.25vw,59px)!important}
+}
+@media(max-width:760px){
+ .hero-stripes{width:100px!important}
+ .hero-story h1 .hero-title-main{font-size:clamp(25px,4.7vw,38px)!important}
+ .hero-story h1 em{font-size:clamp(29px,6vw,49px)!important}
+}
+@media(max-width:520px){
+ .hero-stripes{width:84px!important;right:18px!important}
+ .hero-story h1 .hero-title-main{font-size:clamp(22px,5.7vw,32px)!important}
+ .hero-story h1 em{font-size:clamp(26px,7.1vw,40px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-stripes .stripe,.hero-stripes .stripe .stripe-image{transition:none!important}
+}
