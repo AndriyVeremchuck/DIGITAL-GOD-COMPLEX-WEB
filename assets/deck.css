@@ -883,3 +883,13 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
   padding:9px 9px!important;
  }
 }
+
+
+/* Single cinematic video mode: temporarily conceal diagonal scene selectors.
+   Never flash a poster on startup; show still-image fallback only on media error. */
+.slide.hero .hero-stripes.shader-selectors[hidden],
+.slide.hero .hero-stripes.shader-selectors{display:none!important}
+.slide.hero .cinematic-carousel .cinema-layer .cinema-image{opacity:0!important}
+.slide.hero .cinematic-carousel .cinema-layer.has-video .cinema-video{opacity:1!important}
+.slide.hero .cinematic-carousel .cinema-layer.video-fallback .cinema-image{opacity:1!important}
+.slide.hero .cinematic-carousel .cinema-layer.video-fallback .cinema-video{opacity:0!important}
