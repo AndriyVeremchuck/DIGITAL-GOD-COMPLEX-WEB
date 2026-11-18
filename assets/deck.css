@@ -455,3 +455,99 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
  .hero-story .hero-warning{font-size:9px!important}
 }
 @media(prefers-reduced-motion:reduce){.hero-story.panel::before{filter:none}}
+
+
+/* HERO TYPOGRAPHY V5: flat, clean premium lettering with no layered black
+   extrusion/stroke (the old shadows produced visible dark stripes in glyphs). */
+.hero-story h1,
+.hero-story h1 .hero-title-main,
+.hero-story h1 em{
+ -webkit-text-stroke:0!important;
+ text-stroke:0!important;
+ -webkit-text-fill-color:currentColor!important;
+ filter:none!important;
+ background:none!important;
+ -webkit-background-clip:border-box!important;
+ background-clip:border-box!important;
+}
+.hero-story .slide-identity{
+ font-family:Manrope,Arial,sans-serif!important;
+ font-weight:800!important;letter-spacing:.21em;
+ text-shadow:0 2px 13px rgba(3,9,21,.55)!important;
+}
+.hero-story h1{
+ font-family:Manrope,Arial,sans-serif!important;
+ font-weight:800!important;
+ letter-spacing:-.052em!important;
+ text-shadow:none!important;
+}
+.hero-story h1 .hero-title-main{
+ font-family:Manrope,Arial,sans-serif!important;
+ font-weight:800!important;
+ text-transform:none;
+ color:#f9f3e9!important;
+ letter-spacing:-.06em!important;
+ font-size:clamp(35px,3.8vw,66px)!important;
+ line-height:1.1!important;
+ text-shadow:0 3px 19px rgba(0,0,0,.38)!important;
+}
+.hero-story h1 em{
+ font-family:Manrope,Arial,sans-serif!important;
+ font-style:normal!important;
+ font-weight:700!important;
+ color:#f0c888!important;
+ font-size:clamp(38px,4.6vw,77px)!important;
+ letter-spacing:-.063em!important;
+ line-height:1.17!important;
+ text-shadow:0 3px 18px rgba(0,0,0,.42)!important;
+}
+.hero-story .hero-intro{
+ font-family:Manrope,Arial,sans-serif!important;
+ font-weight:500!important;
+ font-size:clamp(13px,1.08vw,17px)!important;
+ line-height:1.68!important;
+ letter-spacing:.004em!important;
+ -webkit-text-stroke:0!important;
+ text-shadow:0 2px 14px rgba(2,9,22,.67)!important;
+ color:#f4eee3!important;
+ max-width:670px;
+}
+/* Both motions are real interpolated CSS transitions:
+   old selected panel SHRINKS while the new selected panel EXPANDS. */
+.hero-stripes .stripe{
+ flex:1 1 0%!important;
+ flex-grow:1!important;
+ transition-property:flex-grow,opacity,filter,box-shadow!important;
+ transition-duration:1.65s,.65s,.65s,.65s!important;
+ transition-timing-function:cubic-bezier(.22,.75,.18,1),ease,ease,ease!important;
+}
+.hero-stripes .stripe.chosen{flex-grow:2!important}
+.hero-stripes .stripe:not(.chosen){flex-grow:1!important}
+.hero-stripes .stripe .stripe-image{
+ animation:none!important;
+ scale:1.03;
+ transition:scale 1.65s cubic-bezier(.22,.75,.18,1),filter .5s ease!important;
+ will-change:scale;
+}
+.hero-stripes .stripe.chosen .stripe-image{
+ animation:none!important;
+ scale:1.26;
+ transition:scale 8.5s cubic-bezier(.15,.35,.4,1),filter .5s ease!important;
+}
+@media(max-width:1100px){
+ .hero-story h1 .hero-title-main{font-size:clamp(30px,3.7vw,55px)!important}
+ .hero-story h1 em{font-size:clamp(36px,4.8vw,65px)!important}
+}
+@media(max-width:760px){
+ .hero-story h1 .hero-title-main{font-size:clamp(25px,5vw,42px)!important}
+ .hero-story h1 em{font-size:clamp(32px,7vw,52px)!important}
+ .hero-story .hero-intro{font-size:14px!important}
+}
+@media(max-width:520px){
+ .hero-story h1 .hero-title-main{font-size:clamp(24px,6vw,35px)!important}
+ .hero-story h1 em{font-size:clamp(31px,8.4vw,46px)!important}
+ .hero-story .hero-intro{font-size:12px!important;line-height:1.55!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-stripes .stripe,.hero-stripes .stripe .stripe-image{transition:none!important}
+}
