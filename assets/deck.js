@@ -343,7 +343,7 @@ try{if(localStorage.getItem("dgc.lang")==="en")lang="en"}catch(e){}
 document.documentElement.lang=lang;
 renderSlides();
 const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI()}}
-cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000||homeTransitioning)return;const bs=$(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},6500);
+cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000||homeTransitioning)return;const bs=document.querySelectorAll(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},6500);
 glowTimer=setInterval(glow,3600);
 // Occasionally sweep a pinpoint golden beam along the ACTIVE control only.
 let lastStripeSpark=0;
