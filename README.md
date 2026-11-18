@@ -8,7 +8,7 @@
 
 ## Можливості сайту
 
-- **Живий CGI-шейдер WebGL2:** п'ять процедурних анімованих режимів (портал, туманність, рідкий кристал, золота геометрія, об'ємний храм). П'ять косих смуг — лише перемикачі: ефект змінюється **кліком або клавішею Enter/Space, але не наведенням**. Між режимами — плавне GLSL-змішування. Якщо WebGL2 недоступний, показується резервна ілюстрація.
+- **Кінематографічна відеокарусель:** п'ять косих перемикачів (вибір **кліком або Enter/Space, без hover**), два відеошари з плавним змішуванням та резервними CGI-зображеннями. Для поточного тесту всі п'ять режимів використовують **один і той самий 10-секундний MP4**, коли файл `assets/videos/cosmic-nebula.mp4` завантажений до репозиторію. Поки його немає, автоматично показуються постери. Відео без звуку.
 - **Навігація:** компактна кнопка наступного розділу; підсвічування активного пункту меню; індикатор прокручування сторінки.
 - **Галерея:** 14 фантастичних CGI-сцен із фільтрами й плавним повноекранним переглядом зі збереженням пропорцій.
 - **Графічні технології:** 10 покрокових ілюстрацій алгоритмів та методів цифрового мистецтва.
@@ -22,7 +22,9 @@
 
 - `index.html` — основна сторінка та двомовний контент.
 - `assets/deck.css` / `assets/deck.js` — повноекранна слайдова презентація, навігація, галереї та перемикачі CGI-режимів.
-- `assets/hero-shader.js` — оригінальний WebGL2/GLSL рендерер п'яти процедурних CGI-сцен.
+- `assets/hero-video.js` — двошарова відеокарусель, плавні переходи, керування MP4/WebM та резервні постери.
+- `assets/videos/manifest.json` — зіставлення п'яти режимів із відеофайлами. На час тесту всі значення однакові.
+- `assets/hero-shader.js` — попередній прототип GLSL (не використовується на головному екрані).
 - `assets/*.jpg` — ілюстрації.
 
 ## Правдивий стан
@@ -31,4 +33,4 @@ DIGITAL GOD COMPLEX — **PHASE 0: дослідження та архітект�
 
 ### English
 
-This repository contains the **public concept landing page**, not the private DGC application code. The website includes a real-time WebGL2/GLSL CGI background with five click-only procedural effects, a cinematic gallery, ten visual algorithm studies, a P0–P6 roadmap, animated navigation and Ukrainian/English localization. **All imagery is conceptual; the product is not finished.**
+This repository contains the **public concept landing page**, not the private DGC application code. The website includes a dual-layer cinematic video carousel with five click-only scene selectors (currently sharing one test MP4 when uploaded), a cinematic gallery, ten visual algorithm studies, a P0–P6 roadmap, animated navigation and Ukrainian/English localization. **All imagery is conceptual; the product is not finished.**
