@@ -322,6 +322,6 @@ try{if(localStorage.getItem("dgc.lang")==="en")lang="en"}catch(e){}
 document.documentElement.lang=lang;
 renderSlides();
 const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI()}}
-cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce())return;const bs=$(".hero.active .stripe");if(bs.length){rotateStripe(bs[autocycle%bs.length]);autocycle++}},6500);
+cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce())return;const bs=$$(".hero.active .stripe");if(bs.length){rotateStripe(bs[autocycle%bs.length]);autocycle++}},6500);
 glowTimer=setInterval(glow,3600);
 })();
