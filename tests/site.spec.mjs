@@ -158,5 +158,31 @@ test("no black extruded typography on the hero title",async({page})=>{
  await expect(title).toHaveText("Create worlds");
  await expect(title).toHaveCSS("-webkit-text-stroke-width","0px");
  const font=await title.evaluate(el=>getComputedStyle(el).fontFamily);
- expect(font).toContain("Manrope");
+ expect(font).toContain("Oxanium");
+});
+
+test("five-strip rack is 20 percent narrower and smoothly transfers width",async({page})=>{
+ await page.setViewportSize({width:1728,height:864});
+ await page.emulateMedia({reducedMotion:"no-preference"});
+ await page.goto("http://127.0.0.1:8787/");
+ const rack=page.locator(".hero.active .hero-stripes");
+ const rackBox=await rack.boundingBox();
+ expect(rackBox.width).toBeGreaterThanOrEqual(250);
+ expect(rackBox.width).toBeLessThanOrEqual(275);
+ const buttons=page.locator(".hero.active .stripe");
+ await expect.poll(async()=>{
+   const a=await buttons.nth(0).boundingBox(),b=await buttons.nth(1).boundingBox();
+   return a.width/b.width;
+ },{timeout:5000}).toBeGreaterThan(1.75);
+ await buttons.nth(3).hover({force:true});
+ const states=await buttons.evaluateAll(els=>[0,3].map(i=>{
+   const el=els[i];
+   return {duration:getComputedStyle(el).transitionDuration,animations:el.getAnimations().filter(a=>a.playState==="running").map(a=>a.effect?.getTiming().duration)};
+ }));
+ expect(states[0].animations.some(v=>v>=2000)).toBeTruthy();
+ expect(states[1].animations.some(v=>v>=2000)).toBeTruthy();
+ await expect.poll(async()=>{
+  const a=await buttons.nth(0).boundingBox(),b=await buttons.nth(3).boundingBox();
+  return b.width/a.width;
+ },{timeout:5000}).toBeGreaterThan(1.75);
 });
