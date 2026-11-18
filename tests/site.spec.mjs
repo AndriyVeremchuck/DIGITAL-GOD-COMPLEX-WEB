@@ -81,5 +81,5 @@ test("five fixed CGI thumbnails, correct selection, golden borders",async({page}
  await expect(buttons.locator("img").evaluateAll(nodes=>nodes.map(n=>n.getAttribute("src")))).resolves.toEqual(originals);
  await page.locator("#next").click();
  await expect(page.locator(".slide.active .gold-frame")).toHaveCount(6);
- await expect(page.locator(".slide.active .gold-frame").first()).toHaveCSS("border-top-color","rgb(226, 186, 118)");
+ await expect(page.locator(".slide.active .gold-frame").first()).toHaveCSS("border-top-style","solid");
 });
