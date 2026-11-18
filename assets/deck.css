@@ -290,3 +290,41 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
 .hero-stripes .stripe.preview-changing .stripe-image{animation:stripe-preview-pulse 750ms cubic-bezier(.2,.8,.2,1)}
 @keyframes stripe-preview-pulse{0%{filter:brightness(1.8) saturate(1.25);opacity:.35}100%{filter:brightness(1.03) saturate(1.16);opacity:1}}
 @media(prefers-reduced-motion:reduce){.hero-stripes .stripe.preview-changing .stripe-image{animation:none!important}}
+
+
+/* Premium gold tracing on every presentation card. Existing hero gilding is kept. */
+.gold-frame{position:relative;isolation:isolate;border:1px solid rgba(226,186,118,.60)!important;box-shadow:0 9px 30px rgba(4,8,23,.3),inset 0 0 20px rgba(231,179,102,.055)}
+.gold-frame::after{
+ content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:12;
+ padding:2px;
+ background:conic-gradient(from var(--gold-angle,0deg),transparent 0deg,transparent 265deg,rgba(234,187,104,.12) 285deg,#dbb06f 306deg,#fff4ce 325deg,#f7d397 341deg,transparent 360deg);
+ -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+ -webkit-mask-composite:xor;mask-composite:exclude;
+ filter:drop-shadow(0 0 8px rgba(255,208,135,.65));
+ animation:gold-border-orbit 8.7s linear infinite;
+ animation-delay:var(--gold-delay,0s);
+}
+@property --gold-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes gold-border-orbit{to{--gold-angle:360deg}}
+.gold-frame:hover{border-color:rgba(255,222,167,.94)!important;box-shadow:0 14px 45px rgba(158,117,67,.24),inset 0 0 23px rgba(244,195,115,.11)}
+.gold-frame:hover::after{animation-duration:4.5s;filter:drop-shadow(0 0 14px rgba(255,211,145,.9))}
+.slide:not(.active) .gold-frame::after{animation-play-state:paused}
+.hero-stripes .stripe{flex-grow:1!important;opacity:.58;filter:grayscale(.6) brightness(.64) saturate(.75)!important}
+.hero-stripes .stripe:not(.chosen):hover{opacity:.82;filter:grayscale(.2) brightness(.92)!important;flex-grow:1!important}
+.hero-stripes .stripe.chosen{flex-grow:1!important;opacity:1!important;filter:grayscale(0) brightness(1.24) saturate(1.18)!important}
+.hero-stripes .stripe.chosen::before{
+ background:linear-gradient(180deg,rgba(252,218,146,.19),transparent 28%,transparent 75%,rgba(18,23,32,.35));
+}
+.hero-stripes .stripe.chosen::after{
+ content:"";position:absolute;inset:0;z-index:8;pointer-events:none;
+ border:2px solid transparent;border-radius:inherit;
+ background:conic-gradient(from var(--gold-angle,0deg),transparent 0deg,transparent 270deg,#e4bb7e 304deg,#fff3cf 324deg,#e2ae64 344deg,transparent 359deg) border-box;
+ -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+ -webkit-mask-composite:xor;mask-composite:exclude;
+ animation:gold-border-orbit 5.2s linear infinite;
+ box-shadow:none!important;
+ filter:drop-shadow(0 0 12px #ffdd9a);
+}
+.hero-stripes .stripe.chosen .stripe-active-marker{opacity:1}
+.hero-stripes .stripe .stripe-image{transition:filter .4s,transform .55s!important}
+@media(prefers-reduced-motion:reduce){.gold-frame::after,.hero-stripes .stripe.chosen::after{animation:none!important;--gold-angle:305deg}}
