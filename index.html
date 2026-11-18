@@ -125,6 +125,7 @@ section{padding:112px 0}.section-header{margin-bottom:38px}
 .gallery-card:hover{box-shadow:0 24px 64px rgba(38,64,125,.26)}
 .missing-shot{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;color:#b1d6e8;background:linear-gradient(135deg,#0e1c34,#221832)}
 </style>
+<link rel="stylesheet" href="assets/experience.css">
 </head>
 <body>
 <a class="skip" href="#main">Перейти до вмісту</a>
@@ -135,22 +136,33 @@ section{padding:112px 0}.section-header{margin-bottom:38px}
 <a href="#studio" data-i="navStudio">Студія</a><a href="#gallery" data-i="navGallery">Галерея</a><a href="#algorithms" data-i="navTech">Технології</a><a href="#ai" data-i="navAI">ШІ</a><a href="#status" data-i="navStatus">Проєкт</a></nav>
 <div class="nav-right"><div class="lang-switch" role="group" aria-label="Мова / Language"><button type="button" data-lang="uk" class="active" aria-pressed="true">УКР</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><button class="menu-button" id="menuToggle" aria-expanded="false" aria-label="Меню">☰</button></div>
 </div></header>
+<div class="reading-progress" aria-hidden="true"></div>
 <main id="main">
-<section class="hero" id="top"><div class="container"><div class="hero-content">
+<section class="hero" id="top">
+<div class="hero-image-layer" aria-hidden="true"><img src="assets/05-portal-metropolis.jpg" alt="" fetchpriority="high" decoding="async"></div>
+<div class="hero-light" aria-hidden="true"></div><div class="hero-dust" aria-hidden="true"></div>
+<div class="container"><div class="hero-content">
 <div class="eyebrow" data-i="eyebrow">ТВОРЧА СТУДІЯ МАЙБУТНЬОГО</div>
 <h1 data-html="heroTitle">Створюй світи<br><span>без меж.</span></h1>
 <p class="hero-sub" data-i="heroSub">3D, цифровий живопис, анімація, VFX, монтаж та штучний інтелект — в одному просторі для сміливих ідей.</p>
 <div class="hero-kicker"><span>3D / CGI</span><span>2D ART</span><span>ANIMATION</span><span>VFX</span><span>AI STUDIO</span></div>
 <div class="hero-actions"><a href="#gallery" class="btn btn-primary" data-i="heroExplore">Дослідити світи <span aria-hidden="true">↗</span></a><a href="#studio" class="btn btn-secondary" data-i="heroStudio">Подивитися студію ↓</a></div>
 <p class="hero-note" data-i="heroNote">Концептуальна презентація DIGITAL GOD COMPLEX. Зображення показують творче бачення, а не готові функції застосунку.</p>
-</div></div></section>
+</div></div>
+<a href="#studio" class="portal-next" id="portalNext" aria-label="Плавно перейти до наступного розділу">
+<span class="portal-ring" aria-hidden="true"><span class="portal-arrow">↓</span></span>
+<span class="portal-next-label" data-i="portalNext">ВІДКРИЙ НАСТУПНИЙ РОЗДІЛ</span>
+<span class="portal-next-index">01 / 05</span>
+</a>
+</section>
 <div class="container metrics">
 <div class="metric reveal"><b>14</b><span data-i="metric1">КІНЕМАТОГРАФІЧНИХ СЦЕН</span></div>
 <div class="metric reveal"><b>10</b><span data-i="metric2">ВІЗУАЛІЗОВАНИХ АЛГОРИТМІВ</span></div>
 <div class="metric reveal"><b>04</b><span data-i="metric3">КОНЦЕПТИ ІНТЕРФЕЙСУ</span></div>
 <div class="metric reveal"><b>∞</b><span data-i="metric4">ПРОСТІР ДЛЯ ІДЕЙ</span></div>
 </div>
-<section id="studio"><div class="container">
+<section id="studio" class="chapter"><div class="container">
+<div class="chapter-index reveal"><span class="chapter-rule"></span><span>РОЗДІЛ 01 · CREATIVE STUDIO</span><span class="chapter-rule"></span></div>
 <div class="section-header reveal"><div class="eyebrow" data-i="studioEye">ОДНА СТУДІЯ. БЕЗЛІЧ НАПРЯМІВ.</div><h2 data-html="studioTitle">Твій простір <span class="text-accent">створення.</span></h2><p data-i="studioIntro">Уяви середовище, де модель, пензель, камера та монтажна шкала працюють з одним творчим проєктом.</p></div>
 <div class="studio-grid" id="studioGrid">
 <div class="studio-card studio-lead reveal"><img src="assets/ui-02-3d-workspace.jpg" alt="Концепт 3D редактора" loading="lazy"><div class="info"><div class="tag">01 / 3D & PROCEDURAL</div><h3 data-i="s1t">Конструюй цілі світи</h3><p data-i="s1d">Моделі, скульптура, матеріали, освітлення, процедурні сцени та анімація.</p></div></div>
@@ -158,21 +170,39 @@ section{padding:112px 0}.section-header{margin-bottom:38px}
 <div class="studio-card reveal"><img src="assets/ui-04-editing.jpg" alt="Концепт відеоредактора" loading="lazy"><div class="info"><div class="tag">03 / VIDEO & MOTION</div><h3 data-i="s3t">Режисируй кожен кадр</h3><p data-i="s3d">Відеомонтаж, звук, колір і кінематографічні переходи.</p></div></div>
 </div></div></section>
 <div class="marquee" aria-hidden="true"><div><span>✧ IMAGINATION / COMPUTATION / CREATION ✧</span><span>ART MEETS MATHEMATICS ✧</span><span>PROCEDURAL WORLDS / VISUAL STORYTELLING ✧</span></div></div>
-<section id="gallery" class="gallery"><div class="container">
+<section id="gallery" class="gallery chapter"><div class="container">
 <div class="section-header reveal"><div class="eyebrow" data-i="galleryEye">ГАЛЕРЕЯ МОЖЛИВОСТЕЙ</div><h2 data-html="galleryTitle">14 світів. <span class="text-accent">14 ідей.</span></h2><p data-i="galleryIntro">Від небесних столиць до підводних цивілізацій. Кожна сцена — окремий напрям творчості й графічних досліджень.</p></div>
 <div class="gallery-tools" aria-label="Фільтри галереї"><button class="filter active" data-filter="all" data-i="all">Усі сцени</button><button class="filter" data-filter="worlds" data-i="worlds">Світи та міста</button><button class="filter" data-filter="characters" data-i="characters">Персонажі</button><button class="filter" data-filter="science" data-i="science">Космос і математика</button></div>
 <div class="gallery-grid" id="galleryGrid"></div>
 </div></section>
-<section id="algorithms" class="tech-cta"><div class="container">
+<section id="algorithms" class="tech-cta chapter"><div class="container">
 <div class="section-header reveal"><div class="eyebrow" data-i="techEye">ART × PHYSICS × CODE</div><h2 data-html="techTitle">Від мистецтва <span class="text-accent">до математики.</span></h2><p data-i="techIntro">Десять технологій комп’ютерної графіки. Від красивої сцени — до покрокового пояснення принципів, які можуть її створити.</p></div>
 <div class="alg-grid" id="algGrid"></div>
 </div></section>
-<section id="ai"><div class="container"><div class="vision-panel reveal"><div class="inner">
+<section id="ai" class="chapter"><div class="container"><div class="vision-panel reveal"><div class="inner">
 <div class="eyebrow" data-i="aiEye">ПАРТНЕР ДЛЯ ТВОРЧОСТІ</div><h2 data-html="aiTitle">Твоя ідея.<br><span class="text-accent">Інструменти ШІ.</span></h2>
 <p data-i="aiText">Майбутній AI-помічник зможе пояснювати складні речі, пропонувати композиції, будувати повторювані дії та працювати з інструментами студії — тільки через контрольовані команди й дозволи.</p>
 <div class="vision-features"><div data-i="ai1">◈ Локальні та хмарні моделі</div><div data-i="ai2">◇ Навички й автоматизація</div><div data-i="ai3">✧ Контроль художника</div></div>
 </div></div></div></section>
-<section id="status"><div class="container">
+<section id="journey" class="chapter" aria-labelledby="journeyTitle"><div class="container">
+<div class="section-header reveal"><div class="eyebrow" data-i="journeyEye">КАРТА РОЗВИТКУ / ENGINEERING ROADMAP</div>
+<h2 id="journeyTitle" data-html="journeyTitle">Від першого контракту <span class="text-accent">до власного всесвіту.</span></h2>
+<p data-i="journeyLead">Обери етап на інтерактивній шкалі: що досліджується зараз, що заплановано, а що ще заблоковано. Без вигаданих відсотків готовності.</p></div>
+<div class="roadmap-panel reveal">
+<div class="roadmap-legend"><span class="current"><i></i><span data-i="legendCurrent">Поточний етап</span></span><span class="future"><i></i><span data-i="legendFuture">Майбутній етап</span></span><span class="blocked"><i></i><span data-i="legendBlocked">Очікує попередніх етапів</span></span></div>
+<div class="roadmap-track" id="roadmapTrack" aria-label="Інтерактивна шкала розвитку проєкту"></div>
+<div class="phase-detail" id="phaseDetail" aria-live="polite"><div><span class="phase-status" id="phaseStatus"></span><h3 id="phaseTitle"></h3><p id="phaseDescription"></p></div><ul class="phase-tasks" id="phaseTasks"></ul></div>
+<p class="roadmap-disclaimer" data-i="roadmapNote">Джерело: дорожня карта DGC. Статус — якісний; відсотки завершення не заявляються. Прототипи не є готовим застосунком.</p>
+</div>
+<div class="more-info-grid">
+<article class="reveal"><h3 data-i="infoTitle1">Єдина творча модель</h3><p data-i="infoBody1">Спільні сцени, ресурси, матеріали та шкала часу мають поєднати 3D-моделювання, 2D-графіку, анімацію й відео в одному проєкті.</p></article>
+<article class="reveal"><h3 data-i="infoTitle2">Відтворюваність</h3><p data-i="infoBody2">Версіоновані формати, зрозуміла історія команд, детерміноване відтворення й контроль походження творчих ресурсів.</p></article>
+<article class="reveal"><h3 data-i="infoTitle3">Нативна продуктивність</h3><p data-i="infoBody3">Цільовий стек C++23, Qt 6, Vulkan/GLSL та окремі workers — після інструментальних перевірок, а не заради модних назв.</p></article>
+<article class="reveal"><h3 data-i="infoTitle4">Симуляції та графіка</h3><p data-i="infoBody4">Частинки, об’ємні середовища, матеріали, процедурна геометрія, оптика та наукова візуалізація — заплановані напрями.</p></article>
+<article class="reveal"><h3 data-i="infoTitle5">Людина керує ШІ</h3><p data-i="infoBody5">Агентні інструменти задумано як контрольовані команди з перевіркою дозволів, можливістю перегляду та відкату.</p></article>
+<article class="reveal"><h3 data-i="infoTitle6">Від ідеї до фільму</h3><p data-i="infoBody6">Мета — композиція, анімація, звук, монтаж, рендеринг і експорт, а не лише окремі красиві демонстрації.</p></article>
+</div></div></section>
+<section id="status" class="chapter"><div class="container">
 <div class="section-header reveal"><div class="eyebrow" data-i="statusEye">ПРОЄКТ У РОЗВИТКУ</div><h2 data-html="statusTitle">Велика мета.<br><span class="text-accent">Точна інженерія.</span></h2><p data-i="statusIntro">DIGITAL GOD COMPLEX зараз перебуває на етапі досліджень та проєктування. Ми розділяємо творчий задум і вже реалізовані можливості.</p></div>
 <div class="progress-steps">
 <article class="reveal"><div class="number">01</div><h3 data-i="phase1t">Архітектура</h3><p data-i="phase1d">Контракти, якість, безпека, модулі та технічні дослідження.</p></article>
@@ -294,5 +324,6 @@ document.querySelectorAll(".studio-card").forEach(card=>{
 if("IntersectionObserver"in window){const obs=new IntersectionObserver(entries=>{for(const x of entries){if(x.isIntersecting){x.target.classList.add("visible");obs.unobserve(x.target)}}},{threshold:.07});document.querySelectorAll(".reveal").forEach(x=>obs.observe(x))}else document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));
 let preferred="uk";try{if(localStorage.getItem("dgc-language")==="en")preferred="en"}catch(e){}setLang(preferred);
 </script>
+<script src="assets/experience.js" defer></script>
 </body>
 </html>
