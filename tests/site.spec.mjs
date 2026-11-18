@@ -83,3 +83,24 @@ test("five fixed CGI thumbnails, correct selection, golden borders",async({page}
  await expect(page.locator(".slide.active .gold-frame")).toHaveCount(6);
  await expect(page.locator(".slide.active .gold-frame").first()).toHaveCSS("border-top-style","solid");
 });
+
+
+test("selected stripe is twice as wide and its art slowly zooms in",async({page})=>{
+ await page.emulateMedia({reducedMotion:"no-preference"});
+ await page.setViewportSize({width:1728,height:864});
+ await page.goto("http://127.0.0.1:8787/");
+ const stripes=page.locator(".hero.active .stripe");
+ await expect(stripes).toHaveCount(5);
+ const first=await stripes.nth(0).boundingBox(),second=await stripes.nth(1).boundingBox();
+ expect(first.width).toBeGreaterThan(second.width*1.75);
+ const img=stripes.nth(0).locator(".stripe-image");
+ const animation=await img.evaluate(el=>el.getAnimations().map(a=>({duration:a.effect?.getTiming().duration,playState:a.playState})));
+ expect(animation.some(a=>a.duration>=8000&&a.playState==="running")).toBeTruthy();
+ await stripes.nth(2).click();
+ await expect(stripes.nth(2)).toHaveAttribute("aria-pressed","true");
+ await expect.poll(async()=>{
+  const active=await stripes.nth(2).boundingBox(),other=await stripes.nth(0).boundingBox();
+  return active.width/other.width;
+ },{timeout:3000}).toBeGreaterThan(1.75);
+ expect(await stripes.nth(2).locator(".stripe-random-glint").count()).toBe(1);
+});
