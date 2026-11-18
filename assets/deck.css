@@ -247,3 +247,33 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
 .hero-story h1 .hero-title-main{font-size:clamp(32px,3.3vw,53px)}
 .hero-story h1 em{font-size:clamp(41px,4vw,63px)!important}
 }
+
+/* FIX: .hero previously overrode .slide{position:absolute} and collapsed the
+   first slide to its content height, leaving a blank bottom half. */
+.slide.hero{
+  position:absolute!important;
+  inset:var(--head) 0 var(--foot)!important;
+  width:100%;
+  height:auto!important;
+  min-height:0!important;
+  overflow:hidden;
+}
+.slide.hero>.slide-wrap{height:100%;min-height:0}
+.slide.hero .hero-backdrop{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden;
+}
+.slide.hero .hero-backdrop .backdrop-image{
+  position:absolute!important;
+  inset:0!important;
+  display:block;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover;
+  object-position:center center;
+  transform:translate3d(0,0,0) scale(1.01);
+  will-change:transform;
+}
