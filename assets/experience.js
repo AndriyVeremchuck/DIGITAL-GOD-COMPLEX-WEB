@@ -67,8 +67,51 @@ function tick(){
 }
 window.addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(tick)},{passive:true});tick();
 if(heroDust && !reduce()){for(let i=0;i<22;i++){const mote=document.createElement("i");mote.style.left=(4+(i*41)%92)+"%";mote.style.top=(18+(i*37)%75)+"%";mote.style.setProperty("--dur",(11+(i%7)*3)+"s");mote.style.setProperty("--delay",(-i*.95)+"s");heroDust.append(mote)}}
-if(scrollTarget){scrollTarget.addEventListener("click",e=>{e.preventDefault();document.getElementById("studio")?.scrollIntoView({behavior:reduce()?"instant":"smooth",block:"start"})})}
-document.querySelectorAll('a[href^="#"]').forEach(a=>{if(a===scrollTarget)return;a.addEventListener("click",e=>{const id=a.getAttribute("href").slice(1);const target=document.getElementById(id);if(!target)return;e.preventDefault();target.scrollIntoView({behavior:reduce()?"instant":"smooth",block:"start"})})});
+// Exact chapter navigation: account for the fixed navigation and target the correct chapter.
+function goToChapter(id){
+ const dest=document.getElementById(id);
+ if(!dest)return;
+ const navHeight=Math.ceil(header?.getBoundingClientRect().height||80);
+ document.documentElement.style.setProperty("--nav-offset",(navHeight+12)+"px");
+ const documentTop=dest.getBoundingClientRect().top+window.scrollY;
+ const y=id==="top"?0:Math.max(0,documentTop-navHeight-12);
+ window.scrollTo({top:y,behavior:reduce()?"instant":"smooth"});
+ if(history.replaceState)history.replaceState(null,"","#"+id);
+}
+if(scrollTarget){scrollTarget.addEventListener("click",e=>{e.preventDefault();goToChapter("studio")})}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{if(a===scrollTarget)return;a.addEventListener("click",e=>{const id=a.getAttribute("href").slice(1);if(!document.getElementById(id))return;e.preventDefault();goToChapter(id)})});
+window.addEventListener("resize",()=>{document.documentElement.style.setProperty("--nav-offset",Math.ceil(header?.getBoundingClientRect().height||80)+12+"px")},{passive:true});
+document.documentElement.style.setProperty("--nav-offset",Math.ceil(header?.getBoundingClientRect().height||80)+12+"px");
+
+/* Restrained randomized golden reflections — only on-screen cards, never multiple simultaneous glints. */
+const glintSelector=".gallery-card,.alg-card,.studio-card,.metric,.progress-steps article,.more-info-grid article";
+let lastGlint=null,glintTimeout=null;
+function glintCycle(){
+ if(reduce()||document.hidden){glintTimeout=setTimeout(glintCycle,4200);return;}
+ const cards=[...document.querySelectorAll(glintSelector)].filter(el=>{
+   const r=el.getBoundingClientRect();
+   return r.width>60&&r.height>50&&r.bottom>100&&r.top<window.innerHeight-40;
+ });
+ const choices=cards.filter(el=>el!==lastGlint);
+ if(choices.length){
+   const card=choices[Math.floor(Math.random()*choices.length)];
+   lastGlint=card;
+   // Guard against stale nodes recreated by language switch or gallery filters.
+   let light=card.querySelector(":scope > .edge-glint");
+   if(!light){light=document.createElement("span");light.className="edge-glint";light.setAttribute("aria-hidden","true");card.append(light);}
+   const angle=Math.floor(Math.random()*360);
+   const rad=angle*Math.PI/180;
+   light.style.setProperty("--glint-angle",angle+"deg");
+   light.style.setProperty("--glint-x",(50+50*Math.cos(rad))+"%");
+   light.style.setProperty("--glint-y",(50+50*Math.sin(rad))+"%");
+   light.classList.remove("active");
+   void light.offsetWidth;
+   light.classList.add("active");
+   light.addEventListener("animationend",()=>light.classList.remove("active"),{once:true});
+ }
+ glintTimeout=setTimeout(glintCycle,3200+Math.random()*2400);
+}
+glintTimeout=setTimeout(glintCycle,1800);
 if("IntersectionObserver"in window){
 const revealObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){entry.target.classList.add("visible");revealObserver.unobserve(entry.target)}}},{threshold:.10,rootMargin:"0px 0px -35px 0px"});
 document.querySelectorAll(".more-info-grid .reveal,.chapter-index.reveal,.roadmap-panel.reveal").forEach(el=>revealObserver.observe(el));
