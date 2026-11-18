@@ -277,3 +277,16 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
   transform:translate3d(0,0,0) scale(1.01);
   will-change:transform;
 }
+
+
+/* Selected CGI control must look unmistakably different from inactive ones. */
+.hero-stripes .stripe{isolation:isolate;opacity:.79;transition:opacity .4s ease,filter .4s ease,flex-grow .6s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease!important}
+.hero-stripes .stripe.chosen{opacity:1!important;filter:brightness(1.23) saturate(1.2)!important;border-color:#ffe3a8!important;box-shadow:inset 0 0 24px #ffc97580,0 0 0 2px #ffdb8bc7,0 0 34px #f5bd6f9c!important;z-index:3}
+.hero-stripes .stripe:not(.chosen){filter:brightness(.67) saturate(.8)!important}
+.hero-stripes .stripe:not(.chosen):hover,.hero-stripes .stripe:not(.chosen):focus-visible{opacity:1;filter:brightness(1.14) saturate(1.12)!important}
+.hero-stripes .stripe-active-marker{position:absolute;top:7%;left:50%;transform:translateX(-50%) skewX(12deg);height:27px;width:27px;z-index:9;border-radius:50%;border:1px solid #ffe6bb;background:#a9793888;box-shadow:0 0 18px #ffc775;opacity:0;transition:opacity .35s}
+.hero-stripes .stripe-active-marker::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;font:700 15px Georgia,serif;color:#fff3d5}
+.hero-stripes .stripe.chosen .stripe-active-marker{opacity:1}
+.hero-stripes .stripe.preview-changing .stripe-image{animation:stripe-preview-pulse 750ms cubic-bezier(.2,.8,.2,1)}
+@keyframes stripe-preview-pulse{0%{filter:brightness(1.8) saturate(1.25);opacity:.35}100%{filter:brightness(1.03) saturate(1.16);opacity:1}}
+@media(prefers-reduced-motion:reduce){.hero-stripes .stripe.preview-changing .stripe-image{animation:none!important}}
