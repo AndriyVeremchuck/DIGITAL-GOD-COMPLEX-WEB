@@ -72,136 +72,77 @@ function drawCards(kind,items,page,total){
   const grid=elem("div","visual-grid two"+(isAlgorithms?" tech-grid":""));items.forEach(s=>grid.append(makeCard(s,s.no)));parent.append(grid);
  });
 }
+/* The front page is a procedural shader showreel, not a static image gallery. */
+let effectRenderer=null;
+let activeStripeSlot=0,lastManualStripeAt=0;
+const effectLabels=[
+ ["Енергетичний портал","Energy Portal"],
+ ["Космічна туманність","Cosmic Nebula"],
+ ["Рідкі кристали","Liquid Crystal"],
+ ["Золота геометрія","Golden Geometry"],
+ ["Об'ємний храм","Volumetric Temple"]
+];
 function intro(){
  makeSlide("home",0,(parent,outer)=>{
   const backdrop=elem("div","hero-backdrop");backdrop.setAttribute("aria-hidden","true");
-  const first=elem("img","backdrop-image is-current"),second=elem("img","backdrop-image is-next");
-  first.src="assets/"+stripeSrc[0];first.alt="";first.fetchPriority="high";first.decoding="async";
-  second.alt="";second.decoding="async";backdrop.append(first,second);outer.insertBefore(backdrop,outer.firstChild);
-  const stripes=elem("div","hero-stripes");stripes.id="stripes";stripes.setAttribute("role","group");
-  stripes.setAttribute("aria-label",t().stripeHint);outer.insertBefore(stripes,outer.firstChild.nextSibling);
+  const fallback=elem("img","shader-fallback");fallback.src="assets/05-portal-metropolis.jpg";fallback.alt="";fallback.fetchPriority="high";
+  const canvas=elem("canvas","hero-shader");canvas.setAttribute("aria-hidden","true");
+  backdrop.append(fallback,canvas);outer.insertBefore(backdrop,outer.firstChild);
+  const stripes=elem("div","hero-stripes shader-selectors");stripes.id="stripes";
+  stripes.setAttribute("role","group");
+  stripes.setAttribute("aria-label",ix()===0?"Виберіть CGI-ефект":"Choose a CGI effect");
+  outer.insertBefore(stripes,backdrop.nextSibling);
   const card=elem("div","hero-story panel");
   card.append(elem("div","slide-identity",t().eyebrow));
   const h=elem("h1");h.innerHTML=t().heroTitle;card.append(h);
   card.append(elem("p","hero-intro",t().heroDesc));
   const actions=elem("div","hero-actions"),cta=elem("button","action primary",t().heroCTA);
   cta.addEventListener("click",()=>go(1));actions.append(cta);card.append(actions);
-  card.append(elem("p","hero-warning",t().heroNote));
-  parent.append(card);
+  card.append(elem("p","hero-warning",t().heroNote));parent.append(card);
   buildStripes(stripes);
-  homeBackdropIndex=0;homeTransitioning=false;homeQueuedIndex=null;activeStripeSlot=0;lastManualStripeAt=Date.now();
+  activeStripeSlot=0;lastManualStripeAt=Date.now();
  },true);
-}
-const stripeSrc=["05-portal-metropolis.jpg","08-orbital-fractal.jpg","07-celestial-guardian.jpg","12-elemental-simulation.jpg","01-celestial-city.jpg","14-sunken-civilization.jpg","10-menger-architecture.jpg","11-chronocrystal-garden.jpg","03-angelic-android.jpg","06-bioluminescent-cavern.jpg","13-digital-characters.jpg","04-fractal-cosmos.jpg"];
-let homeBackdropIndex=0,homeTransitioning=false,homeQueuedIndex=null;
-let activeStripeSlot=0,lastManualStripeAt=0;
-const stripeLabels=[
-["Архітектура порталів","Portal Metropolis"],
-["Орбітальна сингулярність","Orbital Singularity"],
-["Охоронець храму","Temple Guardian"],
-["Буря стихій","Elemental Storm"],
-["Небесна столиця","Celestial City"],
-["Затонула цивілізація","Sunken Civilization"],
-["Математична архітектура","Mathematical Architecture"],
-["Хронокристалічний сад","Chronocrystal Garden"],
-["Механічний янгол","Mechanical Angel"],
-["Біолюмінесцентний світ","Bioluminescent World"],
-["Цифрові персонажі","Digital Characters"],
-["Фрактальний космос","Fractal Cosmos"]
-];
-function labelStripe(button){
- const index=Number(button.dataset.imageIndex);
- const label=stripeLabels[index]||stripeLabels[0];
- button.setAttribute("aria-label",label[ix()]+". "+t().stripeHint);
- button.title=label[ix()];
 }
 function buildStripes(root){
  for(let i=0;i<5;i++){
   const button=elem("button","stripe"+(i===0?" chosen":""));
-  button.type="button";
-  button.dataset.slot=String(i);
-  button.dataset.imageIndex=String(i);
-  const image=elem("img","stripe-image");
-  image.src="assets/"+stripeSrc[i];
-  image.alt="";image.decoding="async";
-  const badge=elem("span","stripe-number","0"+(i+1));
-  const glint=elem("span","stripe-random-glint");glint.setAttribute("aria-hidden","true");
-  button.append(image,badge,glint);
-  labelStripe(button);
+  button.type="button";button.dataset.slot=String(i);
   button.setAttribute("aria-pressed",String(i===0));
-  const choose=()=>{lastManualStripeAt=Date.now();selectBackdrop(i,i)};
-  button.addEventListener("pointerenter",event=>{if(event.pointerType==="mouse"||event.pointerType==="pen")choose()});
-  button.addEventListener("focus",()=>{if(root.isConnected)choose()});
-  button.addEventListener("click",choose);
+  button.setAttribute("aria-label",effectLabels[i][ix()]);
+  button.title=effectLabels[i][ix()];
+  const symbol=elem("span","shader-symbol",["◎","✦","≋","◇","⌘"][i]);
+  const number=elem("span","stripe-number","0"+(i+1));
+  const glint=elem("span","stripe-random-glint");glint.setAttribute("aria-hidden","true");
+  button.append(symbol,number,glint);
+  // Intentionally NO pointerenter/focus selection: ONLY click changes a scene.
+  button.addEventListener("click",()=>{
+   lastManualStripeAt=Date.now();
+   selectBackdrop(i,i);
+  });
   root.append(button);
  }
 }
-function syncStripes(chosenSlot,imageIndex){
+function syncStripes(chosenSlot){
  const root=byId("stripes");if(!root)return;
  activeStripeSlot=chosenSlot;
  $$(".stripe",root).forEach(button=>{
-  const selected=Number(button.dataset.slot)===chosenSlot;
+  const i=Number(button.dataset.slot),selected=i===chosenSlot;
   button.classList.toggle("chosen",selected);
   button.setAttribute("aria-pressed",String(selected));
-  // Do not mutate button.dataset.imageIndex or its image src.
-  labelStripe(button);
  });
 }
-function selectBackdrop(index,selectedSlot=index%5){
- const hero=$(".hero",deck);
- if(!hero || !stripeSrc[index])return;
- if(homeTransitioning){
-  homeQueuedIndex={index,selectedSlot};
-  syncStripes(selectedSlot,index);
-  return;
+function mountHeroShader(){
+ if(effectRenderer){effectRenderer.destroy();effectRenderer=null;}
+ const canvas=$(".hero .hero-shader",deck);
+ if(canvas && window.DGCEffects){
+  effectRenderer=window.DGCEffects.mount(canvas);
+  if(effectRenderer)effectRenderer.setEffect(activeStripeSlot);
  }
- if(index===homeBackdropIndex){syncStripes(selectedSlot,index);return}
- // Start both width transitions NOW, while the two background images move.
- syncStripes(selectedSlot,index);
- const current=$(".hero-backdrop .is-current",hero);
- const incoming=$(".hero-backdrop .is-next",hero);
- if(!current||!incoming)return;
- homeTransitioning=true;
- const asset="assets/"+stripeSrc[index],loader=new Image();
- let completed=false;
- const complete=()=>{
-  if(completed)return;completed=true;
-  if(current.isConnected&&incoming.isConnected){
-   current.src=asset;
-   current.style.opacity="1";
-   incoming.style.opacity="0";
-   incoming.removeAttribute("src");
-   current.style.zIndex="";incoming.style.zIndex="";
-  }
-  homeBackdropIndex=index;homeTransitioning=false;
-  const pending=homeQueuedIndex;homeQueuedIndex=null;
-  if(pending && pending.index!==homeBackdropIndex){
-   selectBackdrop(pending.index,pending.selectedSlot);
-  }else{
-   syncStripes(pending?pending.selectedSlot:selectedSlot,pending?pending.index:index);
-  }
- };
- loader.onload=()=>{
-  if(!hero.isConnected){homeTransitioning=false;return}
-  incoming.src=asset;incoming.style.opacity="1";
-  incoming.style.zIndex="3";current.style.zIndex="2";
-  if(reduce()||typeof incoming.animate!=="function"||typeof current.animate!=="function"){complete();return}
-  const options={duration:1100,easing:"cubic-bezier(.42,0,.18,1)",fill:"both"};
-  const leaving=current.animate([
-   {transform:"translate3d(0,0,0) scale(1.01)"},
-   {transform:"translate3d(100%,0,0) scale(1.01)"}
-  ],options);
-  const arriving=incoming.animate([
-   {transform:"translate3d(-100%,0,0) scale(1.01)"},
-   {transform:"translate3d(0,0,0) scale(1.01)"}
-  ],options);
-  Promise.allSettled([leaving.finished,arriving.finished]).then(()=>{
-   complete();
-   leaving.cancel();arriving.cancel();
-  });
- };
- loader.onerror=()=>{homeTransitioning=false;homeQueuedIndex=null};
- loader.src=asset;
+}
+function selectBackdrop(index,selectedSlot=index){
+ if(index<0||index>4)return;
+ syncStripes(selectedSlot);
+ effectRenderer?.setEffect(index);
 }
 function rotateStripe(button){
  if(!button)return;
@@ -253,6 +194,7 @@ function decorateGoldCards(){
  });
 }
 function renderSlides(preserve){
+ if(effectRenderer){effectRenderer.destroy();effectRenderer=null;}
  const old=slides[current]||null;const key=preserve?.key||old?.key||"home",page=preserve?.page??old?.page??0;
  groupSize=preferredGroup();deck.replaceChildren();slides=[];
  intro();overview();chunks(studios,groupSize).forEach((s,i,a)=>drawCards("studio",s,i,a.length));
@@ -266,6 +208,7 @@ function renderSlides(preserve){
  decorateGoldCards();
  renderPhase();
  updateUI();
+ mountHeroShader();
 }
 function go(i){
  if(i<0||i>=slides.length||i===current||byId("viewer").classList.contains("open"))return;
@@ -345,7 +288,7 @@ try{if(localStorage.getItem("dgc.lang")==="en")lang="en"}catch(e){}
 document.documentElement.lang=lang;
 renderSlides();
 const hash=location.hash.slice(1);if(hash){const i=slides.findIndex(s=>s.node.id===hash||s.key===hash);if(i>=0){slides[current].node.classList.remove("active");current=i;slides[current].node.classList.add("active");updateUI()}}
-cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000||homeTransitioning)return;const bs=document.querySelectorAll(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},6500);
+cycleTimer=setInterval(()=>{if(slides[current]?.key!=="home"||document.hidden||reduce()||Date.now()-lastManualStripeAt<15000)return;const bs=document.querySelectorAll(".hero.active .stripe");if(bs.length){const nextSlot=(activeStripeSlot+1)%bs.length;rotateStripe(bs[nextSlot]);autocycle++}},7500);
 glowTimer=setInterval(glow,3600);
 // Occasionally sweep a pinpoint golden beam along the ACTIVE control only.
 let lastStripeSpark=0;
