@@ -792,3 +792,59 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
  .slide.hero .shader-selectors .stripe,.slide.hero .shader-selectors .stripe .shader-symbol{transition:none!important}
  .slide.hero .hero-shader{transition:none!important}
 }
+
+
+/* Cinematic double-buffer video carousel. Fullscreen CGI footage is primary;
+   five poster images are visible only while footage is unavailable/loading.
+   Layout keeps the same title, gold selectors and navigation. */
+.slide.hero .hero-backdrop.cinematic-carousel{
+ position:absolute!important;inset:0!important;display:block;
+ overflow:hidden!important;pointer-events:none;isolation:isolate;background:#070d1a;
+}
+.slide.hero .cinematic-carousel .cinema-layer{
+ position:absolute;inset:0;width:100%;height:100%;
+ opacity:0;overflow:hidden;pointer-events:none;z-index:1;
+ will-change:opacity;transform:translateZ(0);
+}
+.slide.hero .cinematic-carousel .cinema-layer.is-active{opacity:1}
+.slide.hero .cinematic-carousel .cinema-image,
+.slide.hero .cinematic-carousel .cinema-video{
+ position:absolute!important;inset:0!important;
+ display:block;width:100%!important;height:100%!important;
+ object-fit:cover;object-position:center;
+ transform:none!important;
+}
+.slide.hero .cinematic-carousel .cinema-image{
+ z-index:0;filter:saturate(1.10) brightness(.88);opacity:1;
+ transition:opacity 500ms ease;
+}
+.slide.hero .cinematic-carousel .cinema-video{
+ z-index:1;opacity:0;filter:saturate(1.08) contrast(1.07);
+ transition:opacity 500ms ease;
+}
+.slide.hero .cinematic-carousel .cinema-layer.has-video .cinema-video{opacity:1}
+.slide.hero .cinematic-carousel .cinema-layer.has-video .cinema-image{opacity:0}
+.slide.hero .cinematic-carousel:after{
+ content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
+ background:linear-gradient(90deg,rgba(2,7,19,.43),rgba(3,8,21,.07) 58%,rgba(3,9,23,.07)),
+ linear-gradient(0deg,rgba(2,6,19,.26),transparent 25%,transparent 78%,rgba(2,6,19,.2));
+}
+.slide.hero .shader-selectors .stripe{position:relative}
+.slide.hero .shader-selectors .stripe .cinema-strip-image{
+ position:absolute;inset:0;width:100%;height:100%;
+ object-fit:cover;object-position:center;
+ opacity:.63;filter:saturate(.78) brightness(.7);
+ transition:opacity .6s ease,filter .6s ease,scale 2s ease;
+}
+.slide.hero .shader-selectors .stripe.chosen .cinema-strip-image{
+ opacity:.95;filter:saturate(1.22) brightness(1.1);scale:1.1;
+}
+.slide.hero .shader-selectors .stripe .stripe-number{
+ z-index:6;text-shadow:0 2px 7px #000,0 0 9px #fdd59f;
+}
+.slide.hero .shader-selectors .stripe::before{z-index:3}
+@media(prefers-reduced-motion:reduce){
+ .slide.hero .cinema-layer,.slide.hero .cinema-image,.slide.hero .cinema-video{
+ transition:none!important;animation:none!important;
+ }
+}
