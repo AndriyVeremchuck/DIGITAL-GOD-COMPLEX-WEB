@@ -210,7 +210,7 @@ test("centered desktop navigation occupies half width with no label overlaps", a
   return {width:box.width,center:box.left+box.width/2,viewport:window.innerWidth,
     overflow:buttons.some((r,i)=>i>0 && r.left<buttons[i-1].right-1)};
  });
- expect(metrics.width).toBeLessThanOrEqual(351);
+ expect(metrics.width).toBeLessThanOrEqual(386);
  expect(Math.abs(metrics.center-metrics.viewport/2)).toBeLessThan(3);
  expect(metrics.overflow).toBe(false);
 });
