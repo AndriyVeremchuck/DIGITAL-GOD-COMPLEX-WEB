@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090e1b">
+<meta name="description" content="DIGITAL GOD COMPLEX — концепт цифрової студії майбутнього: 3D, 2D, CGI, анімація, VFX, монтаж та AI. 14 кінематографічних сцен і 10 технологій графіки.">
+<meta property="og:title" content="DIGITAL GOD COMPLEX — Створюй світи без меж">
+<meta property="og:description" content="Інтерактивна презентація майбутньої цифрової студії. 14 CGI-сцен та 10 візуалізацій алгоритмів.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/01-celestial-city.jpg">
+<title>DIGITAL GOD COMPLEX — творча студія майбутнього</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#080c17;--bg2:#0d1424;--surface:#111b2d;--outline:rgba(177,204,255,.18);--text:#f6f7ff;--muted:#acb9d0;--cyan:#71e6ff;--violet:#9a80ff;--gold:#e9c18e;--max:1440px;--radius:22px;--ease:cubic-bezier(.22,1,.36,1)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,Arial,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.22;background:radial-gradient(ellipse at 13% 20%,#1e3d7d 0%,transparent 38%),radial-gradient(ellipse at 85% 80%,#45235a 0%,transparent 39%)}
+button,a{font:inherit}a{color:inherit;text-decoration:none}button{cursor:pointer}
+img{display:block;width:100%;height:auto}::selection{background:#a88fff;color:#081020}
+.container{width:min(calc(100% - 48px),var(--max));margin:auto}
+.skip{position:absolute;left:10px;top:-80px;background:white;color:black;z-index:200;padding:12px}.skip:focus{top:10px}
+.header{position:fixed;z-index:50;top:0;left:0;right:0;background:rgba(7,12,23,.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(171,202,248,.1);transition:background .3s}
+.nav{display:flex;align-items:center;gap:34px;height:80px}.brand{display:flex;align-items:center;gap:12px;min-width:0;white-space:nowrap}
+.brand-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(126,228,255,.5);border-radius:12px;color:var(--cyan);font:800 30px 'Space Grotesk',sans-serif;box-shadow:inset 0 0 18px rgba(98,215,255,.16),0 0 18px rgba(92,217,255,.1)}
+.brand-copy{font:700 clamp(13px,1.35vw,18px) 'Space Grotesk',sans-serif;letter-spacing:.16em;line-height:1.1}
+.brand-copy small{display:block;font:500 9px Manrope,sans-serif;color:#aabfdb;letter-spacing:.31em;margin-top:4px}
+.nav-links{display:flex;align-items:center;gap:30px;margin-left:auto;white-space:nowrap}
+.nav-links a{font-size:13px;font-weight:700;color:#c7d6e9;transition:color .2s}.nav-links a:hover,.nav-links a:focus-visible{color:var(--cyan)}
+.nav-right{display:flex;gap:12px;align-items:center}
+.lang-switch{display:flex;align-items:center;border:1px solid rgba(169,199,249,.25);border-radius:99px;padding:3px}
+.lang-switch button{border:0;background:transparent;color:#93a7c3;padding:6px 11px;font-size:12px;font-weight:800;border-radius:99px}
+.lang-switch button.active{background:#2a3b5f;color:#f5ffff}
+.menu-button{display:none;border:1px solid var(--outline);background:#111c30;border-radius:10px;padding:9px 12px;color:white}
+.hero{position:relative;isolation:isolate;min-height:820px;display:flex;align-items:center;padding:155px 0 115px;overflow:hidden}
+.hero::before{content:"";z-index:-2;position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,23,.98) 0%,rgba(5,10,23,.91) 25%,rgba(5,10,23,.64) 56%,rgba(5,10,23,.28) 100%),linear-gradient(0deg,#080c17 0%,transparent 35%),url('assets/01-celestial-city.jpg') center right/cover no-repeat}
+.hero::after{content:"";z-index:-1;position:absolute;inset:0;background:radial-gradient(ellipse at 62% 48%,rgba(69,86,197,.08),transparent 45%),linear-gradient(0deg,#080c17 0%,transparent 23%)}
+.hero-content{max-width:820px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:800 12px 'Space Grotesk',sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan)}
+.eyebrow:before{content:"";height:7px;width:7px;display:inline-block;border-radius:50%;background:#71e6ff;box-shadow:0 0 16px #71e6ff}
+.hero h1{font:700 clamp(60px,8vw,126px)/.98 'Space Grotesk',sans-serif;letter-spacing:-.067em;max-width:850px;margin:29px 0 28px;text-wrap:balance}
+.hero h1 span{background:linear-gradient(105deg,#e6ebff 4%,#85e7ff 48%,#ad8eff 87%);color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(17px,2.1vw,22px);color:#d1dded;max-width:610px;margin:0 0 34px}
+.hero-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:10px;color:#c6ccdf;font-size:12px;letter-spacing:.07em}
+.hero-kicker span{background:rgba(19,32,55,.78);border:1px solid rgba(180,211,255,.15);border-radius:30px;padding:9px 13px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin:36px 0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 23px;border-radius:14px;font-weight:800;font-size:14px;border:1px solid transparent;transition:transform .25s var(--ease),background .25s}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{color:#07101e;background:linear-gradient(110deg,#81ecfa,#a29bff);box-shadow:0 13px 35px rgba(85,171,255,.21)}
+.btn-secondary{border-color:rgba(176,205,248,.33);background:rgba(14,25,43,.67)}
+.hero-note{font-size:12px;color:#a5b7d1;max-width:590px}
+.metrics{position:relative;z-index:2;margin-top:-60px;display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.metric{padding:26px 27px;min-height:134px;border:1px solid var(--outline);border-radius:18px;background:linear-gradient(136deg,rgba(21,36,59,.96),rgba(13,22,39,.97));box-shadow:0 23px 55px rgba(0,0,0,.22)}
+.metric b{display:block;font:700 34px 'Space Grotesk',sans-serif;color:#f0ecff}.metric span{font-size:12px;color:#acbdd6;letter-spacing:.04em}
+section{padding:112px 0}.section-header{margin-bottom:38px}
+.section-header h2{font:700 clamp(34px,4.4vw,64px)/1.09 'Space Grotesk',sans-serif;letter-spacing:-.045em;margin:15px 0 15px;max-width:870px}
+.section-header p{color:var(--muted);font-size:16px;max-width:730px;margin:0}
+.text-accent{background:linear-gradient(110deg,#86e4f8,#bf9bff);background-clip:text;color:transparent}
+.studio-grid{display:grid;grid-template-columns:1.25fr .95fr;gap:20px}
+.studio-lead{grid-row:span 2}
+.studio-card{position:relative;isolation:isolate;overflow:hidden;min-height:272px;border:1px solid var(--outline);border-radius:var(--radius);background:#121b2e;box-shadow:0 20px 50px rgba(0,0,0,.16)}
+.studio-lead{min-height:570px}.studio-card img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .75s var(--ease)}
+.studio-card:hover img{transform:scale(1.06)}
+.studio-card:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,9,20,.98),rgba(5,9,20,.18) 64%,transparent)}
+.studio-card .info{position:absolute;z-index:2;bottom:0;left:0;right:0;padding:28px}
+.studio-card h3{font:700 27px 'Space Grotesk',sans-serif;letter-spacing:-.03em;margin:5px 0}.studio-card p{font-size:13px;color:#cbd8e9;max-width:470px;margin:0}
+.studio-card .tag{color:#83eaff;font-weight:800;letter-spacing:.19em;font-size:10px}
+.marquee{overflow:hidden;position:relative;border-block:1px solid rgba(158,189,244,.12);padding:19px 0;white-space:nowrap;color:#7891b6;font:700 13px 'Space Grotesk',sans-serif;letter-spacing:.21em}
+.marquee div{display:flex;justify-content:space-around;gap:20px}
+.gallery{background:linear-gradient(180deg,rgba(13,21,38,.62),rgba(8,12,23,.96))}
+.gallery-tools{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0 0 27px}
+.filter{border:1px solid rgba(172,201,251,.22);background:#152039;color:#c6d4ea;font-size:12px;border-radius:999px;padding:10px 17px;font-weight:700}
+.filter.active,.filter:hover{background:linear-gradient(110deg,rgba(90,190,237,.24),rgba(148,112,252,.2));border-color:rgba(138,227,250,.67);color:#fff}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.gallery-card{border:1px solid rgba(169,195,242,.18);border-radius:18px;overflow:hidden;min-width:0;background:linear-gradient(160deg,#16223a,#0d1424);transition:transform .3s var(--ease),border-color .25s;cursor:pointer;display:flex;flex-direction:column;text-align:left;padding:0;color:inherit}
+.gallery-card:hover{transform:translateY(-6px);border-color:rgba(143,222,254,.65)}
+.gallery-card .shot{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(120deg,#0c2442,#1d1734)}.gallery-card .shot img{height:100%;object-fit:cover;transition:transform .55s var(--ease)}.gallery-card:hover img{transform:scale(1.065)}
+.gallery-card .shot:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,12,23,.4),transparent 60%)}
+.gallery-card .shot span{position:absolute;z-index:1;top:13px;left:13px;color:#fff;background:rgba(6,15,31,.77);border:1px solid rgba(170,215,248,.3);backdrop-filter:blur(12px);padding:6px 11px;border-radius:9px;font:700 11px 'Space Grotesk',sans-serif}
+.gallery-card .details{padding:23px 24px 25px;flex:1;border-top:1px solid rgba(138,210,255,.15)}.gallery-card h3{font:700 19px/1.3 'Space Grotesk',sans-serif;margin:0 0 9px;letter-spacing:-.02em}.gallery-card p{font-size:13px;color:#b5c9e3;margin:0 0 17px;min-height:40px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:10px;letter-spacing:.02em;border:1px solid rgba(166,202,247,.16);border-radius:7px;background:#1b2a43;padding:5px 9px;color:#c2d2eb}
+.tech-cta{padding-top:105px}.alg-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.alg-card{position:relative;overflow:hidden;background:linear-gradient(140deg,#15223b,#0c1527);border:1px solid rgba(166,194,247,.22);border-radius:20px}
+.alg-card .art{position:relative;aspect-ratio:1.85;overflow:hidden}.alg-card .art img{height:100%;object-fit:cover;transition:transform .6s var(--ease)}.alg-card:hover .art img{transform:scale(1.035)}
+.alg-card .meta{padding:24px 27px 28px}.alg-card small{color:#8ee7f9;letter-spacing:.14em;font-weight:800;font-size:11px}
+.alg-card h3{font:700 22px 'Space Grotesk',sans-serif;margin:10px 0}.alg-card p{font-size:13px;color:#b6c7dd;margin:0}
+.alg-card .step-dot{position:absolute;top:16px;left:16px;z-index:2;font:700 16px 'Space Grotesk';border-radius:12px;background:#111b2bd9;border:1px solid #7e9fcb6b;padding:8px 13px;color:#e2d5ff}
+.vision-panel{position:relative;border:1px solid #739cd53b;overflow:hidden;border-radius:28px;background:linear-gradient(108deg,#111e35dd,#20213bb9),url('assets/13-digital-characters.jpg') center/cover;min-height:440px;display:flex;align-items:center;padding:60px}
+.vision-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,17,34,.96),rgba(11,17,34,.7) 50%,rgba(11,17,34,.05))}
+.vision-panel .inner{position:relative;z-index:2;max-width:680px}.vision-panel h2{font:700 clamp(38px,5vw,65px)/1.12 'Space Grotesk';margin:16px 0 18px;letter-spacing:-.04em}.vision-panel p{color:#d3dcef}
+.vision-features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px}
+.vision-features div{border:1px solid #97b9ef3f;background:#111e32b8;padding:15px 13px;border-radius:12px;font-size:12px;font-weight:800;color:#d7e5fa}
+.progress-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.progress-steps article{padding:28px;background:#111c31;border:1px solid var(--outline);border-radius:16px}
+.progress-steps .number{font:700 42px 'Space Grotesk',sans-serif;color:#627fba}.progress-steps h3{font-size:18px;margin:12px 0 7px}.progress-steps p{font-size:13px;color:#aabbcf;margin:0}
+.status-ribbon{margin-top:22px;padding:20px 24px;border:1px solid #8fa9e15c;border-radius:14px;background:#12203b;color:#c6d6ed;font-size:13px}
+.footer{border-top:1px solid var(--outline);padding:42px 0;background:#090e19}.footer-content{display:flex;justify-content:space-between;gap:30px;align-items:center;flex-wrap:wrap}.footer p{font-size:12px;color:#99afc7;max-width:680px}.footer strong{font-family:'Space Grotesk',sans-serif;letter-spacing:.16em}
+/* Full-window proportional image viewer with FLIP opening/closing animations. */
+.studio-card{cursor:zoom-in}
+.studio-card:focus-visible,.gallery-card:focus-visible,.alg-card:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
+.viewer{position:fixed;inset:0;margin:0;padding:20px 24px;border:0;width:100vw;height:100dvh;max-width:none;max-height:none;background:rgba(4,8,19,.96);color:white;overflow:hidden;overscroll-behavior:contain}
+.viewer[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.viewer::backdrop{background:rgba(0,0,0,.87)}
+.viewer img{display:block;max-width:calc(100vw - 48px);max-height:calc(100dvh - 125px);object-fit:contain;border-radius:9px;box-shadow:0 20px 65px rgba(0,0,0,.5);cursor:zoom-out;will-change:transform}
+.viewer-info{width:min(980px,100%);text-align:center;padding:0 10px}
+.viewer-info h3{font:700 clamp(17px,2.8vw,25px) 'Space Grotesk',sans-serif;margin:0 0 5px}
+.viewer-info p{font-size:clamp(11px,1.6vw,14px);color:#bac9dd;margin:0}
+.viewer-close{position:fixed;top:13px;right:20px;z-index:4;border:1px solid #d1d6f555;background:#0a1229e3;color:white;padding:8px 15px;border-radius:11px;font-size:22px;cursor:pointer}
+.viewer-close:hover{background:#25385c}
+@media(max-height:520px){.viewer[open]{gap:5px}.viewer-info p{display:none}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}.reveal.visible{opacity:1;transform:none}
+@media(max-width:1120px){.brand-copy{font-size:13px}.nav-links{gap:16px}.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){.container{width:min(calc(100% - 32px),var(--max))}.nav{height:69px}.menu-button{display:block}.nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:#10192c;flex-direction:column;align-items:stretch;padding:14px 24px 23px;border-bottom:1px solid var(--outline)}.nav-links.open{display:flex}.nav-right{margin-left:auto}.hero{min-height:720px;padding:125px 0 100px}.hero::before{background:linear-gradient(90deg,rgba(5,10,23,.96),rgba(5,10,23,.6)),linear-gradient(0deg,#080c17,transparent 30%),url('assets/01-celestial-city.jpg') 60% center/cover}.hero h1{font-size:clamp(54px,11vw,84px)}.metrics{grid-template-columns:repeat(2,1fr)}section{padding:85px 0}.studio-grid{grid-template-columns:1fr 1fr}.studio-lead{grid-row:auto;grid-column:span 2;min-height:440px}.gallery-grid{grid-template-columns:repeat(2,1fr)}.vision-panel{padding:40px 30px}.progress-steps{grid-template-columns:1fr}}
+@media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.brand-copy{font-size:11px}.brand-copy small{display:none}.brand-mark{width:38px;height:38px}.hero h1{font-size:clamp(47px,14vw,69px)}.hero-sub{font-size:16px}.metric{padding:20px}.metric b{font-size:29px}.studio-grid,.alg-grid{grid-template-columns:1fr}.studio-lead{grid-column:auto;min-height:320px}.studio-card{min-height:280px}.gallery-grid{gap:10px}.gallery-card .shot{aspect-ratio:16/10}.gallery-card .details{padding:14px}.gallery-card h3{font-size:14px}.gallery-card p{font-size:11px;min-height:0}.chip{font-size:9px}.vision-panel{padding:35px 23px}.vision-features{grid-template-columns:1fr}.section-header h2{font-size:37px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+
+.gallery-card{box-shadow:0 18px 42px rgba(0,0,0,.17)}
+.gallery-card:nth-child(3n + 1){border-color:rgba(105,219,253,.28)}
+.gallery-card:nth-child(3n + 2){border-color:rgba(164,125,245,.26)}
+.gallery-card:nth-child(3n + 3){border-color:rgba(236,188,124,.26)}
+.gallery-card .shot img{filter:saturate(1.1) contrast(1.055);image-rendering:auto}
+.gallery-card .shot:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 33px rgba(4,8,19,.22)}
+.gallery-card .shot>span{z-index:2!important}
+.gallery-card:hover{box-shadow:0 24px 64px rgba(38,64,125,.26)}
+.missing-shot{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;color:#b1d6e8;background:linear-gradient(135deg,#0e1c34,#221832)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти до вмісту</a>
+<header class="header" id="siteHeader"><div class="container nav">
+<a class="brand" href="#top" aria-label="DIGITAL GOD COMPLEX — головна">
+<span class="brand-mark">◇</span><span class="brand-copy">DIGITAL GOD<br>COMPLEX<small>CREATIVE UNIVERSE</small></span></a>
+<nav class="nav-links" id="mainNav" aria-label="Головна навігація">
+<a href="#studio" data-i="navStudio">Студія</a><a href="#gallery" data-i="navGallery">Галерея</a><a href="#algorithms" data-i="navTech">Технології</a><a href="#ai" data-i="navAI">ШІ</a><a href="#status" data-i="navStatus">Проєкт</a></nav>
+<div class="nav-right"><div class="lang-switch" role="group" aria-label="Мова / Language"><button type="button" data-lang="uk" class="active" aria-pressed="true">УКР</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><button class="menu-button" id="menuToggle" aria-expanded="false" aria-label="Меню">☰</button></div>
+</div></header>
+<main id="main">
+<section class="hero" id="top"><div class="container"><div class="hero-content">
+<div class="eyebrow" data-i="eyebrow">ТВОРЧА СТУДІЯ МАЙБУТНЬОГО</div>
+<h1 data-html="heroTitle">Створюй світи<br><span>без меж.</span></h1>
+<p class="hero-sub" data-i="heroSub">3D, цифровий живопис, анімація, VFX, монтаж та штучний інтелект — в одному просторі для сміливих ідей.</p>
+<div class="hero-kicker"><span>3D / CGI</span><span>2D ART</span><span>ANIMATION</span><span>VFX</span><span>AI STUDIO</span></div>
+<div class="hero-actions"><a href="#gallery" class="btn btn-primary" data-i="heroExplore">Дослідити світи <span aria-hidden="true">↗</span></a><a href="#studio" class="btn btn-secondary" data-i="heroStudio">Подивитися студію ↓</a></div>
+<p class="hero-note" data-i="heroNote">Концептуальна презентація DIGITAL GOD COMPLEX. Зображення показують творче бачення, а не готові функції застосунку.</p>
+</div></div></section>
+<div class="container metrics">
+<div class="metric reveal"><b>14</b><span data-i="metric1">КІНЕМАТОГРАФІЧНИХ СЦЕН</span></div>
+<div class="metric reveal"><b>10</b><span data-i="metric2">ВІЗУАЛІЗОВАНИХ АЛГОРИТМІВ</span></div>
+<div class="metric reveal"><b>04</b><span data-i="metric3">КОНЦЕПТИ ІНТЕРФЕЙСУ</span></div>
+<div class="metric reveal"><b>∞</b><span data-i="metric4">ПРОСТІР ДЛЯ ІДЕЙ</span></div>
+</div>
+<section id="studio"><div class="container">
+<div class="section-header reveal"><div class="eyebrow" data-i="studioEye">ОДНА СТУДІЯ. БЕЗЛІЧ НАПРЯМІВ.</div><h2 data-html="studioTitle">Твій простір <span class="text-accent">створення.</span></h2><p data-i="studioIntro">Уяви середовище, де модель, пензель, камера та монтажна шкала працюють з одним творчим проєктом.</p></div>
+<div class="studio-grid" id="studioGrid">
+<div class="studio-card studio-lead reveal"><img src="assets/ui-02-3d-workspace.jpg" alt="Концепт 3D редактора" loading="lazy"><div class="info"><div class="tag">01 / 3D & PROCEDURAL</div><h3 data-i="s1t">Конструюй цілі світи</h3><p data-i="s1d">Моделі, скульптура, матеріали, освітлення, процедурні сцени та анімація.</p></div></div>
+<div class="studio-card reveal"><img src="assets/ui-03-graphics.jpg" alt="Концепт 2D редактора" loading="lazy"><div class="info"><div class="tag">02 / 2D & COMPOSITING</div><h3 data-i="s2t">Малюй. Поєднуй. Вражай.</h3><p data-i="s2d">Шари, маски, ефекти й цифровий живопис.</p></div></div>
+<div class="studio-card reveal"><img src="assets/ui-04-editing.jpg" alt="Концепт відеоредактора" loading="lazy"><div class="info"><div class="tag">03 / VIDEO & MOTION</div><h3 data-i="s3t">Режисируй кожен кадр</h3><p data-i="s3d">Відеомонтаж, звук, колір і кінематографічні переходи.</p></div></div>
+</div></div></section>
+<div class="marquee" aria-hidden="true"><div><span>✧ IMAGINATION / COMPUTATION / CREATION ✧</span><span>ART MEETS MATHEMATICS ✧</span><span>PROCEDURAL WORLDS / VISUAL STORYTELLING ✧</span></div></div>
+<section id="gallery" class="gallery"><div class="container">
+<div class="section-header reveal"><div class="eyebrow" data-i="galleryEye">ГАЛЕРЕЯ МОЖЛИВОСТЕЙ</div><h2 data-html="galleryTitle">14 світів. <span class="text-accent">14 ідей.</span></h2><p data-i="galleryIntro">Від небесних столиць до підводних цивілізацій. Кожна сцена — окремий напрям творчості й графічних досліджень.</p></div>
+<div class="gallery-tools" aria-label="Фільтри галереї"><button class="filter active" data-filter="all" data-i="all">Усі сцени</button><button class="filter" data-filter="worlds" data-i="worlds">Світи та міста</button><button class="filter" data-filter="characters" data-i="characters">Персонажі</button><button class="filter" data-filter="science" data-i="science">Космос і математика</button></div>
+<div class="gallery-grid" id="galleryGrid"></div>
+</div></section>
+<section id="algorithms" class="tech-cta"><div class="container">
+<div class="section-header reveal"><div class="eyebrow" data-i="techEye">ART × PHYSICS × CODE</div><h2 data-html="techTitle">Від мистецтва <span class="text-accent">до математики.</span></h2><p data-i="techIntro">Десять технологій комп’ютерної графіки. Від красивої сцени — до покрокового пояснення принципів, які можуть її створити.</p></div>
+<div class="alg-grid" id="algGrid"></div>
+</div></section>
+<section id="ai"><div class="container"><div class="vision-panel reveal"><div class="inner">
+<div class="eyebrow" data-i="aiEye">ПАРТНЕР ДЛЯ ТВОРЧОСТІ</div><h2 data-html="aiTitle">Твоя ідея.<br><span class="text-accent">Інструменти ШІ.</span></h2>
+<p data-i="aiText">Майбутній AI-помічник зможе пояснювати складні речі, пропонувати композиції, будувати повторювані дії та працювати з інструментами студії — тільки через контрольовані команди й дозволи.</p>
+<div class="vision-features"><div data-i="ai1">◈ Локальні та хмарні моделі</div><div data-i="ai2">◇ Навички й автоматизація</div><div data-i="ai3">✧ Контроль художника</div></div>
+</div></div></div></section>
+<section id="status"><div class="container">
+<div class="section-header reveal"><div class="eyebrow" data-i="statusEye">ПРОЄКТ У РОЗВИТКУ</div><h2 data-html="statusTitle">Велика мета.<br><span class="text-accent">Точна інженерія.</span></h2><p data-i="statusIntro">DIGITAL GOD COMPLEX зараз перебуває на етапі досліджень та проєктування. Ми розділяємо творчий задум і вже реалізовані можливості.</p></div>
+<div class="progress-steps">
+<article class="reveal"><div class="number">01</div><h3 data-i="phase1t">Архітектура</h3><p data-i="phase1d">Контракти, якість, безпека, модулі та технічні дослідження.</p></article>
+<article class="reveal"><div class="number">02</div><h3 data-i="phase2t">Прототипи</h3><p data-i="phase2d">Окремі перевірювані експерименти, які не дорівнюють готовому редактору.</p></article>
+<article class="reveal"><div class="number">03</div><h3 data-i="phase3t">Майбутній продукт</h3><p data-i="phase3d">Інтегрована творча студія після технічних і якісних перевірок.</p></article>
+</div><div class="status-ribbon" data-i="statusNote">⚠️ Усі CGI-зображення та інтерфейси на цьому сайті — концептуальні ілюстрації. Вони не є реальними скриншотами або рендерами готового застосунку DGC.</div>
+</div></section>
+</main>
+<footer class="footer"><div class="container footer-content"><div><strong>DIGITAL GOD COMPLEX</strong><p data-i="footerText">Творча студія майбутнього. Українська — основна мова; англійська — друга. © 2026 DIGITAL GOD COMPLEX. Візуальна презентація концепції.</p></div><a href="#top" class="btn btn-secondary" data-i="backToTop">Повернутися вгору ↑</a></div></footer>
+<dialog class="viewer" id="viewer" aria-labelledby="viewerTitle"><button type="button" class="viewer-close" id="viewerClose" aria-label="Закрити">×</button><img id="viewerImage" alt=""><div class="viewer-info"><h3 id="viewerTitle"></h3><p id="viewerDescription"></p></div></dialog>
+<script>
+const DATA={"scenes":[{"file":"assets/01-celestial-city.jpg","title":["Небесна столиця","Celestial City"],"desc":["Багатоярусне місто поміж хмар, водоспадів і небесних мостів.","A layered city among clouds, waterfalls and sky bridges."],"tags":["3D","Атмосфера"]},{"file":"assets/02-crystal-sanctuary.jpg","title":["Кришталевий храм","Crystal Sanctuary"],"desc":["Фактури каменю, кристалічні форми й сяйво у просторі.","Stone textures, crystal forms and atmospheric glow."],"tags":["SDF","Світло"]},{"file":"assets/03-angelic-android.jpg","title":["Механічний ангел","Mechanical Angel"],"desc":["Поєднання скульптури, складних матеріалів і світла.","A fusion of sculpture, detailed materials and light."],"tags":["Rigging","PBR"]},{"file":"assets/04-fractal-cosmos.jpg","title":["Фрактальний космос","Fractal Cosmos"],"desc":["Рекурсивні структури, зоряні системи та нескінченні масштаби.","Recursive structures, star systems and infinite scale."],"tags":["Фрактали","Ray tracing"]},{"file":"assets/05-portal-metropolis.jpg","title":["Архітектура порталів","Portal Architecture"],"desc":["Брами між світами, енергетичні структури й архітектура.","Gates between worlds, energy structures and architecture."],"tags":["Geometry","VFX"]},{"file":"assets/06-bioluminescent-cavern.jpg","title":["Біолюмінесцентний світ","Bioluminescent World"],"desc":["Фантастична флора, світні форми й атмосферна глибина.","Fantastic flora, luminous life and atmospheric depth."],"tags":["Симуляції","Біоми"]},{"file":"assets/07-celestial-guardian.jpg","title":["Охоронець храму","Temple Guardian"],"desc":["Персонаж, обладунки, світлові акценти та складна композиція.","A character with armor, luminous accents and cinematic staging."],"tags":["Персонажі","Освітлення"]},{"file":"assets/08-orbital-fractal.jpg","title":["Орбітальна сингулярність","Orbital Singularity"],"desc":["Космічна гравітація, світлові кільця й орбітальні споруди.","Cosmic gravity, luminous rings and orbital megastructures."],"tags":["Космос","VFX"]},{"file":"assets/09-floating-kingdom.jpg","title":["Ширяюче королівство","Floating Kingdom"],"desc":["Великий світ, рельєф, повітряна перспектива та сонячне світло.","A vast world with terrain, aerial perspective and sunlight."],"tags":["Ландшафти","LOD"]},{"file":"assets/10-menger-architecture.jpg","title":["Математична архітектура","Mathematical Architecture"],"desc":["Геометричні закономірності, симетрія та рекурсивні форми.","Geometric rules, symmetry and recursive forms."],"tags":["Фрактали","Інстансинг"]},{"file":"assets/11-chronocrystal-garden.jpg","title":["Хронокристалічний сад","Chronocrystal Garden"],"desc":["Кристали, годинникові механізми та фантазія про плин часу.","Crystals, clockwork and a fantasy of time."],"tags":["Анімація","Шейдери"]},{"file":"assets/12-elemental-simulation.jpg","title":["Буря стихій","Elemental Storm"],"desc":["Хвилі, бризки, блискавки й контраст вогню та води.","Waves, spray, lightning and the contrast of fire and water."],"tags":["Фізика","Частинки"]},{"file":"assets/13-digital-characters.jpg","title":["Цифрові персонажі","Digital Characters"],"desc":["Синтетичні обличчя, міміка, шейдери шкіри та механічні деталі.","Synthetic faces, expressions, skin shading and mechanical details."],"tags":["Персонажі","SSS"]},{"file":"assets/14-sunken-civilization.jpg","title":["Затонула цивілізація","Sunken Civilization"],"desc":["Підводні руїни, морське життя та об’ємні промені.","Underwater ruins, marine life and volumetric shafts."],"tags":["Вода","Volumetrics"]}],"algorithms":[{"file":"assets/01-ray-path-tracing.jpg","title":["Ray / Path Tracing + BVH","Ray / Path Tracing + BVH"],"desc":["Промені, віддзеркалення, непряме освітлення й прискорення перетинів через BVH.","Light paths, reflections, indirect lighting and fast intersections using BVH."]},{"file":"assets/02-marching-cubes.jpg","title":["Marching Cubes","Marching Cubes"],"desc":["Від скалярного поля та воксельної решітки — до трикутної поверхні.","From scalar fields and voxel grids to a triangular surface."]},{"file":"assets/03-geometry-nodes-steps.jpg","title":["Geometry Nodes","Geometry Nodes"],"desc":["Правила, інстансинг, параметри й процедурне збирання світів.","Rules, instancing, parameters and procedural world assembly."]},{"file":"assets/04-rigging-compositing-steps.jpg","title":["Rigging та композитинг","Rigging & Compositing"],"desc":["Скелет, FK/IK, ключові кадри, маски та фінальне зведення шарів.","Skeletons, FK/IK, keyframes, masks and final layer composition."]},{"file":"assets/05-pbr-materials-steps.jpg","title":["PBR-матеріали","PBR Materials"],"desc":["Колір, шорсткість, металічність, нормалі та реакція на освітлення.","Albedo, roughness, metallicity, normals and light response."]},{"file":"assets/06-fluids-steps.jpg","title":["Симуляція рідин","Fluid Simulation"],"desc":["Динаміка потоків, частинки, піна та бризки.","Fluid dynamics, particles, foam and splashes."]},{"file":"assets/07-volumetrics-steps.jpg","title":["Об’ємне освітлення","Volumetric Lighting"],"desc":["Розсіювання й поглинання світла: туман, хмари, світлові промені.","Light scattering and absorption: fog, clouds and shafts."]},{"file":"assets/08-fractals-steps.jpg","title":["Фрактальна геометрія","Fractal Geometry"],"desc":["Рекурсивні правила, повтори, складність і контроль глибини.","Recursive rules, repetition, complexity and depth control."]},{"file":"assets/09-sdf-raymarching-steps.jpg","title":["SDF та Ray Marching","SDF & Ray Marching"],"desc":["Поля відстані, покроковий пошук поверхонь і складні плавні форми.","Distance fields, stepwise surface searches and smoothly blended forms."]},{"file":"assets/10-destruction-physics-steps.jpg","title":["Фізика руйнувань","Destruction Physics"],"desc":["Контактні моделі, тріщини, уламки та симуляція зіткнень.","Contacts, fractures, debris and collision simulation."]}]};
+const I18N={
+uk:{navStudio:"Студія",navGallery:"Галерея",navTech:"Технології",navAI:"ШІ",navStatus:"Проєкт",eyebrow:"ТВОРЧА СТУДІЯ МАЙБУТНЬОГО",heroTitle:"Створюй світи<br><span>без меж.</span>",heroSub:"3D, цифровий живопис, анімація, VFX, монтаж та штучний інтелект — в одному просторі для сміливих ідей.",heroExplore:"Дослідити світи ↗",heroStudio:"Подивитися студію ↓",heroNote:"Концептуальна презентація DIGITAL GOD COMPLEX. Зображення показують творче бачення, а не готові функції застосунку.",metric1:"КІНЕМАТОГРАФІЧНИХ СЦЕН",metric2:"ВІЗУАЛІЗОВАНИХ АЛГОРИТМІВ",metric3:"КОНЦЕПТИ ІНТЕРФЕЙСУ",metric4:"ПРОСТІР ДЛЯ ІДЕЙ",studioEye:"ОДНА СТУДІЯ. БЕЗЛІЧ НАПРЯМІВ.",studioTitle:'Твій простір <span class="text-accent">створення.</span>',studioIntro:"Уяви середовище, де модель, пензель, камера та монтажна шкала працюють з одним творчим проєктом.",s1t:"Конструюй цілі світи",s1d:"Моделі, скульптура, матеріали, освітлення, процедурні сцени та анімація.",s2t:"Малюй. Поєднуй. Вражай.",s2d:"Шари, маски, ефекти й цифровий живопис.",s3t:"Режисируй кожен кадр",s3d:"Відеомонтаж, звук, колір і кінематографічні переходи.",galleryEye:"ГАЛЕРЕЯ МОЖЛИВОСТЕЙ",galleryTitle:'14 світів. <span class="text-accent">14 ідей.</span>',galleryIntro:"Від небесних столиць до підводних цивілізацій. Кожна сцена — окремий напрям творчості й графічних досліджень.",all:"Усі сцени",worlds:"Світи та міста",characters:"Персонажі",science:"Космос і математика",techEye:"ART × PHYSICS × CODE",techTitle:'Від мистецтва <span class="text-accent">до математики.</span>',techIntro:"Десять технологій комп’ютерної графіки. Від красивої сцени — до покрокового пояснення принципів, які можуть її створити.",aiEye:"ПАРТНЕР ДЛЯ ТВОРЧОСТІ",aiTitle:'Твоя ідея.<br><span class="text-accent">Інструменти ШІ.</span>',aiText:"Майбутній AI-помічник зможе пояснювати складні речі, пропонувати композиції, будувати повторювані дії та працювати з інструментами студії — тільки через контрольовані команди й дозволи.",ai1:"◈ Локальні та хмарні моделі",ai2:"◇ Навички й автоматизація",ai3:"✧ Контроль художника",statusEye:"ПРОЄКТ У РОЗВИТКУ",statusTitle:'Велика мета.<br><span class="text-accent">Точна інженерія.</span>',statusIntro:"DIGITAL GOD COMPLEX зараз перебуває на етапі досліджень та проєктування. Ми розділяємо творчий задум і вже реалізовані можливості.",phase1t:"Архітектура",phase1d:"Контракти, якість, безпека, модулі та технічні дослідження.",phase2t:"Прототипи",phase2d:"Окремі перевірювані експерименти, які не дорівнюють готовому редактору.",phase3t:"Майбутній продукт",phase3d:"Інтегрована творча студія після технічних і якісних перевірок.",statusNote:"⚠️ Усі CGI-зображення та інтерфейси на цьому сайті — концептуальні ілюстрації. Вони не є реальними скриншотами або рендерами готового застосунку DGC.",footerText:"Творча студія майбутнього. Українська — основна мова; англійська — друга. © 2026 DIGITAL GOD COMPLEX. Візуальна презентація концепції.",backToTop:"Повернутися вгору ↑"},
+en:{navStudio:"Studio",navGallery:"Gallery",navTech:"Technology",navAI:"AI",navStatus:"Project",eyebrow:"A CREATIVE STUDIO OF TOMORROW",heroTitle:"Create worlds<br><span>without limits.</span>",heroSub:"3D, digital painting, animation, VFX, video editing and artificial intelligence — one canvas for the boldest ideas.",heroExplore:"Explore the worlds ↗",heroStudio:"Discover the studio ↓",heroNote:"DIGITAL GOD COMPLEX is a concept showcase. Images illustrate the vision, not completed application features.",metric1:"CINEMATIC SCENES",metric2:"VISUAL ALGORITHM STUDIES",metric3:"INTERFACE CONCEPTS",metric4:"ROOM FOR IDEAS",studioEye:"ONE STUDIO. ENDLESS POSSIBILITIES.",studioTitle:'Your space <span class="text-accent">to create.</span>',studioIntro:"Imagine an environment where the model, brush, camera and timeline all belong to one creative project.",s1t:"Build entire worlds",s1d:"Models, sculpting, materials, lighting, procedural scenes and animation.",s2t:"Paint. Blend. Amaze.",s2d:"Layers, masks, effects and digital painting.",s3t:"Direct every frame",s3d:"Video editing, sound, color and cinematic transitions.",galleryEye:"A GALLERY OF POSSIBILITIES",galleryTitle:'14 worlds. <span class="text-accent">14 visions.</span>',galleryIntro:"From sky capitals to sunken civilizations. Every scene illustrates a distinctive field of creative research.",all:"All scenes",worlds:"Worlds & cities",characters:"Characters",science:"Cosmos & math",techEye:"ART × PHYSICS × CODE",techTitle:'From art <span class="text-accent">to mathematics.</span>',techIntro:"Ten technologies of computer graphics. Discover the visual result and the steps that could create it.",aiEye:"YOUR CREATIVE PARTNER",aiTitle:'Your vision.<br><span class="text-accent">AI-powered tools.</span>',aiText:"A future assistant could explain complex workflows, propose compositions and automate repeatable actions — only through authorized, validated studio commands.",ai1:"◈ Local & cloud models",ai2:"◇ Skills & workflows",ai3:"✧ Artist stays in control",statusEye:"A PROJECT IN PROGRESS",statusTitle:'An ambitious vision.<br><span class="text-accent">Measured engineering.</span>',statusIntro:"DIGITAL GOD COMPLEX remains in the research and architectural phase. We clearly distinguish ideas from implemented capabilities.",phase1t:"Architecture",phase1d:"Contracts, quality, security, modules and technology research.",phase2t:"Prototypes",phase2d:"Isolated, verifiable experiments — not a complete editor.",phase3t:"Future product",phase3d:"An integrated creative studio after technical and quality gates.",statusNote:"⚠️ All CGI and interface images on this site are synthetic concept illustrations, not screenshots or renders produced by a functioning DGC application.",footerText:"A creative studio of tomorrow. Ukrainian is primary; English is available. © 2026 DIGITAL GOD COMPLEX. Concept presentation.",backToTop:"Back to top ↑"}
+};
+const category=["worlds","worlds","characters","science","worlds","worlds","characters","science","worlds","science","worlds","science","characters","worlds"];
+let lang="uk",activeFilter="all";
+const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!=null)n.textContent=text;return n};
+const galleryGrid=document.getElementById("galleryGrid"),algGrid=document.getElementById("algGrid");
+// Animate from the exact thumbnail rectangle to a viewport-fitted, undistorted image.
+const viewer=document.getElementById("viewer");
+const viewerImage=document.getElementById("viewerImage");
+const reducedMotion=()=>window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let originImage=null, originControl=null, viewerBusy=false;
+function fitViewerImage(){
+  if(!viewerImage.naturalWidth || !viewerImage.naturalHeight)return;
+  const ratio=viewerImage.naturalWidth/viewerImage.naturalHeight;
+  const maxW=Math.max(1,window.innerWidth-48);
+  const maxH=Math.max(1,window.innerHeight-(window.innerHeight<520?85:130));
+  const w=Math.min(maxW,maxH*ratio);
+  viewerImage.style.width=w+"px";
+  viewerImage.style.height=(w/ratio)+"px";
+}
+function flipFrames(from,to){
+  // Use one uniform scale factor: the image never stretches or changes aspect ratio.
+  const scale=Math.min(from.width/Math.max(1,to.width),from.height/Math.max(1,to.height));
+  const fromCx=from.left+from.width/2,fromCy=from.top+from.height/2;
+  const toCx=to.left+to.width/2,toCy=to.top+to.height/2;
+  const dx=fromCx-toCx,dy=fromCy-toCy;
+  return [
+    {transform:"translate("+dx+"px, "+dy+"px) scale("+scale+")"},
+    {transform:"translate(0, 0) scale(1)"}
+  ];
+}
+const animateViewer=(element,frames,duration)=>{
+  if(duration===0 || !element.animate){return Promise.resolve();}
+  const animation=element.animate(frames,{duration,easing:"cubic-bezier(.22,1,.36,1)",fill:"both"});
+  return animation.finished.catch(()=>{}).then(()=>animation.cancel());
+};
+async function openImage(src,title,desc,thumbnail){
+  if(viewer.open || viewerBusy)return;
+  viewerBusy=true;
+  originImage=thumbnail||null;
+  originControl=thumbnail?.closest("button,[role=button]")||thumbnail?.closest(".studio-card")||null;
+  const from=thumbnail?.getBoundingClientRect();
+  viewerImage.src=src;
+  viewerImage.alt=title;
+  document.getElementById("viewerTitle").textContent=title;
+  document.getElementById("viewerDescription").textContent=desc;
+  try{await viewerImage.decode();}catch(e){}
+  if(!viewerImage.naturalWidth){viewerBusy=false;return;}
+  fitViewerImage();
+  viewer.showModal();
+  const to=viewerImage.getBoundingClientRect();
+  const duration=reducedMotion()?0:550;
+  if(from && from.width>0 && from.height>0){
+    await Promise.all([
+      animateViewer(viewerImage,flipFrames(from,to),duration),
+      animateViewer(viewer,[{opacity:0},{opacity:1}],duration)
+    ]);
+  }else{
+    await animateViewer(viewer,[{opacity:0},{opacity:1}],duration);
+  }
+  viewerBusy=false;
+}
+async function closeImage(){
+  if(!viewer.open||viewerBusy)return;
+  viewerBusy=true;
+  const current=viewerImage.getBoundingClientRect();
+  const dest=(originImage&&originImage.isConnected)?originImage.getBoundingClientRect():null;
+  const duration=reducedMotion()?0:440;
+  if(dest && dest.width>0 && dest.height>0){
+    const frames=flipFrames(dest,current).reverse();
+    await Promise.all([
+      animateViewer(viewerImage,frames,duration),
+      animateViewer(viewer,[{opacity:1},{opacity:0}],duration)
+    ]);
+  }else{
+    await animateViewer(viewer,[{opacity:1},{opacity:0}],duration);
+  }
+  viewer.close();
+  viewerBusy=false;
+  if(originControl?.isConnected)originControl.focus({preventScroll:true});
+  originControl=null;originImage=null;
+}
+const galleryPriority=[0,4,6,7,9,10,11,12,13,1,2,3,5,8];
+function renderGallery(){galleryGrid.replaceChildren();galleryPriority.forEach(i=>{const s=DATA.scenes[i];if(activeFilter!=="all"&&category[i]!==activeFilter)return;const card=el("button","gallery-card reveal visible");card.type="button";card.setAttribute("aria-label",s.title[lang==="uk"?0:1]);const shot=el("div","shot"),img=document.createElement("img");img.src=s.file;img.loading="lazy";img.alt=s.title[lang==="uk"?0:1];img.addEventListener("error",()=>{img.style.display="none";shot.style.minHeight="160px";shot.append(el("div","missing-shot",lang==="uk"?"Зображення тимчасово недоступне":"Image temporarily unavailable"))});shot.append(img,el("span","",String(i+1).padStart(2,"0")+" / 14"));const info=el("div","details");info.append(el("h3","",s.title[lang==="uk"?0:1]),el("p","",s.desc[lang==="uk"?0:1]));const chips=el("div","chips");s.tags.forEach(tag=>chips.append(el("span","chip",tag)));info.append(chips);card.append(shot,info);card.onclick=()=>openImage(s.file,s.title[lang==="uk"?0:1],s.desc[lang==="uk"?0:1],img);galleryGrid.append(card)})}
+function renderAlgorithms(){algGrid.replaceChildren();DATA.algorithms.forEach((s,i)=>{const card=el("article","alg-card reveal visible");const art=el("div","art"),im=document.createElement("img");im.src=s.file;im.alt=s.title[lang==="uk"?0:1];im.loading="lazy";art.append(im);const count=el("span","step-dot",String(i+1).padStart(2,"0"));art.append(count);const meta=el("div","meta");meta.append(el("small","",lang==="uk"?"АЛГОРИТМ / ПОКРОКОВА ВІЗУАЛІЗАЦІЯ":"ALGORITHM / STEP-BY-STEP VISUAL"),el("h3","",s.title[lang==="uk"?0:1]),el("p","",s.desc[lang==="uk"?0:1]));card.append(art,meta);card.style.cursor="zoom-in";card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label",s.title[lang==="uk"?0:1]);card.onclick=()=>openImage(s.file,s.title[lang==="uk"?0:1],s.desc[lang==="uk"?0:1],im);card.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();card.click()}};algGrid.append(card)})}
+function setLang(next){lang=next;document.documentElement.lang=next;document.title=next==="uk"?"DIGITAL GOD COMPLEX — творча студія майбутнього":"DIGITAL GOD COMPLEX — creative studio of tomorrow";document.querySelectorAll("[data-i]").forEach(n=>{const v=I18N[next][n.dataset.i];if(v!==undefined)n.textContent=v});document.querySelectorAll("[data-html]").forEach(n=>{const v=I18N[next][n.dataset.html];if(v!==undefined)n.innerHTML=v});document.querySelectorAll("[data-lang]").forEach(b=>{let on=b.dataset.lang===next;b.classList.toggle("active",on);b.setAttribute("aria-pressed",String(on))});renderGallery();renderAlgorithms();try{localStorage.setItem("dgc-language",next)}catch(e){}}
+document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
+document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{activeFilter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));renderGallery()}));
+const menu=document.getElementById("mainNav"),toggle=document.getElementById("menuToggle");
+toggle.onclick=()=>{const open=menu.classList.toggle("open");toggle.setAttribute("aria-expanded",String(open))};
+menu.querySelectorAll("a").forEach(a=>a.onclick=()=>{menu.classList.remove("open");toggle.setAttribute("aria-expanded","false")});
+document.getElementById("viewerClose").onclick=closeImage;
+viewerImage.addEventListener("click",closeImage);
+viewer.addEventListener("click",e=>{if(e.target===viewer)closeImage()});
+viewer.addEventListener("cancel",e=>{e.preventDefault();closeImage()});
+window.addEventListener("resize",()=>{if(viewer.open&&!viewerBusy)fitViewerImage()});
+document.querySelectorAll(".studio-card").forEach(card=>{
+  const img=card.querySelector("img");
+  card.tabIndex=0;card.setAttribute("role","button");
+  card.setAttribute("aria-label",img.alt);
+  const show=()=>openImage(img.currentSrc||img.src,img.alt,card.querySelector(".info p")?.textContent||"",img);
+  card.addEventListener("click",show);
+  card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();show()}});
+});
+if("IntersectionObserver"in window){const obs=new IntersectionObserver(entries=>{for(const x of entries){if(x.isIntersecting){x.target.classList.add("visible");obs.unobserve(x.target)}}},{threshold:.07});document.querySelectorAll(".reveal").forEach(x=>obs.observe(x))}else document.querySelectorAll(".reveal").forEach(x=>x.classList.add("visible"));
+let preferred="uk";try{if(localStorage.getItem("dgc-language")==="en")preferred="en"}catch(e){}setLang(preferred);
+</script>
+</body>
+</html>
