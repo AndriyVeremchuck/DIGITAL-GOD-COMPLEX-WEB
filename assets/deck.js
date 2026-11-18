@@ -145,6 +145,7 @@ function renderSlides(preserve){
  if(newIdx<0)newIdx=slides.findIndex(x=>x.key===key);
  current=Math.max(0,newIdx);
  slides[current].node.classList.add("active");slides.forEach((s,i)=>s.node.setAttribute("aria-hidden",String(i!==current)));
+ renderPhase();
  updateUI();
 }
 function go(i){
