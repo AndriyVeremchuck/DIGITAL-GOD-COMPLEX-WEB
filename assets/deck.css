@@ -220,3 +220,30 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
 .hero-story .hero-intro{font-size:16px;margin-bottom:7px}
 .hero-story .hero-extra{font-size:13px;line-height:1.4;margin-bottom:9px}
 }
+
+/* 2026-11-18: Single-line main title and full-frame drum carousel. */
+.hero-story h1{display:block;width:100%;max-width:none!important;overflow:visible;line-height:1.05}
+.hero-story h1 .hero-title-main{display:block;white-space:nowrap;font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:clamp(34px,4.0vw,68px);letter-spacing:-.052em;color:#fff1d2;text-shadow:0 4px 24px #09091b9c}
+.hero-story h1 em{display:block;white-space:nowrap;line-height:1.05;margin-top:2px;font-size:clamp(42px,4.7vw,78px)!important}
+.hero-backdrop{overflow:hidden;contain:layout paint}
+.hero-backdrop .backdrop-image{width:100%;height:100%;object-fit:cover;object-position:50% 50%;will-change:transform;backface-visibility:hidden}
+.hero-backdrop .is-current{opacity:1}
+.hero-backdrop .is-next{opacity:0}
+.hero-stripes .stripe{cursor:pointer;touch-action:manipulation}
+.hero-stripes .stripe:active{filter:brightness(1.4) saturate(1.25)}
+@media(max-width:1200px){
+.hero-story h1 .hero-title-main{font-size:clamp(33px,4vw,53px)}
+.hero-story h1 em{font-size:clamp(42px,5vw,67px)!important}
+}
+@media(max-width:760px){
+.hero-story h1 .hero-title-main{font-size:clamp(23px,5vw,39px);letter-spacing:-.06em}
+.hero-story h1 em{font-size:clamp(33px,7.2vw,52px)!important}
+}
+@media(max-width:520px){
+.hero-story h1 .hero-title-main{font-size:clamp(22px,5.6vw,33px)}
+.hero-story h1 em{font-size:clamp(29px,8vw,43px)!important}
+}
+@media(max-height:710px) and (min-width:761px){
+.hero-story h1 .hero-title-main{font-size:clamp(32px,3.3vw,53px)}
+.hero-story h1 em{font-size:clamp(41px,4vw,63px)!important}
+}
