@@ -1,0 +1,24 @@
+name: Website browser smoke tests
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser tests
+        run: |
+          npm install --no-save @playwright/test@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Start static server and run UI tests
+        run: |
+          python3 -m http.server 8787 --bind 127.0.0.1 &
+          npx playwright test tests/site.spec.mjs --reporter=line --workers=1
