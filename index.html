@@ -126,6 +126,7 @@ section{padding:112px 0}.section-header{margin-bottom:38px}
 .missing-shot{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;color:#b1d6e8;background:linear-gradient(135deg,#0e1c34,#221832)}
 </style>
 <link rel="stylesheet" href="assets/experience.css">
+<link rel="stylesheet" href="assets/stripes.css">
 </head>
 <body>
 <a class="skip" href="#main">Перейти до вмісту</a>
@@ -139,7 +140,14 @@ section{padding:112px 0}.section-header{margin-bottom:38px}
 <div class="reading-progress" aria-hidden="true"></div>
 <main id="main">
 <section class="hero" id="top">
-<div class="hero-image-layer" aria-hidden="true"><img src="assets/05-portal-metropolis.jpg" alt="" fetchpriority="high" decoding="async"></div>
+<div class="hero-image-layer" aria-hidden="true"><img src="assets/05-portal-metropolis.jpg" alt="" decoding="async"></div>
+<div class="hero-stripes" id="heroStripes" role="group" aria-label="П’ять інтерактивних CGI-світів">
+<button class="hero-stripe" type="button" data-slot="0"><span class="stripe-picture"><img alt="" fetchpriority="high" decoding="async"><img alt="" decoding="async"></span><span class="stripe-indicator">01</span></button>
+<button class="hero-stripe" type="button" data-slot="1"><span class="stripe-picture"><img alt="" fetchpriority="high" decoding="async"><img alt="" decoding="async"></span><span class="stripe-indicator">02</span></button>
+<button class="hero-stripe" type="button" data-slot="2"><span class="stripe-picture"><img alt="" fetchpriority="high" decoding="async"><img alt="" decoding="async"></span><span class="stripe-indicator">03</span></button>
+<button class="hero-stripe" type="button" data-slot="3"><span class="stripe-picture"><img alt="" decoding="async"><img alt="" decoding="async"></span><span class="stripe-indicator">04</span></button>
+<button class="hero-stripe" type="button" data-slot="4"><span class="stripe-picture"><img alt="" decoding="async"><img alt="" decoding="async"></span><span class="stripe-indicator">05</span></button>
+</div><div class="hero-stripes-caption" id="stripesCaption" aria-hidden="true">ОБЕРИ СВІТ · НАТИСНИ НА СМУГУ</div>
 <div class="hero-light" aria-hidden="true"></div><div class="hero-dust" aria-hidden="true"></div>
 <div class="container"><div class="hero-content">
 <div class="eyebrow" data-i="eyebrow">ТВОРЧА СТУДІЯ МАЙБУТНЬОГО</div>
@@ -325,5 +333,6 @@ if("IntersectionObserver"in window){const obs=new IntersectionObserver(entries=>
 let preferred="uk";try{if(localStorage.getItem("dgc-language")==="en")preferred="en"}catch(e){}setLang(preferred);
 </script>
 <script src="assets/experience.js" defer></script>
+<script src="assets/stripes.js" defer></script>
 </body>
 </html>
