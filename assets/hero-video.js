@@ -14,7 +14,7 @@ async function loadManifest(){
 function mount(root,scenes){
  const layers=[...root.querySelectorAll(".cinema-layer")];
  if(layers.length!==2)throw Error("Expected exactly two CGI carousel layers");
- let index=0,front=0,pending=null,busy=false,disposed=false,job=0;
+ let index=0,front=0,pending=null,busy=false,disposed=false,job=0,wantPlayback=true;
  let manifest={portal:"cosmic-nebula.mp4",nebula:"cosmic-nebula.mp4",crystal:"cosmic-nebula.mp4",geometry:"cosmic-nebula.mp4",temple:"cosmic-nebula.mp4"},timer=null;
  const fallbackSrc=n=>"assets/"+scenes[n].image;
  const videoSrc=n=>{
@@ -42,7 +42,10 @@ function mount(root,scenes){
     if(settled)return;settled=true;
     v.removeEventListener("canplay",onReady);v.removeEventListener("error",onError);
     clearTimeout(timeout);
-    if(ok){layer.classList.add("has-video");v.play().catch(()=>{layer.classList.remove("has-video");layer.classList.add("video-fallback")});}else{layer.classList.add("video-fallback");}
+    if(ok){
+     layer.classList.add("has-video");
+     if(wantPlayback&&!document.hidden&&layer===layers[front])startVideo(v);
+    }else{layer.classList.add("video-fallback");}
     resolve(ok);
    };
    const onReady=()=>done(true),onError=()=>done(false);
@@ -96,15 +99,32 @@ function mount(root,scenes){
   const next=pending;pending=null;
   if(next!==null&&next!==index)select(next);
  }
+ function startVideo(v){
+  if(disposed||!wantPlayback||document.hidden)return;
+  v.muted=true;v.defaultMuted=true;v.autoplay=true;v.loop=true;v.playsInline=true;
+  const promise=v.play();
+  if(promise&&typeof promise.catch==="function")promise.catch(error=>{
+   if(disposed||!wantPlayback)return;
+   if(v.readyState<2)v.addEventListener("canplay",()=>startVideo(v),{once:true});
+   else console.warn("DGC video playback could not resume:",error);
+  });
+ }
  const pause=()=>{
-  for(const layer of layers)layer.querySelector("video").pause();
+  wantPlayback=false;
+  layers.forEach(layer=>layer.querySelector("video").pause());
  };
  const resume=()=>{
-  if(disposed||document.hidden||prefersReduced())return;
+  if(disposed)return;
+  wantPlayback=true;
   const layer=layers[front],v=layer.querySelector("video");
-  if(layer.classList.contains("has-video"))v.play().catch(()=>{layer.classList.remove("has-video")});
+  if(!v.getAttribute("src")&&videoSrc(index))configure(layer,index);
+  else if(layer.classList.contains("has-video")||v.readyState>=2)startVideo(v);
+  else v.addEventListener("canplay",()=>startVideo(v),{once:true});
  };
- const visibility=()=>document.hidden?pause():resume();
+ const visibility=()=>{
+  if(document.hidden)layers.forEach(layer=>layer.querySelector("video").pause());
+  else if(wantPlayback)startVideo(layers[front].querySelector("video"));
+ };
  document.addEventListener("visibilitychange",visibility);
  // Initialize the first image instantly, then load the optional video manifest.
  const current=layers[0];
