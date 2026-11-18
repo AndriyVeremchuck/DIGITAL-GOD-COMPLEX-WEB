@@ -138,3 +138,25 @@ background:conic-gradient(from var(--glint-angle,0deg) at 50% 50%,transparent 0d
 .edge-glint.active{animation:gold-glint 2.4s ease-in-out both}
 @keyframes gold-glint{0%,100%{opacity:0}22%{opacity:.85}49%{opacity:1}80%{opacity:.5}}
 @media(prefers-reduced-motion:reduce){.edge-glint,.edge-glint.active{animation:none!important;opacity:0!important}}
+
+/* Viewport-height contract overrides older minimum heights: no second chapter visible on launch. */
+.hero{min-height:0!important;height:100svh;height:100dvh}
+@media(max-height:680px){
+.hero{padding-top:65px;padding-bottom:69px}
+.hero h1{font-size:clamp(30px,4.6vw,52px);margin:8px 0}
+.hero-sub{font-size:12px;line-height:1.5;margin:5px 0}
+.hero-kicker span{padding:4px 7px}
+.hero-actions{margin:12px 0 5px}
+.hero .eyebrow{font-size:9px}
+.hero-note{display:none}
+.portal-next{bottom:7px}
+.portal-ring{height:34px;width:34px}
+.portal-next-label{display:none}
+}
+@media(max-height:680px) and (max-width:520px){
+.hero{padding-top:62px;padding-bottom:54px}
+.hero h1{font-size:clamp(29px,8vw,40px)}
+.hero-sub{font-size:12px;line-height:1.4}
+.hero-kicker{display:none}
+.hero-actions{margin:10px 0 4px}
+}
