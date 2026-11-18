@@ -328,3 +328,42 @@ button{font:inherit;cursor:pointer}a{color:inherit;text-decoration:none}img{disp
 .hero-stripes .stripe.chosen .stripe-active-marker{opacity:1}
 .hero-stripes .stripe .stripe-image{transition:filter .4s,transform .55s!important}
 @media(prefers-reduced-motion:reduce){.gold-frame::after,.hero-stripes .stripe.chosen::after{animation:none!important;--gold-angle:305deg}}
+
+
+/* Active strip expands to exactly double the weight of every inactive strip.
+   Existing gold edge treatment stays intact. */
+.hero-stripes .stripe{flex:1 1 0!important;flex-grow:1!important;min-width:0;transition:flex-grow 1s cubic-bezier(.19,1,.22,1),opacity .65s,filter .65s,box-shadow .65s!important}
+.hero-stripes .stripe.chosen{flex-grow:2!important;z-index:4}
+.hero-stripes .stripe:not(.chosen){flex-grow:1!important}
+.hero-stripes .stripe:hover:not(.chosen){flex-grow:1!important}
+.hero-stripes .stripe.chosen .stripe-image{
+  /* Individual scale animates independently of the skew transform of the strip. */
+  animation:active-strip-kenburns 8.5s cubic-bezier(.2,.1,.32,1) forwards!important;
+  transform-origin:center center;
+  will-change:scale;
+}
+@keyframes active-strip-kenburns{0%{scale:1.03}100%{scale:1.28}}
+/* A brief, irregular highlight traveling along just the active gold edge. */
+.hero-stripes .stripe .stripe-random-glint{
+ position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:11;opacity:0;
+ border:2px solid transparent;
+ background:conic-gradient(from var(--beam-angle,0deg),transparent 0deg,transparent 330deg,rgba(255,236,180,.18) 342deg,#fffbea 350deg,#ffe4a3 354deg,transparent 360deg) border-box;
+ -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+ -webkit-mask-composite:xor;mask-composite:exclude;
+ filter:drop-shadow(0 0 13px rgba(255,232,160,.95));
+}
+@property --beam-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+.hero-stripes .stripe.chosen .stripe-random-glint.sweep{
+ animation:gold-beam-sweep 1.7s cubic-bezier(.22,.55,.35,1) both;
+}
+@keyframes gold-beam-sweep{
+ 0%{opacity:0;--beam-angle:0deg}
+ 16%{opacity:1}
+ 82%{opacity:1}
+ 100%{opacity:0;--beam-angle:360deg}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-stripes .stripe.chosen .stripe-image{animation:none!important;scale:1.03}
+ .hero-stripes .stripe.chosen .stripe-random-glint.sweep{animation:none!important;opacity:0}
+ .hero-stripes .stripe{transition:none!important}
+}
