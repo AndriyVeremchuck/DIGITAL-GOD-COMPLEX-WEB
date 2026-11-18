@@ -126,3 +126,37 @@ test("hero has no opaque frame covering the CGI image",async({page})=>{
  await expect(page.locator(".hero.active .hero-intro")).toContainText("unified digital studio");
  await expect(page.locator(".hero.active .hero-extra")).toHaveCount(0);
 });
+
+
+test("switching strips animates both outgoing and incoming widths",async({page})=>{
+ await page.emulateMedia({reducedMotion:"no-preference"});
+ await page.setViewportSize({width:1728,height:864});
+ await page.goto("http://127.0.0.1:8787/");
+ const old=page.locator(".hero.active .stripe").nth(0);
+ const next=page.locator(".hero.active .stripe").nth(2);
+ await expect.poll(async()=>{
+  const a=await old.boundingBox(),b=await next.boundingBox();
+  return a.width/b.width;
+ },{timeout:4000}).toBeGreaterThan(1.75);
+ await next.hover({force:true});
+ await expect(next).toHaveClass(/chosen/);
+ await expect(old).not.toHaveClass(/chosen/);
+ const animations=await page.locator(".hero.active").evaluate(hero=>[0,2].map(i=>{
+  const el=hero.querySelectorAll(".stripe")[i];
+  return el.getAnimations().filter(a=>a.playState==="running").map(a=>a.effect?.getTiming().duration);
+ }));
+ expect(animations[0].some(d=>d>=1500)).toBeTruthy();
+ expect(animations[1].some(d=>d>=1500)).toBeTruthy();
+ await expect.poll(async()=>{
+  const a=await old.boundingBox(),b=await next.boundingBox();
+  return b.width/a.width;
+ },{timeout:4000}).toBeGreaterThan(1.75);
+});
+test("no black extruded typography on the hero title",async({page})=>{
+ await page.goto("http://127.0.0.1:8787/");
+ const title=page.locator(".hero.active .hero-title-main");
+ await expect(title).toHaveText("Create worlds");
+ await expect(title).toHaveCSS("-webkit-text-stroke-width","0px");
+ const font=await title.evaluate(el=>getComputedStyle(el).fontFamily);
+ expect(font).toContain("Manrope");
+});
