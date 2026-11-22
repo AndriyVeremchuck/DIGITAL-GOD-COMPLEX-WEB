@@ -3,6 +3,7 @@ const byId=id=>document.getElementById(id);
 const $=(q,root=document)=>root.querySelector(q);
 const $$=(q,root=document)=>[...root.querySelectorAll(q)];
 const reduce=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
+const toWebp=f=>"assets/"+f.replace(/\.jpg$/,".webp");
 const scenes=[
 ["01-celestial-city.jpg","Небесна столиця","Celestial City","Масштабна архітектура поміж хмар, водоспадів і високих мостів.","An expansive city among clouds, waterfalls and sky bridges."],
 ["02-crystal-sanctuary.jpg","Кришталеве святилище","Crystal Sanctuary","Камінь, складна геометрія кристалів і світлові об'єми.","Stone, intricate crystals and volumetric illumination."],
@@ -18,7 +19,7 @@ const scenes=[
 ["12-elemental-simulation.jpg","Буря стихій","Elemental Storm","Вода, вогонь, бризки й атмосфера грозового неба.","Water, fire, splashes and a stormy sky."],
 ["13-digital-characters.jpg","Цифрові персонажі","Digital Characters","Міміка, деталізовані матеріали та роботизовані елементи.","Expressions, detailed materials and robotic features."],
 ["14-sunken-civilization.jpg","Затонула цивілізація","Sunken Civilization","Підводні руїни, поглинання світла й стародавня скульптура.","Underwater ruins, light absorption and ancient sculpture."]
-].map((s,i)=>({img:"assets/"+s[0],title:[s[1],s[2]],desc:[s[3],s[4]],no:i+1}));
+].map((s,i)=>({img:toWebp(s[0]),fallback:"assets/"+s[0],title:[s[1],s[2]],desc:[s[3],s[4]],no:i+1}));
 const algorithms=[
 ["01-ray-path-tracing.jpg","Трасування променів + BVH","Ray / Path Tracing + BVH","Промені, віддзеркалення, освітлення та прискорення перетинів.","Light paths, reflections, illumination and accelerated intersections."],
 ["02-marching-cubes.jpg","Marching Cubes","Marching Cubes","Значення в об'ємі перетворюються на трикутну поверхню.","Scalar volume data becomes a triangle surface."],
@@ -30,13 +31,13 @@ const algorithms=[
 ["08-fractals-steps.jpg","Фрактальна геометрія","Fractal Geometry","Рекурсивні правила створюють складні форми на різних масштабах.","Recursive rules generate complex shapes across scales."],
 ["09-sdf-raymarching-steps.jpg","SDF та Ray Marching","SDF & Ray Marching","Поле відстаней дозволяє процедурно знаходити поверхні.","Distance fields enable procedural surface searches."],
 ["10-destruction-physics-steps.jpg","Фізика руйнувань","Destruction Physics","Зіткнення, уламки, тверді тіла й частинки.","Collisions, debris, rigid bodies and particles."]
-].map((s,i)=>({img:"assets/"+s[0],title:[s[1],s[2]],desc:[s[3],s[4]],no:i+1}));
+].map((s,i)=>({img:toWebp(s[0]),fallback:"assets/"+s[0],title:[s[1],s[2]],desc:[s[3],s[4]],no:i+1}));
 const studios=[
 ["ui-01-dashboard.jpg","Креативний центр","Creative Hub","Єдиний проєкт, бібліотека ресурсів, дії та сценарії.","One project, asset library, actions and workflows."],
 ["ui-02-3d-workspace.jpg","3D-майстерня","3D Workspace","Моделі, сцени, матеріали, шейдери та джерела світла.","Models, scenes, materials, shaders and lighting."],
 ["ui-03-graphics.jpg","2D-графіка","2D Graphics","Живопис, шари, маски, композитинг і векторні елементи.","Painting, layers, masks, compositing and vector elements."],
 ["ui-04-editing.jpg","Монтаж і motion","Video & Motion","Часова шкала, звук, кольорокорекція та відео.","Timeline, audio, color grading and video editing."]
-].map((s,i)=>({img:"assets/"+s[0],title:[s[1],s[2]],desc:[s[3],s[4]],no:i+1}));
+].map((s,i)=>({img:toWebp(s[0]),fallback:"assets/"+s[0],title:[s[1],s[2]],desc:[s[3],s[4]],no:i+1}));
 const phases=[
 {title:["P0 · Архітектура","P0 · Architecture"],status:["ПОТОЧНИЙ ЕТАП","CURRENT PHASE"],detail:["Дослідження, ADR, вимоги, контракти, безпека та технічні перевірки.","Research, ADRs, requirements, contracts, security and technical validation."],tasks:[["Документація та перевірки — у роботі","Documentation and validation in progress"],["Прийняття всієї архітектури — попереду","Full architecture acceptance pending"]]},
 {title:["P1 · Вертикальний зріз","P1 · Vertical slice"],status:["ЗАБЛОКОВАНО ДО ПРИЙНЯТТЯ P0","BLOCKED UNTIL P0 ACCEPTED"],detail:["Qt-вікно, Vulkan viewport, імпорт ресурсу, збереження сцени й експорт кадру.","Qt window, Vulkan viewport, asset import, scene storage and frame export."],tasks:[["Інтеграційний прототип","Integration prototype"],["Відтворювані тести та експорт","Reproducible tests and export"]]},
@@ -63,7 +64,7 @@ function makeSlide(key,page,build,hero=false){
  const wrap=elem("div","slide-wrap"),inner=elem("div","slide-body");wrap.append(inner);outer.append(wrap);build(inner,outer);deck.append(outer);slides.push({key,page,node:outer,inner});return outer;
 }
 function heading(parent,kicker,title,desc){append(parent,elem("div","slide-identity",kicker));const h=elem("h2","slide-title");h.innerHTML=title;append(parent,h);if(desc)append(parent,elem("p","slide-desc",desc))}
-function makeCard(s,number){const b=elem("button","visual-card");b.type="button";b.setAttribute("aria-label",s.title[ix()]);const media=elem("div","media"),img=elem("img");img.src=s.img;img.alt=s.title[ix()];img.loading="lazy";img.decoding="async";const num=elem("span","number",String(number).padStart(2,"0"));media.append(img,num);const data=elem("div","data");data.append(elem("h3","",s.title[ix()]),elem("p","",s.desc[ix()]));b.append(media,data);b.addEventListener("click",()=>openViewer(s.img,s.title[ix()]));return b}
+function makeCard(s,number){const b=elem("button","visual-card");b.type="button";b.setAttribute("aria-label",s.title[ix()]);const media=elem("div","media"),img=elem("img");img.src=s.img;img.alt=s.title[ix()];img.loading="lazy";img.decoding="async";img.onerror=function(){if(this.src.endsWith(".webp")&&s.fallback){this.src=s.fallback;}};const num=elem("span","number",String(number).padStart(2,"0"));media.append(img,num);const data=elem("div","data");data.append(elem("h3","",s.title[ix()]),elem("p","",s.desc[ix()]));b.append(media,data);b.addEventListener("click",()=>openViewer(s.img,s.title[ix()],s.fallback));return b}
 function drawCards(kind,items,page,total){
  makeSlide(kind,page,(parent)=>{
   const isStudio=kind==="studio",isAlgorithms=kind==="algorithms";heading(parent,(kind==="gallery"?"ART GALLERY":kind==="studio"?"CREATIVE WORKSPACE":"ART × PHYSICS")+" · "+String(page+1).padStart(2,"0")+" / "+String(total).padStart(2,"0"),
@@ -75,11 +76,11 @@ function drawCards(kind,items,page,total){
 /* Five-mode cinematic video carousel, ready for one shared test MP4. */
 let videoCarousel=null,activeStripeSlot=0,lastManualStripeAt=0;
 const videoScenes=[
- {key:"portal",image:"05-portal-metropolis.jpg",uk:"Енергетичний портал",en:"Energy Portal"},
- {key:"nebula",image:"08-orbital-fractal.jpg",uk:"Космічна туманність",en:"Cosmic Nebula"},
- {key:"crystal",image:"12-elemental-simulation.jpg",uk:"Рідкі кристали",en:"Liquid Crystal"},
- {key:"geometry",image:"10-menger-architecture.jpg",uk:"Золота геометрія",en:"Golden Geometry"},
- {key:"temple",image:"01-celestial-city.jpg",uk:"Об'ємний храм",en:"Volumetric Temple"}
+ {key:"portal",image:"05-portal-metropolis.webp",fallback:"05-portal-metropolis.jpg",uk:"Енергетичний портал",en:"Energy Portal"},
+ {key:"nebula",image:"08-orbital-fractal.webp",fallback:"08-orbital-fractal.jpg",uk:"Космічна туманність",en:"Cosmic Nebula"},
+ {key:"crystal",image:"12-elemental-simulation.webp",fallback:"12-elemental-simulation.jpg",uk:"Рідкі кристали",en:"Liquid Crystal"},
+ {key:"geometry",image:"10-menger-architecture.webp",fallback:"10-menger-architecture.jpg",uk:"Золота геометрія",en:"Golden Geometry"},
+ {key:"temple",image:"01-celestial-city.webp",fallback:"01-celestial-city.jpg",uk:"Об'ємний храм",en:"Volumetric Temple"}
 ];
 function intro(){
  makeSlide("home",0,(parent,outer)=>{
@@ -120,6 +121,7 @@ function buildStripes(root){
   button.title=videoScenes[i][ix()===0?"uk":"en"];
   const poster=elem("img","cinema-strip-image");
   poster.src="assets/"+videoScenes[i].image;poster.alt="";poster.decoding="async";
+  poster.onerror=function(){if(this.src.endsWith(".webp")&&videoScenes[i].fallback)this.src="assets/"+videoScenes[i].fallback;};
   const number=elem("span","stripe-number","0"+(i+1));
   const glint=elem("span","stripe-random-glint");glint.setAttribute("aria-hidden","true");
   button.append(poster,number,glint);
@@ -167,7 +169,7 @@ function overview(){
 function ai(){
  makeSlide("ai",0,parent=>{
  heading(parent,"AI × ARTIST",t().aiTitle,t().aiDesc);
- const layout=elem("div","ai-layout"),art=elem("div","panel ai-art"),img=elem("img");img.src="assets/13-digital-characters.jpg";img.alt="AI concept";art.append(img);
+ const layout=elem("div","ai-layout"),art=elem("div","panel ai-art"),img=elem("img");img.src="assets/13-digital-characters.webp";img.alt="AI concept";img.onerror=function(){if(this.src.endsWith(".webp"))this.src="assets/13-digital-characters.jpg";};art.append(img);
  const copy=elem("div","panel ai-copy");t().aiFeatures.forEach((s,i)=>{const p=elem("p");p.textContent=["◈ ","◇ ","✧ ","✦ "][i]+s;copy.append(p)});
  layout.append(art,copy);parent.append(layout,elem("div","notice",t().statusNote));
  });
@@ -189,7 +191,19 @@ function status(){
  makeSlide("status",0,parent=>{
  heading(parent,"PHASE 0 · CURRENT STATUS",t().statusTitle,t().statusDesc);
  const facts=elem("div","feature-grid");t().statusFacts.forEach((s,i)=>{let a=elem("article","panel feature");a.append(elem("span","glyph",["01","02","03","04"][i]),elem("h3","",["TECH","PLATFORM","QUALITY","LANGUAGE"][i]),elem("p","",s));facts.append(a)});
- parent.append(facts,elem("div","notice",t().statusNote));
+ const ctaCard=elem("article","panel feature community-card");
+ const ctaTitle=elem("h3","",lang==="uk"?"ПРИЄДНУЙТЕСЬ ДО РОЗВИТКУ":"JOIN THE COMMUNITY");
+ const ctaText=elem("p","",lang==="uk"?"Слідкуйте за розробкою нативної студії, беріть участь у відкритих обговореннях архітектури та пропонуйте свої ідеї.":"Follow the native studio development, take part in open architecture discussions and propose ideas.");
+ const links=elem("div","community-links");
+ const ghLink=elem("a","btn-action-link",lang==="uk"?"GitHub Репозиторій ↗":"GitHub Repository ↗");
+ ghLink.href="https://github.com/AndriyVeremchuck/DIGITAL-GOD-COMPLEX-WEB";
+ ghLink.target="_blank";ghLink.rel="noopener noreferrer";
+ const discussLink=elem("a","btn-action-link secondary",lang==="uk"?"Ідеї та обговорення ↗":"Discussions & Issues ↗");
+ discussLink.href="https://github.com/AndriyVeremchuck/DIGITAL-GOD-COMPLEX-WEB/issues";
+ discussLink.target="_blank";discussLink.rel="noopener noreferrer";
+ links.append(ghLink,discussLink);
+ ctaCard.append(elem("span","glyph","✦"),ctaTitle,ctaText,links);
+ parent.append(facts,ctaCard,elem("div","notice",t().statusNote));
  });
 }
 function preferredGroup(){const vh=window.innerHeight;return window.innerWidth<800||vh<640?1:2}
@@ -250,7 +264,7 @@ function updateUI(){
  prev.disabled=current===0;counter.querySelector("strong").textContent=t().position+" "+String(current+1).padStart(2,"0")+" / "+String(slides.length).padStart(2,"0");
  byId("progress").style.width=(100*(current+1)/slides.length).toFixed(2)+"%";
 }
-function openViewer(src,title){const viewer=byId("viewer");byId("viewerImage").src=src;byId("viewerCaption").textContent=title;viewer.classList.add("open");viewer.setAttribute("aria-hidden","false");byId("viewerClose").focus()}
+function openViewer(src,title,fallback){const viewer=byId("viewer"),img=byId("viewerImage");img.src=src;img.onerror=function(){if(this.src.endsWith(".webp")&&fallback){this.src=fallback;}};byId("viewerCaption").textContent=title;viewer.classList.add("open");viewer.setAttribute("aria-hidden","false");byId("viewerClose").focus()}
 function closeViewer(){const viewer=byId("viewer");viewer.classList.remove("open");viewer.setAttribute("aria-hidden","true");byId("viewerImage").src=""}
 function glow(){
  if(reduce()||document.hidden)return;
