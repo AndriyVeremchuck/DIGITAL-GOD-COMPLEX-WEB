@@ -29,6 +29,7 @@ function mount(root,scenes){
  function configure(layer,n){
   const v=layer.querySelector("video"),img=layer.querySelector("img");
   img.src=fallbackSrc(n);
+  img.onerror=function(){if(this.src.endsWith(".webp")&&scenes[n].fallback)this.src="assets/"+scenes[n].fallback;};
   img.alt="";
   v.poster=fallbackSrc(n);
   const source=videoSrc(n);
@@ -128,7 +129,9 @@ function mount(root,scenes){
  document.addEventListener("visibilitychange",visibility);
  // Initialize the first image instantly, then load the optional video manifest.
  const current=layers[0];
- current.querySelector("img").src=fallbackSrc(0);
+ const initialImg=current.querySelector("img");
+ initialImg.src=fallbackSrc(0);
+ initialImg.onerror=function(){if(this.src.endsWith(".webp")&&scenes[0].fallback)this.src="assets/"+scenes[0].fallback;};
  current.dataset.scene="0";
  current.classList.add("is-active");
  current.style.opacity="1";current.style.zIndex="2";

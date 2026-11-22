@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://andriyveremchuck.github.io/DIGITAL-GOD-COMPLEX-WEB/sitemap.xml
