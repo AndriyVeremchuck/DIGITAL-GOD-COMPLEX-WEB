@@ -70,3 +70,39 @@ test("video returns after navigating away during initial media load",async({page
  await nav.nth(0).click();
  await expect.poll(()=>video.evaluate(v=>!v.paused&&v.readyState>=2),{timeout:9000}).toBe(true);
 });
+
+test("GPU status badge mounts and opens 3D interactive viewport",async({page})=>{
+ await page.goto(base);
+ const badge=page.locator("#gpuBadge");
+ await expect(badge).toBeVisible();
+ await expect(badge.locator(".gpu-label")).toHaveText(/WebGL|WebGPU/);
+ 
+ // Click badge to open modal
+ await badge.click();
+ const modal=page.locator("#dgcGpuModal");
+ await expect(modal).toHaveClass(/open/);
+ await expect(page.locator("#dgcDemoCanvas")).toBeVisible();
+ 
+ // Close modal via Escape
+ await page.keyboard.press("Escape");
+ await expect(modal).not.toHaveClass(/open/);
+});
+
+test("interactive 3D pills attach to cards and trigger GPU modal",async({page})=>{
+ await page.goto(base);
+ // Navigate to technology / algorithms
+ const nav=page.locator("#topnav button");
+ await nav.nth(3).click();
+ await expect(page.locator(".slide.active")).toHaveAttribute("data-chapter","algorithms");
+ 
+ const pill=page.locator(".slide.active .card-gpu-pill").first();
+ await expect(pill).toBeVisible();
+ await pill.click();
+ 
+ const modal=page.locator("#dgcGpuModal");
+ await expect(modal).toHaveClass(/open/);
+ 
+ const close=page.locator("#dgcGpuClose");
+ await close.click();
+ await expect(modal).not.toHaveClass(/open/);
+});
